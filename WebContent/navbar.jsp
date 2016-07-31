@@ -1,21 +1,33 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <header>
-	<nav class="navbar navbar-deafault" role="navigation">
+	<nav class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Yabe</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Buy</a></li>
-				<li><a href="#">Sell</a></li>
-				<li><a href="#">Orders</a></li>
+				<li id="home"><a href="homePage.jsp">Home</a></li>
+				<li id="buy"><a href="buy.jsp">Buy</a></li>
+				<li id="sell"><a href="sell.jsp">Sell</a></li>
+				<li id="orders"><a href="orders.jsp">Orders</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="#">Sign out</a></li>
+				<li ><a href="logout.jsp">Sign out</a></li>
 			</ul>
 		</div>
 	</nav>
 </header>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('.nav li').click(function(){
+	    $('.nav li').removeClass('active');
+	});
+	
+	var myPage =  "#" + $('#activePage').text();
+	$(myPage).addClass("active");
+});
+</script>
