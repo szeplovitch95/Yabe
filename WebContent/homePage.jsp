@@ -4,23 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <title>Yabe</title>
 </head>
 <body>
-<%@include file="navbar.jsp" %>
-	<div class="container">
-		<h1 style="text-align:center">Home Page</h1>
-	</div>
+	<h1>Home Page</h1>
 	
-<<<<<<< HEAD
 	<form style="float: right" name="logout" action="logout.jsp" method="post">
 		<input type="submit" name="logout" value="Logout">
 	</form>
 	<a href="LinkToAllPagesAndFunctions.jsp">LinkToAllPages Page</a>
-=======
-	<div id="activePage" class="hidden">home</div>
-
->>>>>>> master
 </body>
 </html>

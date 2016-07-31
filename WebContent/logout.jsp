@@ -7,9 +7,7 @@
 <title>Logout</title>
 </head>
 <body>
-	<div class="container">
-		<h1 style="text-align:center;">You have successfully logged out! </h1>
-		<a href="index.jsp" style="float:right">Click to return to Yabe login page</a>
-	</div>
+	<h1>You have successfully logged out! </h1>
+	<a href="index.jsp">Click to return to Yabe login page</a>
 </body>
 </html>
