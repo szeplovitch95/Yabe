@@ -12,5 +12,6 @@
 	<form style="float: right" name="logout" action="logout.jsp" method="post">
 		<input type="submit" name="logout" value="Logout">
 	</form>
+	<a href="LinkToAllPagesAndFunctions.jsp">LinkToAllPages Page</a>
 </body>
 </html>

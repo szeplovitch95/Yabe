@@ -18,9 +18,7 @@
 	endUser.setEmail(request.getParameter("emailAddress"));
 	endUser.setPhoneNum(request.getParameter("phoneNum")); 
 	endUser.setUserType("");
-	
-//	if(request.getParameter("session"))
-//	endUser.sessionExpired = request.getParameter("session");
+
 	endUser.getEmail().equals("");
 	
 	if(!endUser.getUsername().equals("") && !endUser.getFirstName().equals("")&& !endUser.getLastName().equals("") &&

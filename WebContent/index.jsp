@@ -7,7 +7,10 @@
 <title>Yabe- Log in or Sign up</title>
 </head>
 <body>
-	<h1>Welcome to Yabe!</h1>
+	<h1>Welcome to Yabe! Hope you are having a great day!</h1>
+	
+	<a href="LinkToAllPagesAndFunctions.jsp">LinkToAllPages Page</a>
+	
 	<hr/>
 	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	<form name="login" action="login.jsp" method="post">

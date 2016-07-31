@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import com.mysql.jdbc.Statement;
+
 public class ApplicationDAO {
 
 	public Connection getConnection(){
 		String connectionUrl = "jdbc:mysql://classvm60.cs.rutgers.edu:3306/YABE?autoReconnect=true";
 		Connection connection = null;
+
+		System.out.print("Connecting...");
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -31,6 +35,8 @@ public class ApplicationDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("... Connected.");
 		
 		return connection;
 		
@@ -61,6 +67,7 @@ public class ApplicationDAO {
 		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
+		getAllUsers();
 		
 		if(rs.next()) {
 			return true;
@@ -87,7 +94,8 @@ public class ApplicationDAO {
 		
 		// execute insert SQL statement
 		preparedStatement.executeUpdate();
-		System.out.println("user added");	
+		System.out.println("user has been added");
+		getAllUsers();
 		
 		preparedStatement.close();
 		dbConnection.close();
@@ -107,7 +115,13 @@ public class ApplicationDAO {
 		
 		//iterate through the resultSet
 		while(rs.next( )) {
-			System.out.println("row : id = " + rs.getInt("EndUserID") + ", first name = " + rs.getString("FirstName"));
+			System.out.println("Row : id = " + rs.getInt("EndUserID") + 
+								", First name = " + rs.getString("FirstName") + 
+								", Last name = " + rs.getString("LastName") + 
+								", Gender = " + rs.getString("Gender") + 
+								", email = " + rs.getString("Email")+ 
+								", phone = " + rs.getString("Phone")+ 
+								", usertype = " + rs.getString("UserType"));
 			resLength++;
 			listOfPeople.add(new EndUser(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"),
 										 rs.getString("Username"), rs.getString("Password"), rs.getString("Email"),
