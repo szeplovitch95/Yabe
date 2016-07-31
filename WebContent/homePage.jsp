@@ -7,8 +7,8 @@
 <title>Yabe</title>
 </head>
 <body>
+<%@include file="navbar.jsp" %>
 	<h1>Home Page</h1>
-	
 	<form style="float: right" name="logout" action="logout.jsp" method="post">
 		<input type="submit" name="logout" value="Logout">
 	</form>

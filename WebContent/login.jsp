@@ -16,8 +16,9 @@
 			response.sendRedirect("homePage.jsp");
 			return;
 		} 
+	} else {
+		response.sendRedirect("index.jsp");		
 	}
-	response.sendRedirect("index.jsp");
 %>
 </body>
 </html>
