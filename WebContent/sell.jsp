@@ -13,5 +13,12 @@
 		<h1 style="text-align:center">Sell Items</h1>
 	</div>
 		<div id="activePage" class="hidden">sell</div>
+		
+		<a href="createNewAuction.jsp">
+			<button type="button" class="btn btn-primary">Create Auction</button>
+		</a>
+
+<%@include file="sellerAuctionList.jsp" %>
+
 </body>
 </html>
