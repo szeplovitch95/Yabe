@@ -17,9 +17,14 @@
 			response.sendRedirect("homePage.jsp");
 			return;
 		} 
+	} else {
+		response.sendRedirect("index.jsp");		
 	}
+<<<<<<< HEAD
 	response.sendRedirect("index.jsp");
 	
+=======
+>>>>>>> master
 %>
 </body>
 </html>

@@ -13,6 +13,13 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/Users/cierajones/Downloads/javax.servlet-3.0.jar"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Users/Dror/Downloads/servlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Dror/Downloads/javax.servlet-3.0.jar"/>
+>>>>>>> master
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
