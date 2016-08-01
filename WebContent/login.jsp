@@ -10,6 +10,7 @@
 <% 	ApplicationDAO dao = new ApplicationDAO();
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	dao.getAllItems();
 	
 	if(!username.equals("") && !password.equals("")) {
 		if(dao.userLogin(username, password)) {

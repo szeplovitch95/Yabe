@@ -101,6 +101,37 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
+	public LinkedList<Item> getAllItems() throws SQLException{
+		LinkedList<Item> listOfItems = new LinkedList<Item>();
+		String selectString = "select * from ITEM;";
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery();
+		while(rs.next( )) {
+			System.out.println("Item = " + rs.getString("ItemName") + 
+					", Description = " + rs.getString("ItemDescription") + 
+					", Color = " + rs.getString("Color") + 
+					", Weight = " + rs.getString("Weight")+ 
+					", Quantity = " + rs.getString("QuantityOnHand"));
+			resLength++;
+			listOfItems.add(
+					new Item(
+							rs.getString("ItemName"),
+							rs.getString("ItemDescription"),
+							rs.getString("Color"), 
+							rs.getString("Weight"),
+							rs.getInt("QuantityOnHand")));
+		}
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return listOfItems;
+	}
+	
 	public LinkedList<EndUser> getAllUsers() throws SQLException{
 		
 		LinkedList<EndUser> listOfPeople = new LinkedList<EndUser>();
@@ -122,7 +153,10 @@ public class ApplicationDAO {
 								", email = " + rs.getString("Email")+ 
 								", phone = " + rs.getString("Phone")+ 
 								", usertype = " + rs.getString("UserType"));
+			
+			
 			resLength++;
+			
 			listOfPeople.add(new EndUser(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"),
 										 rs.getString("Username"), rs.getString("Password"), rs.getString("Email"),
 										 rs.getString("Phone"), rs.getString("UserType"))
