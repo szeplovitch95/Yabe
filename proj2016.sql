@@ -76,7 +76,7 @@ Create Table ITEM (
 	Color VARCHAR(15),
 	QuantityOnHand INT,
 	Weight VARCHAR(10),
-	PRIMARY KEY(ItemId),
+	PRIMARY KEY(ItemID),
 	FOREIGN KEY(CategoryID) REFERENCES CATEGORY(CategoryID),
 	FOREIGN KEY(EndUserID) REFERENCES SELLER(EndUserID)
 );
