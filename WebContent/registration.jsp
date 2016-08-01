@@ -57,7 +57,7 @@
  		<div class="form-group">
 			<label class="control-label col-md-2 col-sm-2 col-lg-2">Confirm Password</label>
 			<div class="col-md-5 col-lg-5 col-sm-5">
-				<input class="form-control" type="text" name="rePassword" maxlength="20" placeholder="Confirm Password" required/>			
+				<input class="form-control" type="password" name="rePassword" maxlength="20" placeholder="Confirm Password" required/>			
 			</div>
 		</div>
 		<div class="form-group">

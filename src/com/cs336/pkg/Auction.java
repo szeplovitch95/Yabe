@@ -1,5 +1,5 @@
 package com.cs336.pkg;
-
+import java.text.*;
 import java.sql.Date;
 
 public class Auction {
@@ -8,13 +8,13 @@ public class Auction {
 	private double closingPrice; 
 	private double initialPrice; 
 	private int totalBids; 
-	private String startDate; 
-	private String closeDate; 
+	private Date startDate; 
+	private Date closeDate; 
 	private int createdBy;
 	private int cancelledBy;
 	
-	public Auction(int ItemID, String status, double closingPrice, double initialPrice, int totalBids, String startDate,
-			String closeDate, int createdBy, int cancelledBy) {
+	public Auction(int ItemID, String status, double closingPrice, double initialPrice, int totalBids, Date startDate,
+			Date closeDate, int createdBy, int cancelledBy) {
 		super();
 		this.ItemID = ItemID;
 		this.status = status;
@@ -28,6 +28,14 @@ public class Auction {
 	} 
 	
 	public Auction() {}
+	
+	
+	//TODO  change date format to dd/MM/yyyy
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime()); 
+	}
 
 	public int getItemID() {
 		return ItemID;
@@ -69,19 +77,19 @@ public class Auction {
 		this.totalBids = totalBids;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getCloseDate() {
+	public Date getCloseDate() {
 		return closeDate;
 	}
 
-	public void setCloseDate(String closeDate) {
+	public void setCloseDate(Date closeDate) {
 		this.closeDate = closeDate;
 	}
 
@@ -100,8 +108,4 @@ public class Auction {
 	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
 	}
-	
-	
-	
-	
 }

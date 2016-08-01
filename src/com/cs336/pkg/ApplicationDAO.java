@@ -33,7 +33,6 @@ public class ApplicationDAO {
 		}
 		
 		return connection;
-		
 	}
 	
 	public void closeConnection(Connection connection){
@@ -88,15 +87,16 @@ public class ApplicationDAO {
 	
 	public void insertAuction(Auction auction) throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "Insert into ITEM(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
+		String query = "Insert into AUCTION(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
 		preparedStatement.setInt(1,auction.getItemID());
 		preparedStatement.setString(2,auction.getStatus());
 		preparedStatement.setDouble(3, auction.getClosingPrice()); 
-		preparedStatement.setDouble(5,auction.getInitialPrice());
-		preparedStatement.setString(4,auction.getCloseDate());
-		preparedStatement.setString(6,auction.getStartDate());
-		preparedStatement.setInt(7,auction.getCreatedBy());
+		preparedStatement.setDouble(4,auction.getInitialPrice());
+		preparedStatement.setInt(5, auction.getTotalBids());
+		preparedStatement.setDate(6,auction.getStartDate());
+		preparedStatement.setDate(7,auction.getCloseDate());
+		preparedStatement.setInt(8,auction.getCreatedBy());
 		
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
@@ -121,7 +121,6 @@ public class ApplicationDAO {
 		return rs;
 	}
 	
-	
 	public void insertEndUser(EndUser endUser) throws SQLException{	
 		Connection dbConnection = getConnection();
 		String query = "Insert into END_USER(FirstName, LastName, Gender, Username, Password, Email, Phone, UserType) values (?,?,?,?,?,?,?,?)";
@@ -144,7 +143,6 @@ public class ApplicationDAO {
 	}
 	
 	public LinkedList<EndUser> getAllUsers() throws SQLException{
-		
 		LinkedList<EndUser> listOfPeople = new LinkedList<EndUser>();
 		
 		//display all tuples

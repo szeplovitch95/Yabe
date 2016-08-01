@@ -41,7 +41,7 @@
 			<%= rs.getInt("AuctionID") %>
 		</td>
 		<td>
-			<%= rs.getString("StartDate") %>
+			<%= rs.getDate("StartDate") %>
 		</td>
 		<td>
 			<%= rs.getInt("InitialPrice") %>
@@ -53,7 +53,7 @@
 		<%= rs.getInt("Total_Bids") %>
 		</td>
 		<td>
-			<%= rs.getString("CloseDate") %>
+			<%= rs.getDate("CloseDate") %>
 		</td>
 		<td>
 			<%= rs.getString("Status") %>
