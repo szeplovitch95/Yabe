@@ -15,7 +15,7 @@
 	endUser.setUsername(request.getParameter("username"));
 	endUser.setPassword(request.getParameter("password"));
 	String rePassword = request.getParameter("rePassword");
-	endUser.setEmail(request.getParameter("emailAddress"));
+	endUser.setEmail(request.getParameter("emailAddress"));	
 	endUser.setPhoneNum(request.getParameter("phoneNum")); 
 	endUser.setUserType("");
 	

@@ -1,6 +1,7 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/navigation.js"></script>
 </head>
 <header>
 	<nav class="navbar navbar-default" role="navigation">
@@ -20,14 +21,3 @@
 		</div>
 	</nav>
 </header>
-
-<script type="text/javascript">
-$(document).ready(function () {
-	$('.nav li').click(function(){
-	    $('.nav li').removeClass('active');
-	});
-	
-	var myPage =  "#" + $('#activePage').text();
-	$(myPage).addClass("active");
-});
-</script>

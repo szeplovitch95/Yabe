@@ -5,20 +5,26 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Yabe - Sell</title>
 </head>
 <body>
 <%@include file="navbar.jsp" %>
 	<div class="container">
-		<h1 style="text-align:center">Sell Items</h1>
+		<button id="auctionButton" class="btn btn-default">Auctions</button>
+		<button id="itemButton" class="btn btn-default">Items</button>
+
+		<div id="auctionDiv">
+			<%@include file="sellerAuctionList.jsp" %>
+		</div>
+		
+		<div id="itemDiv" class="hidden">
+			<%@include file="sellerItemList.jsp" %>
+		</div>
 	</div>
-		<div id="activePage" class="hidden">sell</div>
 
-		<a href="createNewAuction.jsp">
-			<button type="button" class="btn btn-primary">Create Auction</button>
-		</a>
-
-<%@include file="sellerAuctionList.jsp" %>
-
+	<div id="activePage" class="hidden">sell</div>
+<script type="text/javascript" src="scripts/sell.js"></script>
 </body>
 </html>
+
+

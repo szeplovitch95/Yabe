@@ -2,6 +2,12 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
+  <div>
+	<h2 style="margin-left:35%;">Auctions:</h2>	
+  </div>
+		<a href="createNewAuction.jsp">
+			<button type="button" class="btn btn-primary">Create Auction</button>
+		</a>
 <div style="width:50%;">
 <table class="table table-bordered">
     <thead>
