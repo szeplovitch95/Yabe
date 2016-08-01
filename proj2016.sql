@@ -59,6 +59,28 @@ Create Table BUYER (
 	FOREIGN KEY(EndUserID) REFERENCES END_USER(EndUserID)
 );
 
+Drop table CATEGORY;
+Create Table CATEGORY (
+	CategoryID INT NOT NULL AUTO_INCREMENT, 
+	CategoryName VARCHAR(20),
+	PRIMARY KEY(CategoryID)
+);
+
+Drop table ITEM;
+Create Table ITEM (
+	ItemID INT NOT NULL AUTO_INCREMENT, 
+	EndUserID INT,
+	CategoryID INT, 
+	ItemName VARCHAR(50),
+	ItemDescription VARCHAR(150),
+	Color VARCHAR(15),
+	QuantityOnHand INT,
+	Weight VARCHAR(10),
+	PRIMARY KEY(ItemId),
+	FOREIGN KEY(CategoryID) REFERENCES CATEGORY(CategoryID),
+	FOREIGN KEY(EndUserID) REFERENCES SELLER(EndUserID)
+);
+
 Drop table AUCTION;
 Create Table AUCTION (
 	AuctionID INT NOT NULL AUTO_INCREMENT, 
@@ -84,28 +106,6 @@ Create Table ALERT (
 	PRIMARY KEY(BuyerID, AuctionID),
 	FOREIGN KEY(BuyerID) REFERENCES BUYER(EndUserID),
 	FOREIGN KEY(AuctionID) REFERENCES AUCTION(AuctionID)
-);
-
-Drop table CATEGORY;
-Create Table CATEGORY (
-	CategoryID INT NOT NULL AUTO_INCREMENT, 
-	CategoryName VARCHAR(20),
-	PRIMARY KEY(CategoryID)
-);
-
-Drop table ITEM;
-Create Table ITEM (
-	ItemID INT NOT NULL AUTO_INCREMENT, 
-	EndUserID INT,
-	CategoryID INT, 
-	ItemName VARCHAR(50),
-	ItemDescription VARCHAR(150),
-	Color VARCHAR(15),
-	QuantityOnHand INT,
-	Weight VARCHAR(10),
-	PRIMARY KEY(ItemId),
-	FOREIGN KEY(CategoryID) REFERENCES CATEGORY(CategoryID),
-	FOREIGN KEY(EndUserID) REFERENCES SELLER(EndUserID)
 );
 
 Drop table BID;
