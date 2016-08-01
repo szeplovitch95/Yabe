@@ -45,13 +45,13 @@ public class ApplicationDAO {
 		}
 	}
 	
-	public String getUserFullName(String username, String password) throws SQLException {
-		Connection dbConnection = getConnection();
-		String query = "SELECT FirstName, LastName FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-		return rs.getString("FirstName") + rs.getString("LastName");
-	}
+//	public String getUserFullName(String username, String password) throws SQLException {
+//		Connection dbConnection = getConnection();
+//		String query = "SELECT FirstName, LastName FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
+//		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+//		ResultSet rs = preparedStatement.executeQuery();
+//		return rs.getString("FirstName") + rs.getString("LastName");
+//	}
 	
 	
 	public boolean userLogin(String username, String password) throws SQLException {
@@ -68,9 +68,6 @@ public class ApplicationDAO {
 			return false; 
 		}
 	}
-	
-	
-	
 	
 	public void insertItem(Item item) throws SQLException {
 		Connection dbConnection = getConnection();
@@ -89,6 +86,23 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
+	public void insertAuction(Auction auction) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into ITEM(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
+		preparedStatement.setInt(1,auction.getItemID());
+		preparedStatement.setString(2,auction.getStatus());
+		preparedStatement.setDouble(3, auction.getClosingPrice()); 
+		preparedStatement.setDouble(5,auction.getInitialPrice());
+		preparedStatement.setString(4,auction.getCloseDate());
+		preparedStatement.setString(6,auction.getStartDate());
+		preparedStatement.setInt(7,auction.getCreatedBy());
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+	
 	public ResultSet getSellerItems(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection(); 
 		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
@@ -98,9 +112,17 @@ public class ApplicationDAO {
 		return rs;
 	}
 	
-	
-	public void insertEndUser(EndUser endUser) throws SQLException{
+	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,ItemID,Status, ClosingPrice, InitialPrice, Total_Bids, StartDate, CloseDate, CreatedBy FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
 		
+		return rs;
+	}
+	
+	
+	public void insertEndUser(EndUser endUser) throws SQLException{	
 		Connection dbConnection = getConnection();
 		String query = "Insert into END_USER(FirstName, LastName, Gender, Username, Password, Email, Phone, UserType) values (?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 

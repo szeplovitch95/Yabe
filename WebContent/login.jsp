@@ -14,7 +14,6 @@
 	if(!username.equals("") && !password.equals("")) {
 		if(dao.userLogin(username, password)) {
 			response.sendRedirect("homePage.jsp");
-			return;
 		} 
 	} else {
 		response.sendRedirect("index.jsp");		

@@ -9,9 +9,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
+	<div class="container">
+
 	<h1 style="margin-left: 35%">Welcome to Yabe!</h1>
 	<hr/>
-	<% ApplicationDAO dao = new ApplicationDAO();%>	
 	<form class="form-horizontal" name="login" action="login.jsp" method="post" style="margin-left: 7%;">
 		<div class="form-group">
 			<label class="control-label col-md-1 col-lg-1 col-sm-1">Username:</label>
@@ -34,5 +35,6 @@
     	</div>
     	</div>
 	</form>
+	</div>
 </body>
 </html>
