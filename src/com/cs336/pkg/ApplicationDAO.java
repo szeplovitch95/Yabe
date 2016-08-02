@@ -111,6 +111,14 @@ public class ApplicationDAO {
 		
 		return rs;
 	}
+	public ResultSet getItemsWhereCategory(int categoryid) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM WHERE CategoryID =" +categoryid+ "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
 	
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection();

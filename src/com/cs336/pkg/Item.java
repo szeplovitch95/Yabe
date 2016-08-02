@@ -1,6 +1,7 @@
 package com.cs336.pkg;
 
 public class Item {
+	private int itemID;
 	private int sellerID;
 	private int categoryID; 
 	private String name; 
@@ -9,8 +10,9 @@ public class Item {
 	private String weight; 
 	private int quantityOnHand; 
 	
-	public Item(int sellerID, int categoryID,String name, String description, String color, String weight, int quantityOnHand) {
+	public Item(int itemID, int sellerID, int categoryID,String name, String description, String color, String weight, int quantityOnHand) {
 		super();
+		this.itemID = itemID;
 		this.sellerID = sellerID;
 		this.categoryID = categoryID;
 		this.name = name;
@@ -22,6 +24,12 @@ public class Item {
 	
 	public Item() {}
 
+	public int getItemID(){
+		return itemID;
+	}
+	public void setItemID(int itemID){
+		this.itemID = itemID;
+	}
 	public int getSellerID() {
 		return sellerID;
 	}
