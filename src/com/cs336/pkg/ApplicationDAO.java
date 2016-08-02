@@ -56,7 +56,6 @@ public class ApplicationDAO {
 		String query = "SELECT FirstName, LastName FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-		
 		return rs.getString("FirstName") + rs.getString("LastName");
 	}
 	
@@ -75,6 +74,35 @@ public class ApplicationDAO {
 		else {
 			return false; 
 		}
+	}
+	
+	
+	
+	
+	public void insertItem(Item item) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into ITEM(EndUserID,CategoryID,ItemName, ItemDescription, Color, QuantityOnHand, Weight) values (?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
+		preparedStatement.setInt(1,item.getSellerID());
+		preparedStatement.setInt(2,item.getCategoryID());
+		preparedStatement.setString(3,item.getName()); 
+		preparedStatement.setString(5,item.getDescription());
+		preparedStatement.setString(4,item.getColor());
+		preparedStatement.setInt(6,item.getQuantityOnHand());
+		preparedStatement.setString(7,item.getWeight());
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+	
+	public ResultSet getSellerItems(int sellerID) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
 	}
 	
 	
@@ -100,7 +128,27 @@ public class ApplicationDAO {
 		preparedStatement.close();
 		dbConnection.close();
 	}
-	
+	public LinkedList<Category> getAllCategories() throws SQLException{
+		LinkedList<Category> listOfCategories = new LinkedList<Category>();
+		String selectString = "select * from CATEGORY;";
+		Connection dbConnection = getConnection();
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
+		int resLength = 0;
+		ResultSet rs = preparedStatement.executeQuery();
+		while(rs.next( )) {
+			System.out.println("CategoryName  = " + rs.getString("CategoryName") );
+			resLength++;
+			listOfCategories.add(
+					new Category (rs.getInt("CategoryID"), rs.getString("CategoryName")));
+		}
+		System.out.println("Select statement executed, " + resLength + " rows retrieved");
+		
+		//close everything
+		preparedStatement.close();
+		dbConnection.close();
+		
+		return listOfCategories;
+	}	
 	public LinkedList<Item> getAllItems() throws SQLException{
 		LinkedList<Item> listOfItems = new LinkedList<Item>();
 		String selectString = "select * from ITEM;";

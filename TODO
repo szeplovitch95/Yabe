@@ -1,0 +1,14 @@
+1. Create new page for items table list and move Create Item button to that page.
+2. implement show a list of items for a specific seller. 
+3. add a category dropdown to the create new item form. 
+4. implement create auction with java and connect to database. 
+5. work with sessions
+
+
+BUYER FUNCTIONALITY: 
+
+1. List of interested auctions. 
+2. List of personal bids. 
+3. Check who is doing the search. search should return a list of auctions based on a category. 
+4. When clicked on a auction, go to auction page with item descrtiptions, list of bids, and a button to add a bid. 
+5. work with sessions
