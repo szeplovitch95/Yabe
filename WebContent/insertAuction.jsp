@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.cs336.pkg.*"  %>
+    pageEncoding="UTF-8" import="com.cs336.pkg.*, java.sql.ResultSet"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +9,16 @@
 <body>
 <% ApplicationDAO dao = new ApplicationDAO();
    Auction auction = new Auction();
-  
+   String item = request.getParameter("itemName");
+   
+   ResultSet rs = dao.getSellerItems(1, false);
+   
+   while(rs.next()) {
+	   if(rs.getString("ItemName").equals("item")) {
+		   auction.setItemID(rs.getInt("ItemID"));
+	   }
+   }
+   
    //TODO add sessions
    auction.setItemID(1);
    auction.setCreatedBy(2);
