@@ -6,7 +6,10 @@
 
 
 BUYER FUNCTIONALITY: 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 1. List of interested auctions. 
 2. List of personal bids. 
 3. Check who is doing the search. search should return a list of auctions based on a category. 

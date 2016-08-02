@@ -18,8 +18,13 @@
 	</a>
 	
 <% 
+<<<<<<< HEAD
 	ApplicationDAO dao = new ApplicationDAO();
 	ResultSet rs = dao.getSellerItems(1);
+=======
+	ApplicationDAO dao1 = new ApplicationDAO();
+	ResultSet rs2 = dao1.getSellerItems(2);
+>>>>>>> master
 	 
 %>
 <table class="table table-bordered">
@@ -34,6 +39,7 @@
       </tr>
     </thead>
     <tbody>
+<<<<<<< HEAD
     <% while(rs.next()) { %>
     <tr>
 		<td>
@@ -53,6 +59,27 @@
 		</td>
 		<td>
 			<%= rs.getString("Weight") %>
+=======
+    <% while(rs2.next()) { %>
+    <tr>
+		<td>
+			<%= rs2.getInt("ItemID") %>
+		</td>
+		<td>
+			<%= rs2.getString("ItemName") %>
+		</td>
+		<td>
+			<%= rs2.getString("ItemDescription") %>
+		</td>
+		<td>
+			<%= rs2.getString("Color") %>
+		</td>
+		<td>
+		<%= rs2.getInt("QuantityOnHand") %>
+		</td>
+		<td>
+			<%= rs2.getString("Weight") %>
+>>>>>>> master
 		</td>
 	</tr>
 	<%

@@ -25,7 +25,11 @@
    //TODO form validation 
    
    dao.insertItem(item);
+<<<<<<< HEAD
    response.sendRedirect("sell.jsp");
+=======
+   response.sendRedirect("sellerItemList.jsp");
+>>>>>>> master
    
 
 	

@@ -8,7 +8,27 @@
 </head>
 <body>
 <% ApplicationDAO dao = new ApplicationDAO();
+<<<<<<< HEAD
 	
+=======
+   Auction auction = new Auction();
+  
+   //TODO add sessions
+   auction.setItemID(1);
+   auction.setCreatedBy(2);
+   auction.setStatus("New");
+   auction.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
+   auction.setStartDate(auction.stringToDate(request.getParameter("openDate")));
+   auction.setCloseDate(auction.stringToDate(request.getParameter("closeDate")));
+   auction.setTotalBids(0);
+   
+ 
+
+
+   //TODO form validation 
+   dao.insertAuction(auction);
+   response.sendRedirect("sellerAuctionList.jsp");
+>>>>>>> master
 %>
 </body>
 </html>

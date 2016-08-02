@@ -1,20 +1,22 @@
 package com.cs336.pkg;
-
+import java.text.*;
 import java.sql.Date;
 
 public class Auction {
+	private int ItemID;
 	private String status; // Closed, Open, etc 
 	private double closingPrice; 
 	private double initialPrice; 
 	private int totalBids; 
 	private Date startDate; 
 	private Date closeDate; 
-	private String createdBy;
-	private String cancelledBy;
+	private int createdBy;
+	private int cancelledBy;
 	
-	public Auction(String status, double closingPrice, double initialPrice, int totalBids, Date startDate,
-			Date closeDate, String createdBy, String cancelledBy) {
+	public Auction(int ItemID, String status, double closingPrice, double initialPrice, int totalBids, Date startDate,
+			Date closeDate, int createdBy, int cancelledBy) {
 		super();
+		this.ItemID = ItemID;
 		this.status = status;
 		this.closingPrice = closingPrice;
 		this.initialPrice = initialPrice;
@@ -26,6 +28,22 @@ public class Auction {
 	} 
 	
 	public Auction() {}
+	
+	
+	//TODO  change date format to dd/MM/yyyy
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime()); 
+	}
+
+	public int getItemID() {
+		return ItemID;
+	}
+
+	public void setItemID(int itemID) {
+		ItemID = itemID;
+	}
 
 	public String getStatus() {
 		return status;
@@ -75,23 +93,19 @@ public class Auction {
 		this.closeDate = closeDate;
 	}
 
-	public String getCreatedBy() {
+	public int getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(int createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	public String getCancelledBy() {
+	public int getCancelledBy() {
 		return cancelledBy;
 	}
 
-	public void setCancelledBy(String cancelledBy) {
+	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
 	}
-	
-	
-	
-	
 }

@@ -39,7 +39,6 @@ public class ApplicationDAO {
 		System.out.println("... Connected.");
 		
 		return connection;
-		
 	}
 	
 	public void closeConnection(Connection connection){
@@ -51,6 +50,7 @@ public class ApplicationDAO {
 		}
 	}
 	
+<<<<<<< HEAD
 	public String getUserFullName(String username, String password) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT FirstName, LastName FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
@@ -58,6 +58,15 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs.getString("FirstName") + rs.getString("LastName");
 	}
+=======
+//	public String getUserFullName(String username, String password) throws SQLException {
+//		Connection dbConnection = getConnection();
+//		String query = "SELECT FirstName, LastName FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
+//		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+//		ResultSet rs = preparedStatement.executeQuery();
+//		return rs.getString("FirstName") + rs.getString("LastName");
+//	}
+>>>>>>> master
 	
 	
 	public boolean userLogin(String username, String password) throws SQLException {
@@ -76,7 +85,51 @@ public class ApplicationDAO {
 		}
 	}
 	
+	public void insertItem(Item item) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into ITEM(EndUserID,CategoryID,ItemName, ItemDescription, Color, QuantityOnHand, Weight) values (?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
+		preparedStatement.setInt(1,item.getSellerID());
+		preparedStatement.setInt(2,item.getCategoryID());
+		preparedStatement.setString(3,item.getName()); 
+		preparedStatement.setString(5,item.getDescription());
+		preparedStatement.setString(4,item.getColor());
+		preparedStatement.setInt(6,item.getQuantityOnHand());
+		preparedStatement.setString(7,item.getWeight());
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
 	
+	public void insertAuction(Auction auction) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into AUCTION(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
+		preparedStatement.setInt(1,auction.getItemID());
+		preparedStatement.setString(2,auction.getStatus());
+		preparedStatement.setDouble(3, auction.getClosingPrice()); 
+		preparedStatement.setDouble(4,auction.getInitialPrice());
+		preparedStatement.setInt(5, auction.getTotalBids());
+		preparedStatement.setDate(6,auction.getStartDate());
+		preparedStatement.setDate(7,auction.getCloseDate());
+		preparedStatement.setInt(8,auction.getCreatedBy());
+		
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+	
+	public ResultSet getSellerItems(int sellerID) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	
+<<<<<<< HEAD
 	
 	
 	public void insertItem(Item item) throws SQLException {
@@ -107,7 +160,18 @@ public class ApplicationDAO {
 	
 	
 	public void insertEndUser(EndUser endUser) throws SQLException{
+=======
+	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,ItemID,Status, ClosingPrice, InitialPrice, Total_Bids, StartDate, CloseDate, CreatedBy FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+>>>>>>> master
 		
+		return rs;
+	}
+	
+	public void insertEndUser(EndUser endUser) throws SQLException{	
 		Connection dbConnection = getConnection();
 		String query = "Insert into END_USER(FirstName, LastName, Gender, Username, Password, Email, Phone, UserType) values (?,?,?,?,?,?,?,?)";
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
@@ -181,7 +245,6 @@ public class ApplicationDAO {
 	}
 	
 	public LinkedList<EndUser> getAllUsers() throws SQLException{
-		
 		LinkedList<EndUser> listOfPeople = new LinkedList<EndUser>();
 		
 		//display all tuples

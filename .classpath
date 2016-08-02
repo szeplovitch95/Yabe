@@ -12,6 +12,7 @@
 =======
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/Dror/javax.servlet-3.0.jar"/>
 >>>>>>> parent of 4a4a4df... gotthingstowork
 =======
@@ -19,5 +20,8 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/Dror/javax.servlet-3.0.jar"/>
 >>>>>>> parent of 4a4a4df... gotthingstowork
+=======
+	<classpathentry kind="lib" path="C:/Users/Shachar Zeplovitch/Downloads/javax.servlet-3.0.jar"/>
+>>>>>>> master
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

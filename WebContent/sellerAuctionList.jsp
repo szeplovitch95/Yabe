@@ -1,7 +1,12 @@
+<%@page import="java.sql.ResultSet"%>
+<%@ page language="java" 
+    pageEncoding="UTF-8" import="com.cs336.pkg.*"   %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
+<<<<<<< HEAD
   <div>
 	<h2 style="margin-left:35%;">Auctions:</h2>	
   </div>
@@ -9,94 +14,67 @@
 			<button type="button" class="btn btn-primary">Create Auction</button>
 		</a>
 <div style="width:50%;">
+=======
+
+
+	
+  <div>
+	<h2 style="margin-left:35%;">Auctions:</h2>	
+  </div>
+  
+	<a href="createNewAuction.jsp">
+			<button type="button" class="btn btn-primary">Create Auction</button>
+	</a>
+	
+<% 
+	ApplicationDAO dao = new ApplicationDAO();
+	ResultSet rs = dao.getSellerAuctions(1);
+	 
+%>
+>>>>>>> master
 <table class="table table-bordered">
     <thead>
       <tr>
         <th>Auction ID</th>
         <th>Creation Date</th>
         <th>Start Price</th>
-        <th>Item</th>
-        <th>Item Category</th>
+        <th>Item ID</th>
         <th>Total Bids</th>
         <th>Closing Date</th>
-        <th>Price Sold </th>
-        <th>Winner Full Name</th>
         <th>Status</th>
-        <th>Update</th>
-        <th>Cancel</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>1/1/2012</td>
-        <td>20$</td>
-        <td>Basketball</td>
-        <td>Sports</td>
-        <td>16</td>
-        <td>1/30/2014</td>
-        <td>60$</td>
-        <td>John Wall</td>
-        <th>Open</th>
-        <th>Update</th>
-        <th>Cancel</th>
-      </tr>
-         <tr>
-        <td>1</td>
-        <td>1/1/2012</td>
-        <td>20$</td>
-        <td>Basketball</td>
-        <td>Sports</td>
-        <td>16</td>
-        <td>1/30/2014</td>
-        <td>60$</td>
-        <td>John Wall</td>
-        <th>Open</th>
-        <th>Update</th>
-        <th>Cancel</th>
-      </tr>
-           <tr>
-        <td>1</td>
-        <td>1/1/2012</td>
-        <td>20$</td>
-        <td>Basketball</td>
-        <td>Sports</td>
-        <td>16</td>
-        <td>1/30/2014</td>
-        <td>60$</td>
-        <td>John Wall</td>
-        <th>Open</th>
-        <th>Update</th>
-        <th>Cancel</th>
-      </tr>
-           <tr>
-        <td>1</td>
-        <td>1/1/2012</td>
-        <td>20$</td>
-        <td>Basketball</td>
-        <td>Sports</td>
-        <td>16</td>
-        <td>1/30/2014</td>
-        <td>60$</td>
-        <td>John Wall</td>
-        <th>Open</th>
-        <th>Update</th>
-        <th>Cancel</th>
-      </tr>
-           <tr>
-        <td>1</td>
-        <td>1/1/2012</td>
-        <td>20$</td>
-        <td>Basketball</td>
-        <td>Sports</td>
-        <td>16</td>
-        <td>1/30/2014</td>
-        <td>60$</td>
-        <td>John Wall</td>
-        <th>Open</th>
-        <th>Update</th>
-        <th>Cancel</th>
-      </tr>
+    <% while(rs.next()) { %>
+    <tr>
+		<td>
+			<%= rs.getInt("AuctionID") %>
+		</td>
+		<td>
+			<%= rs.getDate("StartDate") %>
+		</td>
+		<td>
+			<%= rs.getInt("InitialPrice") %>
+		</td>
+		<td>
+			<%= rs.getInt("ItemID") %>
+		</td>
+		<td>
+		<%= rs.getInt("Total_Bids") %>
+		</td>
+		<td>
+			<%= rs.getDate("CloseDate") %>
+		</td>
+		<td>
+			<%= rs.getString("Status") %>
+		</td>
+	</tr>
+	<%
+	}
+  %>
     </tbody>
   </table>
- </div> 
+  
+	
+	
+
