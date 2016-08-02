@@ -16,7 +16,7 @@
 	ApplicationDAO dao1 = new ApplicationDAO();
 	ResultSet rs2 = dao1.getSellerItems(2, true);
 %>
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Item ID</th>

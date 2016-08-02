@@ -188,7 +188,6 @@ public class ApplicationDAO {
 		return listOfPeople;
 	}
 	
-	
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();
 		Connection connection = dao.getConnection();

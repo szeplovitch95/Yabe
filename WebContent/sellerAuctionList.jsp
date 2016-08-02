@@ -16,13 +16,13 @@
 	ApplicationDAO dao = new ApplicationDAO();
 	ResultSet rs = dao.getSellerAuctions(1);
 %>
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
       <tr>
         <th>Auction ID</th>
+        <th>Item Name</th>
         <th>Creation Date</th>
         <th>Start Price</th>
-        <th>Item ID</th>
         <th>Total Bids</th>
         <th>Closing Date</th>
         <th>Status</th>

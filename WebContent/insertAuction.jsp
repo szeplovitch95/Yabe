@@ -14,14 +14,14 @@
    ResultSet rs = dao.getSellerItems(1, false);
    
    while(rs.next()) {
-	   if(rs.getString("ItemName").equals("item")) {
+	   if(rs.getString("ItemName").equals(item)) {
 		   auction.setItemID(rs.getInt("ItemID"));
 	   }
    }
    
    //TODO add sessions
-   auction.setItemID(1);
-   auction.setCreatedBy(2);
+   
+   auction.setCreatedBy(1);
    auction.setStatus("New");
    auction.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
    auction.setStartDate(auction.stringToDate(request.getParameter("openDate")));
