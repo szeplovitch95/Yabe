@@ -12,16 +12,13 @@
 	<div class="container">
 		<button id="auctionButton" class="btn btn-default">Auctions</button>
 		<button id="itemButton" class="btn btn-default">Items</button>
-
 		<div id="auctionDiv">
 			<%@include file="sellerAuctionList.jsp" %>
 		</div>
-		
 		<div id="itemDiv" class="hidden">
 			<%@include file="sellerItemList.jsp" %>
 		</div>
 	</div>
-
 	<div id="activePage" class="hidden">sell</div>
 <script type="text/javascript" src="scripts/sell.js"></script>
 </body>

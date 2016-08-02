@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="com.cs336.pkg.*, java.sql.ResultSet" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -14,9 +17,27 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="control-label col-md-2 col-sm-2 col-lg-2">Category:</label>
+			<div class="col-md-5 col-lg-5 col-sm-5">
+			<%
+				ApplicationDAO dao = new ApplicationDAO();
+				ResultSet rs = dao.getCategories();
+			%>	
+				<select class="form-control" id="itemCategory">
+				<%
+					while(rs.next()) {
+				%>
+					<option><%= rs.getString("categoryName") %></option>
+				<%
+					}
+				%>
+				</select> 
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="control-label col-md-2 col-sm-2 col-lg-2">Description:</label>
 			<div class="col-md-5 col-lg-5 col-sm-5">
-				<input class="form-control" type="text" name="itemDescription" placeholder="Item Description" required/>			
+				<textarea class="form-control" name="itemDescription" required></textarea>			
 			</div>
 		</div>
 		<div class="form-group">

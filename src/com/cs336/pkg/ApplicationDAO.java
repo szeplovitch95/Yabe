@@ -75,8 +75,8 @@ public class ApplicationDAO {
 		preparedStatement.setInt(1,item.getSellerID());
 		preparedStatement.setInt(2,item.getCategoryID());
 		preparedStatement.setString(3,item.getName()); 
-		preparedStatement.setString(5,item.getDescription());
-		preparedStatement.setString(4,item.getColor());
+		preparedStatement.setString(4,item.getDescription());
+		preparedStatement.setString(5,item.getColor());
 		preparedStatement.setInt(6,item.getQuantityOnHand());
 		preparedStatement.setString(7,item.getWeight());
 		
@@ -115,6 +115,15 @@ public class ApplicationDAO {
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,ItemID,Status, ClosingPrice, InitialPrice, Total_Bids, StartDate, CloseDate, CreatedBy FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	
+	public ResultSet getCategories() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT categoryName FROM CATEGORY";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		

@@ -10,9 +10,8 @@
 <% ApplicationDAO dao = new ApplicationDAO();
    Item item = new Item();
    
-   
    //TODO add sessions
-   item.setSellerID(2);
+   item.setSellerID(1);
    item.setCategoryID(1);
    
    item.setName(request.getParameter("itemName"));
@@ -23,9 +22,8 @@
    
    
    //TODO form validation 
-   
    dao.insertItem(item);
-   response.sendRedirect("sellerItemList.jsp");
+   response.sendRedirect("selldd.jsp");
    
 
 	
