@@ -5,27 +5,22 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-</head>
-
-
-	
+</head>	
   <div>
 	<h2 style="margin-left:35%;">Items:</h2>	
   </div>
-  
 	<a href="createNewItem.jsp">
 			<button type="button" class="btn btn-primary">Create Item</button>
 	</a>
-	
 <% 
 	ApplicationDAO dao1 = new ApplicationDAO();
-	ResultSet rs2 = dao1.getSellerItems(2);
-	 
+	ResultSet rs2 = dao1.getSellerItems(2, true);
 %>
 <table class="table table-bordered">
     <thead>
       <tr>
         <th>Item ID</th>
+        <th>Category</th>
         <th>Name</th>
         <th>Description</th>
         <th>Color</th>
@@ -38,6 +33,9 @@
     <tr>
 		<td>
 			<%= rs2.getInt("ItemID") %>
+		</td>
+		<td>
+			<%= rs2.getString("CategoryName") %>
 		</td>
 		<td>
 			<%= rs2.getString("ItemName") %>

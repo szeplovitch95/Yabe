@@ -103,9 +103,17 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
-	public ResultSet getSellerItems(int sellerID) throws SQLException {
-		Connection dbConnection = getConnection(); 
-		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
+	public ResultSet getSellerItems(int sellerID, boolean joinCategory) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "";
+		
+		if(!joinCategory) {
+			query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";			
+		}
+		else {
+			query = "SELECT * FROM ITEM, CATEGORY WHERE ITEM.CategoryID = CATEGORY.CategoryID";
+		}
+		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		
@@ -123,7 +131,7 @@ public class ApplicationDAO {
 	
 	public ResultSet getCategories() throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "SELECT categoryName FROM CATEGORY";
+		String query = "SELECT CategoryID, CategoryName FROM CATEGORY";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		
@@ -184,7 +192,6 @@ public class ApplicationDAO {
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();
 		Connection connection = dao.getConnection();
-		
 		EndUser user = new EndUser("Shachar", "Zeplovitch", "Male", "szeplovitch95", "123456", "szeplovitch95@gmail.com","2019652035", "admin");
 		
 		try {

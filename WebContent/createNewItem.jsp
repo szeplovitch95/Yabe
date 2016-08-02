@@ -23,11 +23,13 @@
 				ApplicationDAO dao = new ApplicationDAO();
 				ResultSet rs = dao.getCategories();
 			%>	
-				<select class="form-control" id="itemCategory">
+				<select class="form-control" name="itemCategory">
 				<%
 					while(rs.next()) {
 				%>
-					<option><%= rs.getString("categoryName") %></option>
+					<option>
+						<%= rs.getString("categoryName") %>
+					</option>
 				<%
 					}
 				%>
