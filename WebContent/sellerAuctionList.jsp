@@ -26,6 +26,7 @@
         <th>Total Bids</th>
         <th>Closing Date</th>
         <th>Status</th>
+        <th>View Auction</th>
       </tr>
     </thead>
     <tbody>
@@ -52,9 +53,18 @@
 		<td>
 			<%= rs.getString("Status") %>
 		</td>
+		<td>
+			<button type="button" class="btn btn-primary view-auction">View</button>
+		</td>
 	</tr>
 	<%
 	}
   %>
     </tbody>
 </table>
+
+  
+  <div class="joinHere"> 
+  	<label>Name:</label>
+  	
+  </div>

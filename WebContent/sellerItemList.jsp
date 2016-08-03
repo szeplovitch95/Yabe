@@ -5,6 +5,7 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/singleItem.js"></script>
 </head>	
   <div>
 	<h2 style="margin-left:35%;">Items:</h2>	
@@ -15,6 +16,7 @@
 <% 
 	ApplicationDAO dao1 = new ApplicationDAO();
 	ResultSet rs2 = dao1.getSellerItems(2, true);
+	int counter = 0; 
 %>
 <table class="table table-bordered table-hover">
     <thead>
@@ -26,6 +28,7 @@
         <th>Color</th>
         <th>Quantity on Hand</th>
         <th>Weight</th>
+        <th>View Item</th>
       </tr>
     </thead>
     <tbody>
@@ -52,13 +55,23 @@
 		<td>
 			<%= rs2.getString("Weight") %>
 		</td>
+		<td>
+			<button type="button" class="btn btn-primary view-item">View</button>
+		</td>
 	</tr>
 	<%
-	}
+		counter++;
+    }
   %>
     </tbody>
   </table>
   
+  
+  
+  <div class="joinHere"> 
+  	<label>Name:</label>
+  	
+  </div>
 	
 	
 

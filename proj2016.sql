@@ -88,6 +88,7 @@ Create Table AUCTION (
 	Status VARCHAR(15),
 	ClosingPrice INT,
 	InitialPrice INT,
+	CurrentPrice INT, 
 	Total_Bids SMALLINT,
 	StartDate DATE,
 	CloseDate DATE,

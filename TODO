@@ -8,6 +8,5 @@
 BUYER FUNCTIONALITY: 
 1. List of interested auctions. 
 2. List of personal bids. 
-3. Check who is doing the search. search should return a list of auctions based on a category. 
-4. When clicked on a auction, go to auction page with item descrtiptions, list of bids, and a button to add a bid. 
-5. work with sessions
+3. When clicked on a auction, go to auction page with item descrtiptions, list of bids, and a button to add a bid. 
+4. work with sessions
