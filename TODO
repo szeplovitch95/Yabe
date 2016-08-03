@@ -3,6 +3,11 @@
 3. add a category dropdown to the create new item form. 
 4. implement create auction with java and connect to database. 
 5. work with sessions
+6. when a user selects an item/auction to view, data is displayed correctly below but needs more styling. 
+
+
+
+
 
 
 BUYER FUNCTIONALITY: 

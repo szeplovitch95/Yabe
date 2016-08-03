@@ -68,7 +68,7 @@
   
   
   
-  <div class="joinHere"> 
+  <div class="itemInfo"> 
   	<label>Name:</label>
   	
   </div>

@@ -5,6 +5,7 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/singleAuction.js"></script>
 </head>
   <div>
 	<h2 style="margin-left:35%;">Auctions:</h2>	
@@ -64,7 +65,6 @@
 </table>
 
   
-  <div class="joinHere"> 
+  <div class="auctionInfo"> 
   	<label>Name:</label>
-  	
   </div>

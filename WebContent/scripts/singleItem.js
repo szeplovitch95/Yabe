@@ -9,17 +9,19 @@ $(document).ready(function(){
 		var $row = $(this).closest("tr"); // Find the row
 		var $tds = $row.find("td");
 		$.each($tds, function(){
-			console.log($(this).text());
 			itemInfo.push($(this).text());
-			fillArray(itemInfo);
+			fillArray(itemInfo, ".itemInfo");
 		});
 	});
 });
 
-var fillArray = function(itemInfo) {
+var fillArray = function(itemInfo, info) {
 	var newHTML = [];
+	
 	$.each(itemInfo, function(index, value) {
-	    newHTML.push('<span>' + value + '</span>');
+		
+	    newHTML.push('<span>' + value + '</span><br>');
 	});
-	$(".joinHere").html(newHTML.join(""));	
+	
+	$(info).html(newHTML.join(""));	
 }
