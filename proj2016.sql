@@ -111,7 +111,7 @@ Create Table ALERT (
 
 Drop table BID;
 Create Table BID (
-	BidId INT NOT NULL AUTO_INCREMENT, 
+	BidID INT NOT NULL AUTO_INCREMENT, 
 	AuctionID INT,
 	AuctionDateTime DATETIME,
 	OfferPrice INT, 
