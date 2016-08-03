@@ -18,8 +18,7 @@ $(document).ready(function(){
 var fillArray = function(itemInfo, info) {
 	var newHTML = [];
 	
-	$.each(itemInfo, function(index, value) {
-		
+	$.each(itemInfo, function(index, value) {	
 	    newHTML.push('<span>' + value + '</span><br>');
 	});
 	

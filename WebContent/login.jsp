@@ -7,17 +7,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%@ include file="index.jsp" %> 
 <% 	ApplicationDAO dao = new ApplicationDAO();
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
 	
+	HttpSession session1 = request.getSession();
+	System.out.print(session1);
+	session1.setAttribute("username", username);
+	
 	if(!username.equals("") && !password.equals("")) {
 		if(dao.userLogin(username, password)) {
 			response.sendRedirect("homePage.jsp");
-		} 
-	} else {
-		response.sendRedirect("index.jsp");		
-	}
+		}  else {
+			%>
+			<label class="control-label" style="margin-left:30%; color:Red;">Username or password error. Please try again.</label>
+<%
+		}
+	} 
 %>
 </body>
 </html>

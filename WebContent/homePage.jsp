@@ -10,6 +10,7 @@
 <body>
 <%@include file="navbar.jsp" %>
 	<div class="container">
+	<h1>Welcome ${sessionScope.username}</h1>
 		<h1 style="text-align:center">Home Page</h1>
 	</div>
 	<div id="activePage" class="hidden">home</div>
