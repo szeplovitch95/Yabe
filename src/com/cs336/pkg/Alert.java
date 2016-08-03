@@ -1,30 +1,30 @@
 package com.cs336.pkg;
 
 public class Alert {
-	private String buyerName; 
-	private String auctionName; 
+	private int buyerID; 
+	private int auctionID; 
 	
-	public Alert(String buyerName, String auctionName) {
+	public Alert(int buyerID, int auctionID) {
 		super();
-		this.buyerName = buyerName; 
-		this.auctionName = auctionName; 
+		this.buyerID = buyerID; 
+		this.auctionID = auctionID; 
 	}
 	
 	public Alert() {}
 
-	public String getBuyerName() {
-		return buyerName;
+	public int getBuyerName() {
+		return buyerID;
 	}
 
-	public void setBuyerName(String buyerName) {
-		this.buyerName = buyerName;
+	public void setBuyerName(int buyerID) {
+		this.buyerID = buyerID;
 	}
 
-	public String getAuctionName() {
-		return auctionName;
+	public int getAuctionName() {
+		return auctionID;
 	}
 
-	public void setAuctionName(String auctionName) {
-		this.auctionName = auctionName;
+	public void setAuctionName(int auctionID) {
+		this.auctionID = auctionID;
 	}
 }

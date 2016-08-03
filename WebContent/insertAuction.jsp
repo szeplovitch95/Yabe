@@ -20,7 +20,6 @@
    }
    
    //TODO add sessions
-   
    auction.setCreatedBy(1);
    auction.setStatus("New");
    auction.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));

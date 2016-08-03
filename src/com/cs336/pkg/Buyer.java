@@ -3,6 +3,7 @@ package com.cs336.pkg;
 import java.sql.Date;
 
 public class Buyer extends EndUser {
+	private int buyerID; 
 	private String ccType;
 	private String ccNumber;
 	private Date expirationDate;
@@ -13,11 +14,12 @@ public class Buyer extends EndUser {
 	private String shippingState; 
 	private String shippingZipCode; 
 	
-	public Buyer(String firstName, String lastName, String gender, String username, String password, String email,
+	public Buyer(int buyerID, String firstName, String lastName, String gender, String username, String password, String email,
 			String phoneNum, String userType, String ccType, String ccNumber, Date expirationDate, String cVV,
 			String cardHolderName, String shippingStreet, String shippingCity, String shippingState,
 			String shippingZipCode) {
 		super(firstName, lastName, gender, username, password, email, phoneNum, userType);
+		this.buyerID = buyerID;
 		this.ccType = ccType;
 		this.ccNumber = ccNumber;
 		this.expirationDate = expirationDate;
@@ -31,6 +33,14 @@ public class Buyer extends EndUser {
 	
 	public Buyer() {}
 	
+	public int getBuyerID() {
+		return buyerID;
+	}
+
+	public void setBuyerID(int buyerID) {
+		this.buyerID = buyerID;
+	}
+
 	public String getCcType() {
 		return ccType;
 	}
