@@ -7,6 +7,12 @@
 <title>Logout</title>
 </head>
 <body>
+<%
+	HttpSession session1 = request.getSession();
+	session1.invalidate();
+%>
+
+
 	<div class="container">
 		<h1 style="text-align:center;">You have successfully logged out! </h1>
 		<a href="index.jsp" style="float:right">Click to return to Yabe login page</a>

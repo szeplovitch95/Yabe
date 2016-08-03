@@ -17,7 +17,8 @@
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li ><a href="logout.jsp">Sign out</a></li>
+				<li><a href="#">${sessionScope.username}</a></li>
+				<li><a href="logout.jsp">Sign out</a></li>
 			</ul>
 		</div>
 	</nav>

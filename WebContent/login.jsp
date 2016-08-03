@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Yabe - Login</title>
 </head>
 <body>
 
@@ -16,15 +16,14 @@
 	HttpSession session1 = request.getSession();
 	System.out.print(session1);
 	session1.setAttribute("username", username);
-	
+	System.out.println(session1.getId());
 	if(!username.equals("") && !password.equals("")) {
 		if(dao.userLogin(username, password)) {
 			response.sendRedirect("homePage.jsp");
-		}  else {
-			%>
-			<label class="control-label" style="margin-left:30%; color:Red;">Username or password error. Please try again.</label>
-<%
-		}
+		}  
+		else {
+%>		  <label class="control-label" style="margin-left:30%; color:Red;">Username or password error. Please try again.</label>
+<%		}
 	} 
 %>
 </body>
