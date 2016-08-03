@@ -50,7 +50,7 @@ public class GetItemInfo {
 	
 	public LinkedList<Item> getAllItems() throws SQLException{
 		LinkedList<Item> listOfItem = new LinkedList<Item>();
-		String selectString = "select * from AUCTION;";
+		String selectString = "select * from ITEM;";
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
 		int resLength = 0;

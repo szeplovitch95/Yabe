@@ -10,13 +10,11 @@
 <body>
 
 	<%
-		GetItemInfo getinfo = new GetItemInfo();
-		//LinkedList<Item> listOfCategories = getinfo.getAllItems();
 		String itemid =  request.getParameter("category");
 		int id = Integer.parseInt(itemid);
 		ApplicationDAO dao1 = new ApplicationDAO();
 		ResultSet rs = dao1.getItemsWhereCategory(id); 
-%>
+	%>
 <table class="table table-bordered">
     <thead>
       <tr>
@@ -57,6 +55,15 @@
   %>
     </tbody>
   </table>
+
+
+
+<% 
+	
+%>
+
+
+
 
 </body>
 </html>

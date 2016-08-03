@@ -52,6 +52,93 @@ public class ApplicationDAO {
 //		return rs.getString("FirstName") + rs.getString("LastName");
 //	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * FUNCTIONS CIERA USES
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */
+	public ResultSet getSellerItemsFromCategory(int category) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	
+	public ResultSet getCategoryAndID() throws SQLException{
+		Connection dbConnection = getConnection(); 
+		String query; 
+		query = "SELECT * FROM CATEGORY";	
+			
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	public ResultSet getDistinctStatus() throws SQLException{
+		Connection dbConnection = getConnection(); 
+		String query; 
+		query = "SELECT DISTINCT Status FROM AUCTION";	
+			
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	public ResultSet getItemsWhereCategory(int categoryid) throws SQLException {
+		
+		Connection dbConnection = getConnection(); 
+		String query; 
+		
+		if(categoryid!=0)
+		{
+			 query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM WHERE CategoryID =" +categoryid+ "";
+			 
+		}
+		else
+		{
+			query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";	
+		}
+				
+			
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	public ResultSet getItemsColor() throws SQLException {
+		
+		Connection dbConnection = getConnection(); 
+		String query; 
+		
+		query = "SELECT DISTINCT Color FROM ITEM";
+				
+			
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		return rs;
+	}
+	
+	/**
+	 * 
+	 * 
+	 * END OF CIERA FUNCTIONS
+	 * 
+	 * 
+	 * 
+	 * 
+	 * */	
+	
 	
 	public boolean userLogin(String username, String password) throws SQLException {
 		Connection dbConnection = getConnection();
@@ -111,15 +198,8 @@ public class ApplicationDAO {
 		
 		return rs;
 	}
-	public ResultSet getItemsWhereCategory(int categoryid) throws SQLException {
-		Connection dbConnection = getConnection(); 
-		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM WHERE CategoryID =" +categoryid+ "";
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-		
-		return rs;
-	}
 	
+
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,ItemID,Status, ClosingPrice, InitialPrice, Total_Bids, StartDate, CloseDate, CreatedBy FROM AUCTION";
@@ -178,6 +258,7 @@ public class ApplicationDAO {
 		
 		return listOfPeople;
 	}
+	
 	
 	
 	public static void main(String[] args) {
