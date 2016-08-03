@@ -94,6 +94,7 @@ Create Table AUCTION (
 	CloseDate DATE,
 	CreatedBy INT, 
 	CancelledBy INT, 
+	Winner VARCHAR(40),
 	PRIMARY KEY(AuctionID),
 	FOREIGN KEY(CreatedBy) REFERENCES SELLER(EndUserID),
 	FOREIGN KEY(CancelledBy) REFERENCES END_USER(EndUserID),
