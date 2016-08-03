@@ -116,8 +116,40 @@ public class ApplicationDAO {
 		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-		
 		return rs;
+	}
+	
+	
+	//looks for the row that matches the ItemId and CreatedBy columns and returns its AuctionID
+	public ResultSet getAuctionID(Auction auction) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID FROM AUCTION"
+					 + "WHERE ItemID=" + auction.getItemID()
+					 + "AND CreatedBy=" + auction.getCreatedBy();	
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs; 
+	}
+	
+	
+	//receives a specific buyerID and then returns all of the bids corresponding to that buyerID. 
+	public ResultSet getEndUserBids(int userID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID, BidID, OfferPrice, OfferedBy FROM BID, BUYER"
+					 + "WHERE BID.OfferedBy=" + userID;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs; 
+	}
+	
+	//receives a specific auctionID and returns all of the bids corresponding to that auctionID
+	public ResultSet getAuctionBids(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT BidID, OfferPrice, OfferedBy FROM BID "
+					 + "WHERE BID.AuctionID=" + auctionID;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs; 
 	}
 	
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
