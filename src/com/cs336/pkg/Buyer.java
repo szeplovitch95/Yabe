@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Buyer extends EndUser {
-	private int buyerID; 
+	private int buyerID;
 	private String ccType;
 	private String ccNumber;
 	private Date expirationDate;
@@ -13,12 +13,12 @@ public class Buyer extends EndUser {
 	private String cardHolderName;
 	private String shippingStreet;
 	private String shippingCity;
-	private String shippingState; 
-	private String shippingZipCode; 
-	
-	public Buyer(int buyerID, String firstName, String lastName, String gender, String username, String password, String email,
-			String phoneNum, String userType, String ccType, String ccNumber, Date expirationDate, String cVV,
-			String cardHolderName, String shippingStreet, String shippingCity, String shippingState,
+	private String shippingState;
+	private String shippingZipCode;
+
+	public Buyer(int buyerID, String firstName, String lastName, String gender, String username, String password,
+			String email, String phoneNum, String userType, String ccType, String ccNumber, Date expirationDate,
+			String cVV, String cardHolderName, String shippingStreet, String shippingCity, String shippingState,
 			String shippingZipCode) {
 		super(firstName, lastName, gender, username, password, email, phoneNum, userType);
 		this.buyerID = buyerID;
@@ -32,9 +32,10 @@ public class Buyer extends EndUser {
 		this.shippingState = shippingState;
 		this.shippingZipCode = shippingZipCode;
 	}
-	
-	public Buyer() {}
-	
+
+	public Buyer() {
+	}
+
 	public int getBuyerID() {
 		return buyerID;
 	}
@@ -114,10 +115,10 @@ public class Buyer extends EndUser {
 	public void setShippingZipCode(String shippingZipCode) {
 		this.shippingZipCode = shippingZipCode;
 	}
-	
+
 	public Date stringToDate(String value) throws ParseException {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = sdf1.parse(value);
-		return new java.sql.Date(date.getTime()); 
+		return new java.sql.Date(date.getTime());
 	}
 }

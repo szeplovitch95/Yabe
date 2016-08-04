@@ -2,14 +2,15 @@ package com.cs336.pkg;
 
 public class Item {
 	private int sellerID;
-	private int categoryID; 
-	private String name; 
-	private String description; 
-	private String color; 
-	private String weight; 
-	private int quantityOnHand; 
-	
-	public Item(int sellerID, int categoryID,String name, String description, String color, String weight, int quantityOnHand) {
+	private int categoryID;
+	private String name;
+	private String description;
+	private String color;
+	private String weight;
+	private int quantityOnHand;
+
+	public Item(int sellerID, int categoryID, String name, String description, String color, String weight,
+			int quantityOnHand) {
 		super();
 		this.sellerID = sellerID;
 		this.categoryID = categoryID;
@@ -19,8 +20,9 @@ public class Item {
 		this.weight = weight;
 		this.quantityOnHand = quantityOnHand;
 	}
-	
-	public Item() {}
+
+	public Item() {
+	}
 
 	public int getSellerID() {
 		return sellerID;

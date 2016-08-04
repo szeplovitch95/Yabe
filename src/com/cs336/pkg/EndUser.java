@@ -4,28 +4,28 @@ public class EndUser {
 	private String firstName;
 	private String lastName;
 	private String gender;
-	private String username; 
-	private String password; 
-	private String email; 
-	private String phoneNum; 
+	private String username;
+	private String password;
+	private String email;
+	private String phoneNum;
 	private String userType;
-	
-	public EndUser(String firstName, String lastName, String gender,
-				   String username, String password, String email,
-				   String phoneNum, String userType) {
+
+	public EndUser(String firstName, String lastName, String gender, String username, String password, String email,
+			String phoneNum, String userType) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.gender = gender; 
-		this.username = username; 
-		this.password = password; 
-		this.email = email; 
+		this.gender = gender;
+		this.username = username;
+		this.password = password;
+		this.email = email;
 		this.phoneNum = phoneNum;
-		this.userType = userType; 
+		this.userType = userType;
 	}
 
-	public EndUser(){}
-	
+	public EndUser() {
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -41,13 +41,13 @@ public class EndUser {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
 	public String getGender() {
-		return gender; 
+		return gender;
 	}
-	
+
 	public void setGender(String gender) {
-		this.gender = gender; 
+		this.gender = gender;
 	}
 
 	public String getUsername() {
@@ -88,5 +88,5 @@ public class EndUser {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
-	}	
+	}
 }

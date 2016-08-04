@@ -1,16 +1,17 @@
 package com.cs336.pkg;
 
 public class Alert {
-	private int buyerID; 
-	private int auctionID; 
-	
+	private int buyerID;
+	private int auctionID;
+
 	public Alert(int buyerID, int auctionID) {
 		super();
-		this.buyerID = buyerID; 
-		this.auctionID = auctionID; 
+		this.buyerID = buyerID;
+		this.auctionID = auctionID;
 	}
-	
-	public Alert() {}
+
+	public Alert() {
+	}
 
 	public int getBuyerName() {
 		return buyerID;

@@ -3,12 +3,12 @@ package com.cs336.pkg;
 import java.sql.Date;
 
 public class Bid {
-	private Date auctionDate; 
-	private double offerPrice; 
-	private boolean cancelled; 
-	private String offeredBy; 
+	private Date auctionDate;
+	private double offerPrice;
+	private boolean cancelled;
+	private String offeredBy;
 	private String cancelledBy;
-	
+
 	public Bid(Date auctionDate, double offerPrice, boolean cancelled, String offeredBy, String cancelledBy) {
 		super();
 		this.auctionDate = auctionDate;
@@ -16,9 +16,10 @@ public class Bid {
 		this.cancelled = cancelled;
 		this.offeredBy = offeredBy;
 		this.cancelledBy = cancelledBy;
-	} 
-	
-	public Bid() {}
+	}
+
+	public Bid() {
+	}
 
 	public Date getAuctionDate() {
 		return auctionDate;
