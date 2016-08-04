@@ -82,6 +82,7 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
+	
 	public int getEndUserID(String username) throws SQLException {
 	      Connection dbConnection = getConnection();
 	      String query = "SELECT EndUserID FROM END_USER WHERE Username='" + username + "'";
@@ -130,9 +131,25 @@ public class ApplicationDAO {
 	 * Seller Methods 
 	 */
 	
+	public boolean sellerExists(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT EndUserId from SELLER "
+				+ "WHERE EndUserId=" + id;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if(rs.next()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	
 	public void insertSeller(Seller seller, int id) throws SQLException {
 		   Connection dbConnection = getConnection();
-		   String query = "INSERT INTO Seller(EndUserID,BankName,BankAccountNumber,BankRoutingNumber) VALUES(?,?,?,?)";
+		   String query = "INSERT INTO SELLER(EndUserID,BankName,BankAccountNumber,BankRoutingNumber) VALUES(?,?,?,?)";
 		   PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		   preparedStatement.setInt(1, id);
 		   preparedStatement.setString(2, seller.getBankName());

@@ -8,16 +8,35 @@
 <title>Yabe - Sell</title>
 </head>
 <body>
+<%
+	ApplicationDAO sellDAO = new ApplicationDAO();
+	HttpSession sessionSeller = request.getSession();
+	String username = (String)sessionSeller.getAttribute("username");
+	int id = sellDAO.getEndUserID(username);
+	boolean isNewSeller = sellDAO.sellerExists(id);
+
+%>
+
+
+
+
 <%@include file="navbar.jsp" %>
 	<div class="container">
-		<button id="auctionButton" class="btn btn-default">Auctions</button>
-		<button id="itemButton" class="btn btn-default">Items</button>
-		<div id="auctionDiv">
-			<%@include file="sellerAuctionList.jsp" %>
-		</div>
-		<div id="itemDiv" class="hidden">
-			<%@include file="sellerItemList.jsp" %>
-		</div>
+		<% 
+		if(!isNewSeller) { %>
+		<%@include file="newSeller.jsp" %>
+		<%}
+		 else { %>
+			<button id="auctionButton" class="btn btn-default">Auctions</button>
+			<button id="itemButton" class="btn btn-default">Items</button>
+			<div id="auctionDiv"> 
+				<%@include file="sellerAuctionList.jsp" %>  
+			</div>
+			<div id="itemDiv" class="hidden">
+				<%@include file="sellerItemList.jsp" %>
+			</div> 
+	<% } %>		 
+	
 	</div>
 	<div id="activePage" class="hidden">sell</div>
 <script type="text/javascript" src="scripts/sell.js"></script>
