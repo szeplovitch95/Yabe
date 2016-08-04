@@ -82,14 +82,13 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
-	public ResultSet getEndUserID(String username) throws SQLException {
+	public int getEndUserID(String username) throws SQLException {
 	      Connection dbConnection = getConnection();
-	      String query = "SELECT EndUserID FROM END_USER" +
-	                     "WHERE Username = " + username;
-	      
+	      String query = "SELECT EndUserID FROM END_USER WHERE Username='" + username + "'";
 	      PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 	      ResultSet rs = preparedStatement.executeQuery();
-	      return rs;
+	      rs.next();
+	      return rs.getInt("EndUserID");
 	}
 	
 	/*
@@ -97,14 +96,23 @@ public class ApplicationDAO {
 	 */
 	
 	public void insertBuyer(Buyer buyer, int id) throws SQLException {
+		System.out.println("got here");
 	   Connection dbConnection = getConnection();
-	   String query = "INSERT INTO BUYER(EndUserID,CCType,CCNumber,ExpirationDate,CVV,CardHolderName," +
-			   		  "ShippingStreet,ShippingCity,ShippingState,ShippingZipCode) VALUES(" + id
-			   		  + buyer.getCcType() + "," + buyer.getCcNumber() + "," + buyer.getExpirationDate() + "," + buyer.getcVV() + "," + buyer.getCardHolderName() + ","
-			   		  + buyer.getShippingStreet() + "," + buyer.getShippingCity() + "," + buyer.getShippingState() + "," + buyer.getShippingZipCode() + ")";
-	   
+	   String query = "INSERT INTO BUYER(EndUserID,CCType,CCNumber,ExpirationDate,CVV,CardHolderName,ShippingStreet,ShippingCity,ShippingState,ShippingZipCode) VALUES"
+	   		+ "(?,?,?,?,?,?,?,?,?,?)";	   
 	   PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-	   preparedStatement.executeQuery();
+	   preparedStatement.setInt(1, id);
+	   preparedStatement.setString(2, buyer.getCcType());
+	   preparedStatement.setString(3, buyer.getCcNumber());
+	   preparedStatement.setDate(4, buyer.getExpirationDate());
+	   preparedStatement.setString(5, buyer.getcVV());
+	   preparedStatement.setString(6, buyer.getCardHolderName());
+	   preparedStatement.setString(7, buyer.getShippingStreet());
+	   preparedStatement.setString(8, buyer.getShippingCity());
+	   preparedStatement.setString(9, buyer.getShippingState());
+	   preparedStatement.setString(10, buyer.getShippingZipCode());
+	   
+	   preparedStatement.executeUpdate();
 	   System.out.println("buyer added");
 	}
 	
@@ -124,14 +132,14 @@ public class ApplicationDAO {
 	
 	public void insertSeller(Seller seller, int id) throws SQLException {
 		   Connection dbConnection = getConnection();
-		   String query = "INSERT INTO Seller(EndUserID,BankName,BankAccountNumber,BankRoutingNumber) VALUES(" + 
-				   			id + "," +
-				   			seller.getBankName() + "," + 
-		                    seller.getBankAccountNumber() + "," + 
-		                    seller.getBankRoutingNumber() + ")";
-
+		   String query = "INSERT INTO Seller(EndUserID,BankName,BankAccountNumber,BankRoutingNumber) VALUES(?,?,?,?)";
 		   PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		   preparedStatement.executeQuery();
+		   preparedStatement.setInt(1, id);
+		   preparedStatement.setString(2, seller.getBankName());
+		   preparedStatement.setString(3, seller.getBankAccountNumber());
+		   preparedStatement.setString(4, seller.getBankRoutingNumber());
+		   
+		   preparedStatement.executeUpdate();
 		   System.out.println("seller added");
 	}
 	

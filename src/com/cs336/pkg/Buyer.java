@@ -1,6 +1,8 @@
 package com.cs336.pkg;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class Buyer extends EndUser {
 	private int buyerID; 
@@ -111,5 +113,11 @@ public class Buyer extends EndUser {
 
 	public void setShippingZipCode(String shippingZipCode) {
 		this.shippingZipCode = shippingZipCode;
+	}
+	
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime()); 
 	}
 }

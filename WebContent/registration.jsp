@@ -79,7 +79,7 @@
 	<div class="form-group">
 	        <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="card-type">Credit Card Type:</label>
 	        <div class="col-md-3 col-lg-3 col-sm-3">
-	           <select class="form-control" name="expiry-month" id="expiry-month">
+	           <select class="form-control" name="card-type">
                 <option>VISA</option>
                 <option>Mastercard</option>
                 <option>American Express</option>
@@ -147,23 +147,24 @@
 	<fieldset>
 		<legend>Shipping Information</legend>
       <div class="form-group">
-	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">Shipping Street:</label>
-	        <div class="col-md-5 col-lg-5 col-sm-5">
-	          <input type="text" class="form-control" name="shipping-street" placeholder="Shipping Street">
-	        </div>
-      </div>
-     <div class="form-group">
-	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">Shipping Street:</label>
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">Address:</label>
 	        <div class="col-md-5 col-lg-5 col-sm-5">
 	          <input type="text" class="form-control" name="shipping-street" placeholder="Shipping Street">
 	        </div>
       </div>
       <div class="form-group">
-	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingCity">Shipping City:</label>
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingCity">City:</label>
 	        <div class="col-md-5 col-lg-5 col-sm-5">
 	          <input type="text" class="form-control" name="shipping-city" placeholder="Shipping City">
 	        </div>
       </div>
+     <div class="form-group">
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">State:</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="shipping-state" placeholder="Shipping State">
+	        </div>
+      </div>
+      
       <div class="form-group">
 	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="zipCode">Zip Code:</label>
 	        <div class="col-md-5 col-lg-5 col-sm-5">

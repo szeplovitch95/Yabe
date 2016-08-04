@@ -8,6 +8,8 @@
 </head>
 <body>
 <%  ApplicationDAO dao = new ApplicationDAO();
+
+	// get all information about end user and assign values to its object
 	EndUser endUser = new EndUser();
 	endUser.setFirstName(request.getParameter("firstName"));
 	endUser.setLastName(request.getParameter("lastName"));
@@ -20,23 +22,26 @@
 	endUser.setUserType("");
 	endUser.getEmail().equals("");
 	
-	Buyer buyer = new Buyer(); 
+	
+	// get all information about buyer and assign values to its object
+	Buyer buyer = new Buyer();
+	buyer.setCcType(request.getParameter("card-type"));
 	buyer.setCardHolderName(request.getParameter("card-holder-name"));
-	buyer.setCcNumber(request.getParameter("card-number"));
-	
-	
-	
-	
-	
-	
-	
-	
+   	buyer.setCcNumber(request.getParameter("card-number"));
+   	String exprDate = request.getParameter("expiry-month") + request.getParameter("expiry-year");
+   	buyer.setExpirationDate(buyer.stringToDate("2016-01-11"));
+   	buyer.setcVV(request.getParameter("cvv"));
+   	buyer.setShippingStreet(request.getParameter("shipping-street"));
+   	buyer.setShippingCity(request.getParameter("shipping-city"));
+   	buyer.setShippingState(request.getParameter("shipping-state"));
+   	buyer.setShippingZipCode(request.getParameter("zip-code"));
+
 	if(!endUser.getUsername().equals("") && !endUser.getFirstName().equals("")&& !endUser.getLastName().equals("") &&
 	   !endUser.getPassword().equals("") && !rePassword.equals("") && !endUser.getEmail().equals("") &&
 	   !endUser.getPhoneNum().equals("")) {
 		if(endUser.getPassword().equals(rePassword)) {
 			dao.insertEndUser(endUser);
-			
+			dao.insertBuyer(buyer, dao.getEndUserID(endUser.getUsername()));
 			response.sendRedirect("index.jsp");	
 		} 
 		else {
