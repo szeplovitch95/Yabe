@@ -18,13 +18,25 @@
 	endUser.setEmail(request.getParameter("emailAddress"));	
 	endUser.setPhoneNum(request.getParameter("phoneNum")); 
 	endUser.setUserType("");
-	endUser.getEmail().equals("");	
+	endUser.getEmail().equals("");
+	
+	Buyer buyer = new Buyer(); 
+	buyer.setCardHolderName(request.getParameter("card-holder-name"));
+	buyer.setCcNumber(request.getParameter("card-number"));
+	
+	
+	
+	
+	
+	
+	
 	
 	if(!endUser.getUsername().equals("") && !endUser.getFirstName().equals("")&& !endUser.getLastName().equals("") &&
 	   !endUser.getPassword().equals("") && !rePassword.equals("") && !endUser.getEmail().equals("") &&
 	   !endUser.getPhoneNum().equals("")) {
 		if(endUser.getPassword().equals(rePassword)) {
 			dao.insertEndUser(endUser);
+			
 			response.sendRedirect("index.jsp");	
 		} 
 		else {

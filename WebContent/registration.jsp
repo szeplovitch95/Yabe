@@ -21,7 +21,7 @@
 	</div>
 	<form class="form-horizontal" action="insertEndUser.jsp" method="post">
 		<fieldset>
-		<legend>Registration</legend>
+		<legend>Personal Information</legend>
 		<div class="form-group">
 			<label class="control-label col-md-2 col-sm-2 col-lg-2">First Name:</label>
 			<div class="col-md-5 col-lg-5 col-sm-5">
@@ -73,17 +73,30 @@
 				<input class="form-control" type="text" name="phoneNum" placeholder="Format: 999-999-9999" maxlength="15" pattern="\d{3}[\-]\d{3}[\-]\d{4}" required/>			
 			</div>
 		</div>
+	</fieldset>
+	<fieldset>
+	<legend>Payment Information</legend>
+	<div class="form-group">
+	        <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="card-type">Credit Card Type:</label>
+	        <div class="col-md-3 col-lg-3 col-sm-3">
+	           <select class="form-control" name="expiry-month" id="expiry-month">
+                <option>VISA</option>
+                <option>Mastercard</option>
+                <option>American Express</option>
+              </select>
+	        </div>
+      	</div>
 		<div class="form-group">
-        <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="card-holder-name">Name on Card</label>
-        <div class="col-md-5 col-lg-5 col-sm-5">
-          <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Card Holder's Name">
-        </div>
-      </div>
+	        <label class="col-sm-2 col-md-2 col-lg-2 control-label" for="card-holder-name">Name on Card</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="card-holder-name" id="card-holder-name" placeholder="Card Holder's Name">
+	        </div>
+      	</div>
       <div class="form-group">
-        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="card-number">Card Number</label>
-        <div class="col-md-5 col-lg-5 col-sm-5">
-          <input type="text" class="form-control" name="card-number" id="card-number" placeholder="Debit/Credit Card Number">
-        </div>
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="card-number">Card Number</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="card-number" id="card-number" placeholder="Debit/Credit Card Number">
+	        </div>
       </div>
       <div class="form-group">
         <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="expiry-month">Expiration Date</label>
@@ -105,7 +118,7 @@
                 <option value="11">Nov (11)</option>
                 <option value="12">Dec (12)</option>
               </select>
-            </div>
+             </div>
             <div class="col-xs-5 col-sm-5 col-lg-5 col-md-5">
               <select class="form-control" name="expiry-year">
                 <option value="13">2013</option>
@@ -125,18 +138,44 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="cvv">Card CVV</label>
-        <div class="col-md-5 col-lg-5 col-sm-5">
-          <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Security Code">
-        </div>
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="cvv">Card CVV</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="cvv" id="cvv" placeholder="Security Code">
+	        </div>
       </div>
-		
-		<div class="form-group">
-		 <div class="col-md-offset-6 col-sm-offset-6 col-lg-offset-6 col-md-10 col-sm-10 col-lg-10">
-			<button class="btn btn-primary" type="submit">Sign Up</button>		
-    	</div>		
-		</div>
 	</fieldset>
+	<fieldset>
+		<legend>Shipping Information</legend>
+      <div class="form-group">
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">Shipping Street:</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="shipping-street" placeholder="Shipping Street">
+	        </div>
+      </div>
+     <div class="form-group">
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingStreet">Shipping Street:</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="shipping-street" placeholder="Shipping Street">
+	        </div>
+      </div>
+      <div class="form-group">
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="shippingCity">Shipping City:</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="shipping-city" placeholder="Shipping City">
+	        </div>
+      </div>
+      <div class="form-group">
+	        <label class="col-md-2 col-sm-2 col-lg-2 control-label" for="zipCode">Zip Code:</label>
+	        <div class="col-md-5 col-lg-5 col-sm-5">
+	          <input type="text" class="form-control" name="zip-code" placeholder="Zip Code">
+	        </div>
+      </div>
+	</fieldset>
+	  <div class="form-group">
+			 <div class="col-md-offset-6 col-sm-offset-6 col-lg-offset-6 col-md-10 col-sm-10 col-lg-10">
+				<button class="btn btn-primary" type="submit">Sign Up</button>		
+	    	</div>		
+	  </div>
 	</form>
 	</div>
 </body>
