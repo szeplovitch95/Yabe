@@ -53,7 +53,7 @@ Create Table BUYER (
 	CardHolderName VARCHAR(25),
 	ShippingStreet VARCHAR(30),
 	ShippingCity VARCHAR(30),
-	ShippingState CHAR(2),
+	ShippingState VARCHAR(30),
 	ShippingZipCode VARCHAR(10),
 	PRIMARY KEY(EndUserID),
 	FOREIGN KEY(EndUserID) REFERENCES END_USER(EndUserID)
@@ -75,7 +75,7 @@ Create Table ITEM (
 	ItemDescription VARCHAR(150),
 	Color VARCHAR(15),
 	QuantityOnHand INT,
-	Weight VARCHAR(10),
+	Weight INT(11) UNSIGNED ,
 	PRIMARY KEY(ItemID),
 	FOREIGN KEY(CategoryID) REFERENCES CATEGORY(CategoryID),
 	FOREIGN KEY(EndUserID) REFERENCES SELLER(EndUserID)
@@ -90,7 +90,7 @@ Create Table AUCTION (
 	ClosingPrice INT,
 	InitialPrice INT,
 	CurrentPrice INT, 
-	Total_Bids SMALLINT,
+	Total_Bids INT,
 	StartDate DATE,
 	CloseDate DATE,
 	CreatedBy INT, 
@@ -116,7 +116,7 @@ Drop table BID;
 Create Table BID (
 	BidID INT NOT NULL AUTO_INCREMENT, 
 	AuctionID INT,
-	AuctionDateTime DATETIME,
+	BidDateTime DATETIME,
 	OfferPrice INT, 
 	Cancelled BOOLEAN,
 	OfferedBy INT,
