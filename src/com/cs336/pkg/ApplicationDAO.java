@@ -118,7 +118,7 @@ public class ApplicationDAO {
 
 	public ResultSet getBuyerBids(int userID) throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "SELECT AuctionID,BidID,OfferPrice,OfferedBy FROM BID,BUYER" + "WHERE BID.OfferedBy=" + userID;
+		String query = "SELECT AuctionID,BidID,OfferPrice,OfferedBy FROM BID" + " WHERE OfferedBy=" + userID;
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -179,6 +179,7 @@ public class ApplicationDAO {
 		return rs;
 	}
 
+	// TODO: FIX THIS ASAP, INCORRECT SELECT STATEMENT!!!
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
@@ -208,6 +209,15 @@ public class ApplicationDAO {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
+	}
+
+	public ResultSet getAllAuctions() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
 	}
 
 	public ResultSet getAuctionID(Auction auction) throws SQLException {
