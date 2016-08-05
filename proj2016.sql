@@ -85,6 +85,7 @@ Drop table AUCTION;
 Create Table AUCTION (
 	AuctionID INT NOT NULL AUTO_INCREMENT, 
 	ItemID INT,
+	Category VARCHAR(20),
 	Status VARCHAR(15),
 	ClosingPrice INT,
 	InitialPrice INT,
