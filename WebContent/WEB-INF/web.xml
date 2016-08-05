@@ -12,24 +12,4 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	<servlet>
-		<description></description>
-		<display-name>co</display-name>
-		<servlet-name>co</servlet-name>
-		<servlet-class>com.cs336.pkg.co</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>co</servlet-name>
-		<url-pattern>/co</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>DemoSession</display-name>
-		<servlet-name>DemoSession</servlet-name>
-		<servlet-class>com.cs336.pkg.co</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DemoSession</servlet-name>
-		<url-pattern>/DemoSession</url-pattern>
-	</servlet-mapping>
 </web-app>

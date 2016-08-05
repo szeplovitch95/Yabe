@@ -11,46 +11,55 @@
 </head>
 <body>
 
-<%
-	ApplicationDAO dao = new ApplicationDAO();
-	ResultSet rs = dao.getAllAuctions();
-%>
-<table class="table table-bordered table-hover">
-	<thead>
-		<tr>
-			<th>Auction ID</th>
-			<th>Item Name</th>
-			<th>Creation Date</th>
-			<th>Start Price</th>
-			<th>Total Bids</th>
-			<th>Closing Date</th>
-			<th>Status</th>
-			<th>View Auction</th>	
-		</tr>
-	</thead>
-	<tbody>
-		<%
-			while (rs.next()) {
-		%>
-		<tr>
-			<td><%=rs.getInt("AuctionID")%></td>
-			<td><%=rs.getInt("ItemID")%></td>
-			<td><%=rs.getDate("StartDate")%></td>
-			<td><%=rs.getInt("InitialPrice")%></td>
-			<td><%=rs.getInt("Total_Bids")%></td>
-			<td><%=rs.getDate("CloseDate")%></td>
-			<td><%=rs.getString("Status")%></td>
-			<td>
-				<button type="button" class="btn btn-primary view-auction">View</button>
-			</td>
-		</tr>
-		<%
-			}
-		%>
-	</tbody>
-</table>
-<div class="auctionInfo">
-	<label>Name:</label>
-</div>
+	<%
+		ApplicationDAO dao = new ApplicationDAO();
+		ResultSet rs = dao.getAllAuctions();
+		String itemName = "";
+	%>
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Auction ID</th>
+				<th>Item Name</th>
+				<th>Creation Date</th>
+				<th>Start Price</th>
+				<th>Total Bids</th>
+				<th>Closing Date</th>
+				<th>Status</th>
+				<th>View Auction</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%
+				while (rs.next()) {
+					ResultSet rs2 = dao.getAuctionItemName(rs.getInt("ItemID"));
+					rs2.next();
+			%>
+			<tr>
+				<td><%=rs.getInt("AuctionID")%></td>
+				<td><%=rs2.getString("ItemName")%></td>
+				<td><%=rs.getDate("StartDate")%></td>
+				<td><%=rs.getInt("InitialPrice")%></td>
+				<td><%=rs.getInt("Total_Bids")%></td>
+				<td><%=rs.getDate("CloseDate")%></td>
+				<td><%=rs.getString("Status")%></td>
+				<td>
+					<form method="post" action="singleAuction.jsp">
+					<input type="hidden" name="auctionID" value="<%=rs.getInt("AuctionID")%>">
+					<input type="hidden" name="itemID" value="<%=rs.getInt("ItemID")%>">
+					<input type="hidden" name="startDate" value="<%=rs.getDate("StartDate")%>">
+					<input type="hidden" name="initialPrice" value="<%=rs.getInt("InitialPrice")%>">
+					<input type="hidden" name="totalBids" value="<%=rs.getInt("Total_Bids")%>">
+					<input type="hidden" name="closeDate" value="<%=rs.getDate("CloseDate")%>">
+					<input type="hidden" name="status" value="<%=rs.getString("Status")%>">
+					<button type="submit" class="btn btn-primary view-auction">View</button>
+					</form>
+				</td>
+			</tr>
+			<%
+				}
+			%>
+		</tbody>
+	</table>
 </body>
 </html>
