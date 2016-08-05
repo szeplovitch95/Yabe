@@ -85,6 +85,7 @@ Drop table AUCTION;
 Create Table AUCTION (
 	AuctionID INT NOT NULL AUTO_INCREMENT, 
 	ItemID INT,
+	Category VARCHAR(20),
 	Status VARCHAR(15),
 	ClosingPrice INT,
 	InitialPrice INT,
@@ -94,11 +95,12 @@ Create Table AUCTION (
 	CloseDate DATE,
 	CreatedBy INT, 
 	CancelledBy INT, 
-	Winner VARCHAR(40),
+	Winner INT,
 	PRIMARY KEY(AuctionID),
 	FOREIGN KEY(CreatedBy) REFERENCES SELLER(EndUserID),
 	FOREIGN KEY(CancelledBy) REFERENCES END_USER(EndUserID),
-	FOREIGN KEY(ItemID) REFERENCES ITEM(ItemID)
+	FOREIGN KEY(ItemID) REFERENCES ITEM(ItemID),
+	FOREIGN KEY(Winner) REFERENCES BUYER(EndUserID)
 );
 
 Drop table ALERT;
