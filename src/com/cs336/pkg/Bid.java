@@ -3,14 +3,16 @@ package com.cs336.pkg;
 import java.sql.Date;
 
 public class Bid {
+	private int auctionID;
 	private Date auctionDate;
 	private double offerPrice;
 	private boolean cancelled;
-	private String offeredBy;
-	private String cancelledBy;
+	private int offeredBy;
+	private int cancelledBy;
 
-	public Bid(Date auctionDate, double offerPrice, boolean cancelled, String offeredBy, String cancelledBy) {
+	public Bid(int auctionID, Date auctionDate, double offerPrice, boolean cancelled, int offeredBy, int cancelledBy) {
 		super();
+		this.auctionID = auctionID;
 		this.auctionDate = auctionDate;
 		this.offerPrice = offerPrice;
 		this.cancelled = cancelled;
@@ -19,6 +21,14 @@ public class Bid {
 	}
 
 	public Bid() {
+	}
+
+	public int getAuctionID() {
+		return auctionID;
+	}
+
+	public void setAuctionID(int auctionID) {
+		this.auctionID = auctionID;
 	}
 
 	public Date getAuctionDate() {
@@ -45,19 +55,19 @@ public class Bid {
 		this.cancelled = cancelled;
 	}
 
-	public String getOfferedBy() {
+	public int getOfferedBy() {
 		return offeredBy;
 	}
 
-	public void setOfferedBy(String offeredBy) {
+	public void setOfferedBy(int offeredBy) {
 		this.offeredBy = offeredBy;
 	}
 
-	public String getCancelledBy() {
+	public int getCancelledBy() {
 		return cancelledBy;
 	}
 
-	public void setCancelledBy(String cancelledBy) {
+	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
 	}
 }

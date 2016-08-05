@@ -15,7 +15,6 @@
 				<li id="home"><a href="homePage.jsp">Home</a></li>
 				<li id="buy"><a href="buy.jsp">Buy</a></li>
 				<li id="sell"><a href="sell.jsp">Sell</a></li>
-				<li id="orders"><a href="orders.jsp">Orders</a></li>
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

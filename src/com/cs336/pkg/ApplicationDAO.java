@@ -211,6 +211,15 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 
+	public ResultSet getAuctionItemName(int itemId) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT ItemName FROM ITEM WHERE ItemID=" + itemId + "";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
 	public ResultSet getAllAuctions() throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
@@ -239,6 +248,26 @@ public class ApplicationDAO {
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
+	}
+
+	/*
+	 * Bid Methods
+	 */
+
+	public void insertBid(Bid bid) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into BID(AuctionID,AuctionDateTime,OfferPrice,Cancelled,OfferedBy,CancelledBy) values (?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+
+		preparedStatement.setInt(1, bid.getAuctionID());
+		preparedStatement.setDate(2, bid.getAuctionDate());
+		preparedStatement.setDouble(3, bid.getOfferPrice());
+		preparedStatement.setBoolean(4, bid.isCancelled());
+		preparedStatement.setInt(5, bid.getOfferedBy());
+		preparedStatement.setInt(6, bid.getCancelledBy());
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
 	}
 
 	/*
