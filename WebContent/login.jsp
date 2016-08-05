@@ -17,6 +17,11 @@
 		HttpSession session1 = request.getSession();
 		System.out.print(session1);
 		session1.setAttribute("username", username);
+		String usernameLogin = (String)session1.getAttribute("username");
+		int id = dao.getEndUserID(usernameLogin);
+		session1.setAttribute("userID", id);
+		
+		
 		System.out.println(session1.getId());
 		if (!username.equals("") && !password.equals("")) {
 			if (dao.userLogin(username, password)) {

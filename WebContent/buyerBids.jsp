@@ -10,10 +10,7 @@
 <body>
 <%
 	ApplicationDAO dao2 = new ApplicationDAO();
-	HttpSession session1 = request.getSession();
-	String username = (String)session1.getAttribute("username");
-	int id = dao2.getEndUserID(username);
-	ResultSet rs1 = dao2.getBuyerBids(id);
+	ResultSet rs1 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));
 %>
 <table class="table table-bordered table-hover">
 	<thead>

@@ -8,8 +8,7 @@
 </head>
 <body>
 	<%
-		HttpSession session1 = request.getSession();
-		session1.invalidate();
+		session.invalidate();
 	%>
 	<div class="container">
 		<h1 style="text-align: center;">You have successfully logged out!</h1>

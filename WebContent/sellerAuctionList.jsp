@@ -14,7 +14,7 @@
 </a>
 <%
 	ApplicationDAO dao = new ApplicationDAO();
-	ResultSet rs = dao.getSellerAuctions(1);
+	ResultSet rs = dao.getSellerAuctions((Integer)session.getAttribute("userID"));
 	String itemName = "";
 %>
 <table class="table table-bordered table-hover">

@@ -160,9 +160,11 @@ public class ApplicationDAO {
 		String query = "";
 
 		if (!joinCategory) {
-			query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
+			query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM "
+					+ "JOIN SELLER ON ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID=" + sellerID + "";
 		} else {
-			query = "SELECT * FROM ITEM, CATEGORY WHERE ITEM.CategoryID = CATEGORY.CategoryID";
+			query = "SELECT * FROM ITEM, CATEGORY, SELLER WHERE"
+					+ " ITEM.CategoryID = CATEGORY.CategoryID AND ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID=" + sellerID + "";
 		}
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
@@ -179,10 +181,10 @@ public class ApplicationDAO {
 		return rs;
 	}
 
-	// TODO: FIX THIS ASAP, INCORRECT SELECT STATEMENT!!!
 	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
+		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION"
+				+ " JOIN SELLER ON AUCTION.CreatedBy = SELLER.EndUserID AND SELLER.EndUserId=" + sellerID + "";
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();

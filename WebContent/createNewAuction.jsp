@@ -18,7 +18,7 @@
 		<div class="col-md-5 col-lg-5 col-sm-5">
 			<%
 				ApplicationDAO dao = new ApplicationDAO();
-				ResultSet rs = dao.getSellerItems(1, false);
+				ResultSet rs = dao.getSellerItems((Integer)session.getAttribute("userID"), false);
 			%>
 			<select class="form-control" name="itemName">
 				<%

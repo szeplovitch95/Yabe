@@ -10,11 +10,8 @@
 	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		Item item = new Item();
-
-		//TODO add sessions
-		item.setSellerID(1);
+		item.setSellerID((Integer)session.getAttribute("userID"));
 		String category = request.getParameter("itemCategory");
-		System.out.println(category);
 		ResultSet rs = dao.getCategories();
 
 		while (rs.next()) {

@@ -11,10 +11,7 @@
 <body>
 	<%
 		ApplicationDAO sellDAO = new ApplicationDAO();
-		HttpSession sessionSeller = request.getSession();
-		String username = (String) sessionSeller.getAttribute("username");
-		int id = sellDAO.getEndUserID(username);
-		boolean isNewSeller = sellDAO.sellerExists(id);
+		boolean isNewSeller = sellDAO.sellerExists((Integer)session.getAttribute("userID"));
 	%>
 	<%@include file="navbar.jsp"%>
 	<div class="container">

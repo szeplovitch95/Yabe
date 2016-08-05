@@ -13,10 +13,7 @@
 		seller.setBankName(request.getParameter("bankName"));
 		seller.setBankAccountNumber(request.getParameter("bankAccountNumber"));
 		seller.setBankRoutingNumber(request.getParameter("bankRoutingNumber"));
-		HttpSession sessionSeller = request.getSession();
-		String username = (String) sessionSeller.getAttribute("username");
-		int id = dao.getEndUserID(username);
-		dao.insertSeller(seller, id);
+		dao.insertSeller(seller, (Integer)session.getAttribute("userID"));
 		response.sendRedirect("sell.jsp");
 	%>
 </body>

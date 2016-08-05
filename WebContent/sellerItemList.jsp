@@ -14,7 +14,7 @@
 </a>
 <%
 	ApplicationDAO dao1 = new ApplicationDAO();
-	ResultSet rs2 = dao1.getSellerItems(2, true);
+	ResultSet rs2 = dao1.getSellerItems((Integer)session.getAttribute("userID"), true);
 %>
 <table class="table table-bordered table-hover">
 	<thead>
