@@ -10,12 +10,15 @@
 </head>
 <%@include file="navbar.jsp"%>
 	<%
-		ApplicationDAO dao = new ApplicationDAO();
+	System.out.println(request.getParameter("auctionid"));
+		ApplicationDAO dao1 = new ApplicationDAO();
 		Bid bid = new Bid();
-		bid.setAuctionID(Integer.parseInt(request.getParameter("auctionId")));
+		
+		
+		bid.setAuctionID(Integer.parseInt(request.getParameter("auctionid")));
 		bid.setOfferedBy((Integer)session.getAttribute("userID"));
 		bid.setOfferPrice(Integer.parseInt(request.getParameter("offerPrice")));
-		dao.insertBid(bid);
+		dao1.insertBid(bid);
 		response.sendRedirect("singleAuction.jsp");
 	%>
 <body>

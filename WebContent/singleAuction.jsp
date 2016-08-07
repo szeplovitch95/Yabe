@@ -17,6 +17,8 @@
 		
 		rs.next();
 		String itemName = rs.getString("ItemName");
+		String aid = request.getParameter("auctionID");
+		System.out.println(aid);
 		
 	%>
 	<div class="container">
@@ -24,7 +26,7 @@
 	  	<h2 class="col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-sm-6 col-md-6 col-lg-6"><%=itemName %></h2>
 	  	<form action="newBid.jsp" method="post">
 			<button type="submit" class="btn btn-primary">New Bid</button>
-			<input type="hidden" name="auctionId" value="<%=request.getParameter("auctionID") %>" />	  		
+			<input type="hidden" name="auctionId" value="<%=aid%>" />	  		
 	  	</form>
 	  </div>
 		<div class="row">

@@ -164,7 +164,8 @@ public class ApplicationDAO {
 					+ "JOIN SELLER ON ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID=" + sellerID + "";
 		} else {
 			query = "SELECT * FROM ITEM, CATEGORY, SELLER WHERE"
-					+ " ITEM.CategoryID = CATEGORY.CategoryID AND ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID=" + sellerID + "";
+					+ " ITEM.CategoryID = CATEGORY.CategoryID AND ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID="
+					+ sellerID + "";
 		}
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
@@ -266,7 +267,7 @@ public class ApplicationDAO {
 		preparedStatement.setDouble(3, bid.getOfferPrice());
 		preparedStatement.setBoolean(4, false);
 		preparedStatement.setInt(5, bid.getOfferedBy());
-		preparedStatement.setInt(6, bid.getCancelledBy());
+		preparedStatement.setInt(6, 0);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();

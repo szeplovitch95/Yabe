@@ -11,7 +11,8 @@
 <body>
 	<%@include file="navbar.jsp"%>
 	<%
-		ApplicationDAO dao = new ApplicationDAO();
+		String x = request.getParameter("auctionId");
+		System.out.println(x);
 	%>
 <body>
 	<div class="container">
@@ -19,8 +20,7 @@
 			<h2 style="margin-left: 35%;">Create New Bid:</h2>
 		</div>
 		<form method="post" action="insertBid.jsp">
-			<input type="hidden" name="auctionId"
-				value="<%=request.getParameter("auctionID")%>" />
+			<input type="hidden" name="auctionid" value="<%=x%>" />
 			<div class="form-group">
 				<label class="control-label col-md-2 col-sm-2 col-lg-2">Offer
 					Price:</label>
