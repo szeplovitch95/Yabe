@@ -258,13 +258,13 @@ public class ApplicationDAO {
 
 	public void insertBid(Bid bid) throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "Insert into BID(AuctionID,AuctionDateTime,OfferPrice,Cancelled,OfferedBy,CancelledBy) values (?,?,?,?,?,?)";
+		String query = "Insert into BID(AuctionID,BidDateTime,OfferPrice,Cancelled,OfferedBy,CancelledBy) values (?,?,?,?,?,?)";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 
 		preparedStatement.setInt(1, bid.getAuctionID());
-		preparedStatement.setDate(2, bid.getAuctionDate());
+		preparedStatement.setDate(2, bid.getBidDateTime());
 		preparedStatement.setDouble(3, bid.getOfferPrice());
-		preparedStatement.setBoolean(4, bid.isCancelled());
+		preparedStatement.setBoolean(4, false);
 		preparedStatement.setInt(5, bid.getOfferedBy());
 		preparedStatement.setInt(6, bid.getCancelledBy());
 		preparedStatement.executeUpdate();

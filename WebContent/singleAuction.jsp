@@ -20,8 +20,13 @@
 		
 	%>
 	<div class="container">
-		<h2 style="margin-left: 35%;"><%=itemName %></h2>
-	
+	  <div class="row">
+	  	<h2 class="col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-sm-6 col-md-6 col-lg-6"><%=itemName %></h2>
+	  	<form action="newBid.jsp" method="post">
+			<button type="submit" class="btn btn-primary">New Bid</button>
+			<input type="hidden" name="auctionId" value="<%=request.getParameter("auctionID") %>" />	  		
+	  	</form>
+	  </div>
 		<div class="row">
 			<label class="control-label col-md-2">Auction ID:</label>
 			<div class="col-md-3">

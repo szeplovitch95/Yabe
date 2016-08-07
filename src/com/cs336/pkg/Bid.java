@@ -4,16 +4,16 @@ import java.sql.Date;
 
 public class Bid {
 	private int auctionID;
-	private Date auctionDate;
+	private Date BidDateTime;
 	private double offerPrice;
 	private boolean cancelled;
 	private int offeredBy;
 	private int cancelledBy;
 
-	public Bid(int auctionID, Date auctionDate, double offerPrice, boolean cancelled, int offeredBy, int cancelledBy) {
+	public Bid(int auctionID, Date BidDateTime, double offerPrice, boolean cancelled, int offeredBy, int cancelledBy) {
 		super();
 		this.auctionID = auctionID;
-		this.auctionDate = auctionDate;
+		this.BidDateTime = BidDateTime;
 		this.offerPrice = offerPrice;
 		this.cancelled = cancelled;
 		this.offeredBy = offeredBy;
@@ -31,12 +31,12 @@ public class Bid {
 		this.auctionID = auctionID;
 	}
 
-	public Date getAuctionDate() {
-		return auctionDate;
+	public Date getBidDateTime() {
+		return BidDateTime;
 	}
 
-	public void setAuctionDate(Date auctionDate) {
-		this.auctionDate = auctionDate;
+	public void setBidDateTime(Date BidDateTime) {
+		this.BidDateTime = BidDateTime;
 	}
 
 	public double getOfferPrice() {
@@ -69,5 +69,11 @@ public class Bid {
 
 	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
+	}
+	
+	public Date getCurrentDate() {
+		long time = System.currentTimeMillis();
+		java.sql.Date date = new java.sql.Date(time);
+		return date;
 	}
 }
