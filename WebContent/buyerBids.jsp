@@ -9,8 +9,10 @@
 </head>
 <body>
 <%
-	ApplicationDAO dao2 = new ApplicationDAO();
+	ApplicationDAO dao2 = new ApplicationDAO();	
+	System.out.println((Integer)session.getAttribute("userID"));
 	ResultSet rs1 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));
+	
 %>
 <table class="table table-bordered table-hover">
 	<thead>
@@ -32,7 +34,7 @@
 			<td><%=rs1.getInt("OfferPrice")%></td>
 			<td><%=rs1.getInt("OfferedBy")%></td>
 			<td>
-				<button type="button" class="btn btn-primary view-auction">View</button>
+				<a href="singleAuction.jsp?<%=rs1.getInt("AuctionID")%>">View</a>
 			</td>
 		</tr>
 		<%

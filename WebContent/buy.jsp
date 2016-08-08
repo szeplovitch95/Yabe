@@ -13,7 +13,7 @@
 	<div class="container">
 		<h1 style="text-align: center">Buy Items</h1>
 		<button id="availableAuctionsButton" class="btn btn-default">Auctions Available</button>
-		<button id="buyerBidsButton" class="btn btn-default">Bids</button>
+		<button id="buyerBidsButton" class="btn btn-default">Your Bids</button>
 		<div id="availableAuctionsDiv">
 			<%@include file="availableAuctions.jsp" %>		
 		</div>

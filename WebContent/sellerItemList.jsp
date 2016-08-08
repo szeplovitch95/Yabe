@@ -3,8 +3,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <div>
 	<h2 style="margin-left: 35%;">Items:</h2>
@@ -14,7 +16,7 @@
 </a>
 <%
 	ApplicationDAO dao1 = new ApplicationDAO();
-	ResultSet rs2 = dao1.getSellerItems((Integer)session.getAttribute("userID"), true);
+	ResultSet rs2 = dao1.getSellerItems((Integer) session.getAttribute("userID"), true);
 %>
 <table class="table table-bordered table-hover">
 	<thead>
@@ -41,17 +43,7 @@
 			<td><%=rs2.getString("Color")%></td>
 			<td><%=rs2.getInt("QuantityOnHand")%></td>
 			<td><%=rs2.getString("Weight")%></td>
-			<td>
-				<form method="post" action="singleItem.jsp">
-				<input type="hidden" name="itemID" value="<%=rs2.getInt("ItemID")%>">
-				<input type="hidden" name="Category" value="<%=rs2.getString("CategoryName")%>">
-				<input type="hidden" name="itemName" value="<%=rs2.getString("ItemName")%>">
-				<input type="hidden" name="itemDescription" value="<%=rs2.getString("ItemDescription")%>">
-				<input type="hidden" name="itemColor" value="<%=rs2.getString("Color")%>">
-				<input type="hidden" name="qtyOnHand" value="<%=rs2.getInt("QuantityOnHand")%>">
-				<input type="hidden" name="weight" value="<%=rs2.getString("Weight")%>">
-				<button type="submit" class="btn btn-primary">View</button>
-				</form>
+			<td><a href="singleItem.jsp?<%=rs2.getInt("ItemID")%>">View</a>
 			</td>
 		</tr>
 		<%

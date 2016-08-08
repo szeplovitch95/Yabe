@@ -9,68 +9,93 @@
 </head>
 <body>
 	<%@include file="navbar.jsp"%>
-	<%
+	<%	
 		ApplicationDAO dao = new ApplicationDAO();
-		int id = Integer.parseInt(request.getParameter("itemID"));
-		
+		String auctionID = request.getQueryString();
+		int id = Integer.parseInt(auctionID);
 		ResultSet rs = dao.getAuctionItemName(id);
-		
 		rs.next();
-		String itemName = rs.getString("ItemName");
-		String aid = request.getParameter("auctionID");
-		System.out.println(aid);
+		String title = rs.getString("ItemName");
 		
+		
+		session.setAttribute("auctionID", Integer.parseInt(auctionID));
+	
+		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
+		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
+		rs2.next();
 	%>
 	<div class="container">
 	  <div class="row">
-	  	<h2 class="col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-sm-6 col-md-6 col-lg-6"><%=itemName %></h2>
-	  	<form action="newBid.jsp" method="post">
-			<button type="submit" class="btn btn-primary">New Bid</button>
-			<input type="hidden" name="auctionId" value="<%=aid%>" />	  		
-	  	</form>
+	 	<h2 style="margin-left:35%;"><%=title %></h2>
+	  	<a style="float:right;" href="newBid.jsp">
+			<button type="submit" class="btn btn-primary">New Bid</button>  		
+	  	</a>
 	  </div>
 		<div class="row">
 			<label class="control-label col-md-2">Auction ID:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("auctionID")%>
+				<%=rs2.getInt("AuctionID")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Item ID:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("itemID")%>
+				<%=rs2.getInt("ItemID")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Start Date:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("startDate")%>
+				<%=rs2.getDate("StartDate")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Initial Price:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("initialPrice")%>
+				<%=rs2.getInt("InitialPrice")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Total Bids:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("totalBids")%>
+				<%=rs2.getInt("Total_Bids")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Close Date:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("closeDate")%>
+				<%=rs2.getDate("CloseDate")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Status:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("status")%>
+				<%=rs2.getString("Status")%>
 			</div>
 		</div>
+		
+		<table class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>Bid ID</th>
+			<th>Offer Price</th>
+			<th>Offered By</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%
+			while (rs4.next()) {
+		%>
+		<tr>
+			<td><%=rs4.getInt("BidID")%></td>
+			<td><%=rs4.getInt("OfferPrice")%></td>
+			<td><%=rs4.getInt("OfferedBy")%></td>
+		</tr>
+		<%
+			}
+		%>
+	</tbody>
+</table>
 	</div>
 </body>
 </html>

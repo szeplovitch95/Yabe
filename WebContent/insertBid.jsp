@@ -9,22 +9,16 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <%@include file="navbar.jsp"%>
-	<%
-	System.out.println(request.getParameter("auctionid"));
-		ApplicationDAO dao1 = new ApplicationDAO();
-		Bid bid = new Bid();
-		
-		
-		bid.setAuctionID(Integer.parseInt(request.getParameter("auctionid")));
-		bid.setOfferedBy((Integer)session.getAttribute("userID"));
-		bid.setOfferPrice(Integer.parseInt(request.getParameter("offerPrice")));
-		dao1.insertBid(bid);
-		response.sendRedirect("singleAuction.jsp");
-	%>
+<%
+	ApplicationDAO dao1 = new ApplicationDAO();
+	Bid bid = new Bid();
+	int id = (Integer)session.getAttribute("auctionID");
+	bid.setAuctionID(id);
+	bid.setOfferedBy((Integer) session.getAttribute("userID"));
+	bid.setOfferPrice(Integer.parseInt(request.getParameter("offerPrice")));
+	dao1.insertBid(bid);
+	response.sendRedirect("singleAuction.jsp?" + id);
+%>
 <body>
-
-
-
-
 </body>
 </html>

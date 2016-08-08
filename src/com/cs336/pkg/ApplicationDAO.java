@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class ApplicationDAO {
@@ -222,6 +223,15 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
 	}
+	
+	public ResultSet getAuction(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT * FROM AUCTION WHERE AuctionID=" + auctionID + "";
+		
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
 
 	public ResultSet getAllAuctions() throws SQLException {
 		Connection dbConnection = getConnection();
@@ -259,15 +269,16 @@ public class ApplicationDAO {
 
 	public void insertBid(Bid bid) throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "Insert into BID(AuctionID,BidDateTime,OfferPrice,Cancelled,OfferedBy,CancelledBy) values (?,?,?,?,?,?)";
+		String query = "Insert into BID(AuctionID,BidDateTime,OfferPrice,Cancelled,OfferedBy) values (?,?,?,?,?)";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		
 		preparedStatement.setInt(1, bid.getAuctionID());
-		preparedStatement.setDate(2, bid.getBidDateTime());
+		preparedStatement.setDate(2, date);
 		preparedStatement.setDouble(3, bid.getOfferPrice());
 		preparedStatement.setBoolean(4, false);
 		preparedStatement.setInt(5, bid.getOfferedBy());
-		preparedStatement.setInt(6, 0);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
@@ -292,6 +303,15 @@ public class ApplicationDAO {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
+	}
+	
+	public ResultSet getItem(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT * FROM ITEM WHERE ItemID=" + id + "";
+		
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
 	}
 
 	/*

@@ -20,9 +20,9 @@
 		String usernameLogin = (String)session1.getAttribute("username");
 		int id = dao.getEndUserID(usernameLogin);
 		session1.setAttribute("userID", id);
+		session1.setAttribute("auctionID", 0);
+		session1.setAttribute("itemID", 0);
 		
-		
-		System.out.println(session1.getId());
 		if (!username.equals("") && !password.equals("")) {
 			if (dao.userLogin(username, password)) {
 				response.sendRedirect("homePage.jsp");

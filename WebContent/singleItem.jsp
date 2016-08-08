@@ -9,46 +9,52 @@
 <body>
 	<%@include file="navbar.jsp"%>
 	<%
-		ApplicationDAO dao = new ApplicationDAO();		
+		ApplicationDAO dao = new ApplicationDAO();
+		String itemID = request.getQueryString();
+		session.setAttribute("itemID", Integer.parseInt(itemID));
+		
+		ResultSet rsItem = dao.getItem(Integer.parseInt(itemID));
+		rsItem.next();
+		
 	%>
 	<div class="container">
 		<h2 style="margin-left: 35%;"> 
-			<%=request.getParameter("itemName")%>
+			<%=rsItem.getString("ItemName")%>
 		</h2>
 		<div class="row">
 			<label class="control-label col-md-2">Item ID:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("itemID")%>
+				<%=rsItem.getInt("itemID")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Category</label>
 			<div class="col-md-3">
-				<%=request.getParameter("Category")%>
+				<%=rsItem.getInt("CategoryID")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Item Description</label>
 			<div class="col-md-3">
-				<%=request.getParameter("itemDescription")%>
+				<%=rsItem.getString("ItemDescription")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Color:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("itemColor")%>
+				<%=rsItem.getString("Color")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Quantity On Hand:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("qtyOnHand")%>
+				<%=rsItem.getInt("QuantityOnHand")%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Weight:</label>
 			<div class="col-md-3">
-				<%=request.getParameter("weight")%>
+				<%=rsItem.getInt("Weight")%>
 			</div>
 		</div>
 	</div>

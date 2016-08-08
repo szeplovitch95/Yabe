@@ -44,16 +44,7 @@
 				<td><%=rs.getDate("CloseDate")%></td>
 				<td><%=rs.getString("Status")%></td>
 				<td>
-					<form method="post" action="singleAuction.jsp">
-					<input type="hidden" name="auctionID" value="<%=rs.getInt("AuctionID")%>">
-					<input type="hidden" name="itemID" value="<%=rs.getInt("ItemID")%>">
-					<input type="hidden" name="startDate" value="<%=rs.getDate("StartDate")%>">
-					<input type="hidden" name="initialPrice" value="<%=rs.getInt("InitialPrice")%>">
-					<input type="hidden" name="totalBids" value="<%=rs.getInt("Total_Bids")%>">
-					<input type="hidden" name="closeDate" value="<%=rs.getDate("CloseDate")%>">
-					<input type="hidden" name="status" value="<%=rs.getString("Status")%>">
-					<button type="submit" class="btn btn-primary view-auction">View</button>
-					</form>
+					<a href="singleAuction.jsp?<%=rs.getInt("AuctionID")%>">View</a>
 				</td>
 			</tr>
 			<%
