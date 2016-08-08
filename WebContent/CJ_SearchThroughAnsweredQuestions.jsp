@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Search Results</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 	<%

@@ -1,6 +1,5 @@
 <head>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/navigation.js"></script>
