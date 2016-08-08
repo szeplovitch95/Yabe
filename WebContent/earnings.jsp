@@ -273,6 +273,7 @@
 				</div>
 			</div>
 		</div>
+		<div id="activePage" class="hidden">earnings</div>
 	</div>
 </body>
 </html>

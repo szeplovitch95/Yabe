@@ -119,6 +119,7 @@
 				</div>
 			</div>
 		</div>
+		<div id="activePage" class="hidden">question</div>
 	</div>
 </body>
 </html>

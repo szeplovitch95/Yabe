@@ -16,6 +16,8 @@
 				<li id="buy"><a href="buy.jsp">Buy</a></li>
 				<li id="sell"><a href="sell.jsp">Sell</a></li>
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
+				<li id="question"><a href="questionPage.jsp">Questions</a></li>
+				<li id="earnings"><a href="earnings.jsp">Earnings</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">${sessionScope.username}</a></li>
