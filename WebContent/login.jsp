@@ -18,6 +18,7 @@
 		System.out.print(session1);
 		session1.setAttribute("username", username);
 		String usernameLogin = (String)session1.getAttribute("username");
+		System.out.println(usernameLogin);
 		int id = dao.getEndUserID(usernameLogin);
 		session1.setAttribute("userID", id);
 		session1.setAttribute("auctionID", 0);
