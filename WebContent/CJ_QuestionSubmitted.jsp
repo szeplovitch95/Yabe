@@ -9,29 +9,22 @@
 <title>Submit Question With Success</title>
 </head>
 <body>
-
 	<%
 		String name = request.getParameter("name");
 		String password = request.getParameter("password");
 		String question = request.getParameter("question");
-		
 		ApplicationDAO dao = new ApplicationDAO();
 
 		if (dao.userLogin(name, password)) {
 			int ID = dao.getUserID(name, password);
-
 			out.print("<h1> Success!");
 			out.print("need to make function where user can view their questions");
 			dao.insertQuestion(ID, question);
-		}
-		else{
+		} else {
 			out.print("<h1> SORRY INCORRECT USERNAME OR PASSWORD TRY AGAIN");
-
 			out.print("<form id=\"contact_form\" action=\"CJ_PostQuestion.jsp\" method=\"post\" >");
 			out.print("	<input id=\"submit_button\" type=\"submit\" value=\"Try Again\" /> </form>");
 		}
 	%>
-
-
 </body>
 </html>

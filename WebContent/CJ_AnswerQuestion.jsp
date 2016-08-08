@@ -31,11 +31,13 @@
 		</div>
 
 		<div class="form-group">
-			<input type="hidden" id="QuestionID" class="form-control" name="QuestionID" value="<%out.print(QuestionID);%>">
+			<input type="hidden" id="QuestionID" class="form-control"
+				name="QuestionID" value="<%out.print(QuestionID);%>">
 		</div>
-		
+
 		<div class="form-group">
-			<input type="hidden" id="UserID" class="form-control" name="UserID" value="<%out.print(userID);%>">
+			<input type="hidden" id="UserID" class="form-control" name="UserID"
+				value="<%out.print(userID);%>">
 		</div>
 
 		<input id="submit_button" type="submit" value="Send Answer" />

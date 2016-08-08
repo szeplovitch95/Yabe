@@ -12,16 +12,18 @@
 	<%@include file="navbar.jsp"%>
 	<div class="container">
 		<h1 style="text-align: center">Buy Items</h1>
-		<button id="availableAuctionsButton" class="btn btn-default">Auctions Available</button>
-		<button id="buyerBidsButton" class="btn btn-default">Your Bids</button>
+		<button id="availableAuctionsButton" class="btn btn-default">Auctions
+			Available</button>
+		<button id="buyerBidsButton" class="btn btn-default">Your
+			Bids</button>
 		<div id="availableAuctionsDiv">
-			<%@include file="availableAuctions.jsp" %>		
+			<%@include file="availableAuctions.jsp"%>
 		</div>
 		<div id="buyerBids" class="hidden">
 			<%@include file="buyerBids.jsp"%>
 		</div>
 	</div>
 	<div id="activePage" class="hidden">buy</div>
-		<script type="text/javascript" src="scripts/buy.js"></script>
+	<script type="text/javascript" src="scripts/buy.js"></script>
 </body>
 </html>

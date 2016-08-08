@@ -43,8 +43,7 @@
 				<td><%=rs.getInt("Total_Bids")%></td>
 				<td><%=rs.getDate("CloseDate")%></td>
 				<td><%=rs.getString("Status")%></td>
-				<td>
-					<a href="singleAuction.jsp?<%=rs.getInt("AuctionID")%>">View</a>
+				<td><a href="singleAuction.jsp?<%=rs.getInt("AuctionID")%>">View</a>
 				</td>
 			</tr>
 			<%

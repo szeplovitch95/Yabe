@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- <%
+	<%
  	String id = request.getParameter("QuestionID");
  	String answer =  request.getParameter("answer");
  	String userID =  request.getParameter("UserID");
@@ -20,12 +20,12 @@
  	ApplicationDAO dao = new ApplicationDAO();
 	dao.insertAnswer(userID, id, answer );
  %>
- 
- 
- <form id="answer_form" action="CJ_ViewUnansweredQuestions.jsp" method="post">
- 
- <button name="QuestionID" type="submit" id="QuestionID" >View More Unanswered Questions</button>
-		
- </form>
+
+
+	<form id="answer_form" action="CJ_ViewUnansweredQuestions.jsp"
+		method="post">
+		<button name="QuestionID" type="submit" id="QuestionID">View
+			More Unanswered Questions</button>
+	</form>
 </body>
 </html>

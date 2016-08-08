@@ -9,49 +9,39 @@
 <title>View Unanswered Questions</title>
 </head>
 <body>
-
-
 	<%
-
 		ApplicationDAO dao = new ApplicationDAO();
 		ResultSet rs = dao.getUnansweredQuestions();;
 		 if(dao.getCountOfUnansweredQuestions()==0){
 		    	out.print("NO Unanswered Questions!");
-		    }
-		    else{
+		 }
+		 else {
 %>
-
-<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Question</th>
-         <th>Answer Question</th>
-        
-      </tr>
-    </thead>
- 
-    <tbody>
-    <%
-   
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Question</th>
+				<th>Answer Question</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%
     	while(rs.next()) { %>
-    <tr>
-		<td>
-			<%= rs.getString("QuestionDescription") %>
-		</td>
-		<td>
-		<form action="CJ_AnswerQuestion.jsp" style="margin-left: 7%;">
-		<button name="QuestionID" type="submit" id="QuestionID" value= "<% out.print(rs.getInt("ID"));%>" >Answer This Question</button>
-		</form>
-		</td>
-	</tr>
-	
-	<%
-	}
+			<tr>
+				<td><%= rs.getString("QuestionDescription") %></td>
+				<td>
+					<form action="CJ_AnswerQuestion.jsp" style="margin-left: 7%;">
+						<button name="QuestionID" type="submit" id="QuestionID"
+							value="<% out.print(rs.getInt("ID"));%>">Answer This
+							Question</button>
+					</form>
+				</td>
+			</tr>
+			<%
+		}
     }
   %>
-    </tbody>
-  </table>
-  
-
+		</tbody>
+	</table>
 </body>
 </html>

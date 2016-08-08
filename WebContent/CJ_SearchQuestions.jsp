@@ -8,22 +8,16 @@
 <title>Search Questions</title>
 </head>
 <body>
-
-
-<h1> Search Currently Asked Questions! </h1>
-
-<form id="contact_form" action="CJ_SearchThroughAnsweredQuestions.jsp" method="post" >
-
-	<div class="form-group">
-		<label for="question">Put In Search Query:</label><br />
-		<textarea id="questionQuery" class="form-control" name="questionQuery" rows="7" cols="30"></textarea><br />
-	</div>
-	
-	<input id="submit_button" type="submit" value="Search Questions" />
-</form>	
-
-
-
-
+	<h1>Search Currently Asked Questions!</h1>
+	<form id="contact_form" action="CJ_SearchThroughAnsweredQuestions.jsp"
+		method="post">
+		<div class="form-group">
+			<label for="question">Put In Search Query:</label><br />
+			<textarea id="questionQuery" class="form-control"
+				name="questionQuery" rows="7" cols="30"></textarea>
+			<br />
+		</div>
+		<input id="submit_button" type="submit" value="Search Questions" />
+	</form>
 </body>
 </html>

@@ -24,41 +24,32 @@
 		</thead>
 		<tbody>
 			<%
-
     	while(rs.next()) { %>
 			<tr>
 				<td><%= rs.getString("QuestionDescription") %></td>
 				<td><%= rs.getString("Answer") %></td>
 			</tr>
-
 			<%
 	}
   %>
-
 		</tbody>
 	</table>
-
 	<h2>No Luck? ASK US!</h2>
-
 	<form id="contact_form" action="CJ_QuestionSubmitted.jsp" method="post">
-
 		<div class="form-group">
 			<label for="name">User name:</label><br /> <input id="name"
 				class="form-control" name="name" type="text" size="30" /><br />
 		</div>
-
 		<div class="form-group">
 			<label for="password">Password:</label><br /> <input id="password"
 				class="form-control" name="password" type="password" size="30" /><br />
 		</div>
-
 		<div class="form-group">
 			<label for="question">Question:</label><br />
 			<textarea id="question" class="form-control" name="question" rows="7"
 				cols="30"></textarea>
 			<br />
 		</div>
-
 		<input id="submit_button" type="submit" value="Send Question" />
 	</form>
 </body>

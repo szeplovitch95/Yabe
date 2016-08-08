@@ -54,13 +54,13 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection();
 		String query = "SELECT Username, Password FROM END_USER WHERE Username ='" + username + "' AND Password = '"
 				+ password + "'";
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 
 		if (rs.next()) {
 			return true;
-		} else {
+		} 
+		else {
 			return false;
 		}
 	}
@@ -130,7 +130,6 @@ public class ApplicationDAO {
 		preparedStatement.setString(8, buyer.getShippingCity());
 		preparedStatement.setString(9, buyer.getShippingState());
 		preparedStatement.setString(10, buyer.getShippingZipCode());
-
 		preparedStatement.executeUpdate();
 		System.out.println("buyer added");
 	}
@@ -227,11 +226,6 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 	
-	
-	
-	
-	
-
 	/*
 	 * Auction Methods
 	 */
@@ -310,9 +304,7 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection();
 		String query = "Insert into BID(AuctionID,BidDateTime,OfferPrice,Cancelled,OfferedBy) values (?,?,?,?,?)";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-
 		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
-		
 		preparedStatement.setInt(1, bid.getAuctionID());
 		preparedStatement.setDate(2, date);
 		preparedStatement.setDouble(3, bid.getOfferPrice());
@@ -347,7 +339,6 @@ public class ApplicationDAO {
 	public ResultSet getItem(int id) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT * FROM ITEM WHERE ItemID=" + id + "";
-		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -357,7 +348,6 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection(); 
 		String query; 
 		query = "SELECT DISTINCT I.Weight from ITEM I, AUCTION A WHERE A.ItemID = I.ItemID order by Weight desc";
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -367,7 +357,6 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection(); 
 		String query; 
 		query = "SELECT InitialPrice FROM AUCTION order by InitialPrice desc";
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -380,7 +369,6 @@ public class ApplicationDAO {
 	public ResultSet getCategories() throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT CategoryID,CategoryName FROM CATEGORY";
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -389,7 +377,6 @@ public class ApplicationDAO {
 	public ResultSet getSellerItemsFromCategory(int category) throws SQLException {
 		Connection dbConnection = getConnection(); 
 		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
-		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -399,7 +386,6 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection(); 
 		String query; 
 		query = "SELECT * FROM CATEGORY";	
-		
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -409,7 +395,6 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection(); 
 		String query; 
 		query = "SELECT DISTINCT Status FROM AUCTION";	
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -438,7 +423,6 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection(); 
 		String query; 
 		query = "SELECT DISTINCT I.Color FROM ITEM I, AUCTION A WHERE A.ItemID = I.ItemID";
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
@@ -470,13 +454,11 @@ public class ApplicationDAO {
 				+ " I.Weight >=  " + weightMin + "  AND I.Weight <=  " + weightMax + "  AND  "
 				+ "  A.InitialPrice >=  "+ priceMin + " AND A.InitialPrice <=  " + priceMax 
 				+ specifiedColor + specifiedStatus + specifiedCategory + "  AND A.ItemID = I.ItemID  AND C.CategoryID = A.Category";
-
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
 	}
-	
 	
 	/*
 	 * Questions/Answers
@@ -547,7 +529,6 @@ public class ApplicationDAO {
 				+ "(UserID, QuestionDescription) "
 				+ "values ("+UserID+",'"+ Question+"')";
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
@@ -560,17 +541,11 @@ public class ApplicationDAO {
 				+ "values ("+UserID+","+QuestionID+", '"+ Answer+"')";
 		System.out.println(query);
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
 	}
-
 	
-	
-	
-	
-
 	public LinkedList<EndUser> getAllUsers() throws SQLException {
 		LinkedList<EndUser> listOfPeople = new LinkedList<EndUser>();
 		// display all tuples
@@ -580,6 +555,7 @@ public class ApplicationDAO {
 		int resLength = 0;
 		// creating a ResultSet
 		ResultSet rs = preparedStatement.executeQuery();
+		
 		// iterate through the resultSet
 		while (rs.next()) {
 			System.out.println("row : id = " + rs.getInt("EndUserID") + ", first name = " + rs.getString("FirstName"));
@@ -588,6 +564,7 @@ public class ApplicationDAO {
 					rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone"),
 					rs.getString("UserType")));
 		}
+		
 		System.out.println("Select statement executed, " + resLength + " rows retrieved");
 		// close everything
 		preparedStatement.close();
@@ -630,13 +607,13 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection();
 		String query = "";
 		
-		if(type.equals("all")){
+		if(type.equals("all")) {
 			query ="SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription FROM QUESTION q, END_USER u WHERE q.UserID = u.EndUserID group by q.ID";
 		}
-		else if(type.equals("answered")){
+		else if(type.equals("answered")) {
 			query ="SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription, a.Answer FROM QUESTION q, END_USER u, ANSWER a WHERE q.UserID = u.EndUserID AND a.QuestionID = q.ID group by q.ID";
 		}
-		else if(type.equals("unanswered")){
+		else if(type.equals("unanswered")) {
 			query = "SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription FROM QUESTION q, END_USER u WHERE q.UserID = u.EndUserID AND q.ID NOT IN(SELECT a.QuestionID FROM ANSWER a) group by q.ID";	
 		}
 		
@@ -667,7 +644,6 @@ public class ApplicationDAO {
 		for (String str : wordsList) {
 			System.out.print(str + " ");
 		}
-
 	}
 	
 	public ResultSet SearchFromArrayList() throws SQLException {
@@ -692,7 +668,6 @@ public class ApplicationDAO {
 		Connection connection = dao.getConnection();
 		EndUser user = new EndUser("Shachar", "Zeplovitch", "Male", "szeplovitch95", "123456",
 				"szeplovitch95@gmail.com", "2019652035", "admin");
-
 		try {
 			dao.insertEndUser(user);
 			dao.getAllUsers();
