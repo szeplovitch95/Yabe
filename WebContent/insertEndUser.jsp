@@ -16,11 +16,18 @@
 		endUser.setLastName(request.getParameter("lastName"));
 		endUser.setGender(request.getParameter("gender").equals("male") ? "Male" : "Female");
 		endUser.setUsername(request.getParameter("username"));
+		
+		int id = dao.getEndUserID(endUser.getUsername());
+		
+		if(id < 0) {
+			response.sendRedirect("error.jsp");
+		}
+		
 		endUser.setPassword(request.getParameter("password"));
 		String rePassword = request.getParameter("rePassword");
 		endUser.setEmail(request.getParameter("emailAddress"));
 		endUser.setPhoneNum(request.getParameter("phoneNum"));
-		endUser.setUserType("");
+		endUser.setUserType("Buyer");
 		endUser.getEmail().equals("");
 
 		// get all information about buyer and assign values to its object
@@ -35,6 +42,10 @@
 		buyer.setShippingCity(request.getParameter("shipping-city"));
 		buyer.setShippingState(request.getParameter("shipping-state"));
 		buyer.setShippingZipCode(request.getParameter("zip-code"));
+		
+		
+		
+		
 
 		if (!endUser.getUsername().equals("") && !endUser.getFirstName().equals("")
 				&& !endUser.getLastName().equals("") && !endUser.getPassword().equals("") && !rePassword.equals("")

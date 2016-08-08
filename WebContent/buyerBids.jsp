@@ -11,7 +11,7 @@
 <%
 	ApplicationDAO dao2 = new ApplicationDAO();	
 	System.out.println((Integer)session.getAttribute("userID"));
-	ResultSet rs1 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));
+	ResultSet rs11 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));
 	
 %>
 <table class="table table-bordered table-hover">
@@ -26,15 +26,15 @@
 	</thead>
 	<tbody>
 		<%
-			while (rs1.next()) {
+			while (rs11.next()) {
 		%>
 		<tr>
-			<td><%=rs1.getInt("BidID")%></td>
-			<td><%=rs1.getInt("AuctionID")%></td>
-			<td><%=rs1.getInt("OfferPrice")%></td>
-			<td><%=rs1.getInt("OfferedBy")%></td>
+			<td><%=rs11.getInt("BidID")%></td>
+			<td><%=rs11.getInt("AuctionID")%></td>
+			<td><%=rs11.getInt("OfferPrice")%></td>
+			<td><%=rs11.getInt("OfferedBy")%></td>
 			<td>
-				<a href="singleAuction.jsp?<%=rs1.getInt("AuctionID")%>">View</a>
+				<a href="singleAuction.jsp?<%=rs11.getInt("AuctionID")%>">View</a>
 			</td>
 		</tr>
 		<%

@@ -1,9 +1,15 @@
-BUYER FUNCTIONALITY: 
-1. List of interested auctions. 
-3. When clicked on a auction, go to auction page with item descrtiptions, list of bids, and a button to add a bid. 
-4. work with sessions
+TODO LIST:
 
-
-
-Select Statements 
-1. 
+1. Add closing/starting date, winner funcitonality to singleAuction.jsp 
+2. Validate login page
+3. Validate registration page
+4. Validate create auction page 
+5. Validate create item page
+6. Validate new bid page
+7. alert the buyer that a higher bid has been placed
+8. define the winner of the auction 
+9. add more exact date/time to auctions so when the date and time is here, the winner is defined and we see if the item actually got sold. 
+10. Enable editing for sellers Items
+11. Enable Editing for sellers Auctions 
+12. When the auction date arrives, check if the seller put a reserve and if no bids are above that reserve, the item is not sold and the auction status is closed. 
+13. implement functionality to Auction Status. 

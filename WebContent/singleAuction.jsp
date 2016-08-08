@@ -5,32 +5,37 @@
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 	<%@include file="navbar.jsp"%>
-	<%	
+	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		String auctionID = request.getQueryString();
 		int id = Integer.parseInt(auctionID);
-		ResultSet rs = dao.getAuctionItemName(id);
-		rs.next();
-		String title = rs.getString("ItemName");
 		
+		//ResultSet rs = dao.getAuctionItemName(id);
+		//rs.next();
+		//String title = rs.getString("ItemName");
 		
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
-	
 		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
 		rs2.next();
 	%>
 	<div class="container">
-	  <div class="row">
-	 	<h2 style="margin-left:35%;"><%=title %></h2>
-	  	<a style="float:right;" href="newBid.jsp">
-			<button type="submit" class="btn btn-primary">New Bid</button>  		
-	  	</a>
-	  </div>
+		<div class="row">
+			<a style="float: right;" href="newBid.jsp">
+				<%
+					if(rs2.getString("Status").equals("Closed")) { %>
+						<button type="button" class="btn btn-primary" disabled>New Bid</button> <% 
+					} else { %>
+				<button type="submit" class="btn btn-primary">New Bid</button> <% 						
+					}
+				%>
+			</a>
+		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Auction ID:</label>
 			<div class="col-md-3">
@@ -73,29 +78,34 @@
 				<%=rs2.getString("Status")%>
 			</div>
 		</div>
-		
+		<div class="row">
+			<label class="control-label col-md-2">Winner:</label>
+			<div class="col-md-3">
+				<%=rs2.getString("Winner")%>
+			</div>
+		</div>
 		<table class="table table-bordered table-hover">
-	<thead>
-		<tr>
-			<th>Bid ID</th>
-			<th>Offer Price</th>
-			<th>Offered By</th>
-		</tr>
-	</thead>
-	<tbody>
-		<%
-			while (rs4.next()) {
-		%>
-		<tr>
-			<td><%=rs4.getInt("BidID")%></td>
-			<td><%=rs4.getInt("OfferPrice")%></td>
-			<td><%=rs4.getInt("OfferedBy")%></td>
-		</tr>
-		<%
-			}
-		%>
-	</tbody>
-</table>
+			<thead>
+				<tr>
+					<th>Bid ID</th>
+					<th>Offer Price</th>
+					<th>Offered By</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%
+					while (rs4.next()) {
+				%>
+				<tr>
+					<td><%=rs4.getInt("BidID")%></td>
+					<td><%=rs4.getInt("OfferPrice")%></td>
+					<td><%=rs4.getInt("OfferedBy")%></td>
+				</tr>
+				<%
+					}
+				%>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
