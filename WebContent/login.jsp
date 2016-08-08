@@ -13,18 +13,21 @@
 		ApplicationDAO dao = new ApplicationDAO();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
+		
+		//create session and add attributes to it
 		HttpSession session1 = request.getSession();
 		System.out.print(session1);
 		session1.setAttribute("username", username);
 		String usernameLogin = (String)session1.getAttribute("username");
 		System.out.println(usernameLogin);
 		int id = dao.getEndUserID(usernameLogin);
+		String userType = dao.getUserType(id);
+		
 		session1.setAttribute("userID", id);
+		session1.setAttribute("userType", userType);
 		session1.setAttribute("auctionID", 0);
 		session1.setAttribute("itemID", 0);
 		
-		if (!username.equals("") && !password.equals("")) {
 			if (dao.userLogin(username, password)) {
 				response.sendRedirect("homePage.jsp");
 			} 
@@ -33,7 +36,6 @@
 				or password error. Please try again.</label>
 		<%
 			}
-		}
 		%>
 </body>
 </html>

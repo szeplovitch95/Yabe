@@ -52,7 +52,7 @@
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Initial
 			Price:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<input class="form-control" type="number" name="initialPrice"
+			<input class="form-control" type="number" value="0" min="0" name="initialPrice"
 				placeholder="Initial Price" required />
 		</div>
 	</div>

@@ -8,6 +8,7 @@ public class Item {
 	private String color;
 	private String weight;
 	private int quantityOnHand;
+	public String[] colors = {"Yellow", "Black", "Blue", "White", "Red", "Green", "Purple", "Orange"};
 
 	public Item(int sellerID, int categoryID, String name, String description, String color, String weight,
 			int quantityOnHand) {

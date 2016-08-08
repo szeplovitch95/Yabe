@@ -9,7 +9,7 @@ public class Bid {
 	private boolean cancelled;
 	private int offeredBy;
 	private int cancelledBy;
-
+	
 	public Bid(int auctionID, Date BidDateTime, double offerPrice, boolean cancelled, int offeredBy, int cancelledBy) {
 		super();
 		this.auctionID = auctionID;
@@ -69,11 +69,5 @@ public class Bid {
 
 	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
-	}
-	
-	public Date getCurrentDate() {
-		long time = System.currentTimeMillis();
-		java.sql.Date date = new java.sql.Date(time);
-		return date;
 	}
 }

@@ -18,6 +18,11 @@
 				auction.setItemID(rs.getInt("ItemID"));
 			}
 		}
+		
+		String date = request.getParameter("openDate");
+		
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+		DateTime dt = formatter.parseDateTime(date);
 
 		//TODO add sessions
 		auction.setCreatedBy(1);

@@ -1,10 +1,12 @@
 TODO LIST:
 
 1. Add closing/starting date, winner funcitonality to singleAuction.jsp 
-2. Validate login page
-3. Validate registration page
+
+
+
 4. Validate create auction page 
-5. Validate create item page
+
+
 6. Validate new bid page
 7. alert the buyer that a higher bid has been placed
 8. define the winner of the auction 

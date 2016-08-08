@@ -81,6 +81,21 @@ public class ApplicationDAO {
 		
 		return EndUserID;
 	}
+	
+	public String getUserType(int id) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query; 
+		String EndUserType = "Buyer";
+		query = "SELECT UserType FROM END_USER WHERE EndUserID = '" + id + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if(rs.next()){
+			EndUserType = rs.getString("UserType");
+		}
+		
+		return EndUserType;
+	}
 
 	public void insertEndUser(EndUser endUser) throws SQLException {
 		Connection dbConnection = getConnection();
@@ -103,11 +118,15 @@ public class ApplicationDAO {
 
 	public int getEndUserID(String username) throws SQLException {
 		Connection dbConnection = getConnection();
+		int id = 0; 
 		String query = "SELECT EndUserID FROM END_USER WHERE Username='" + username + "'";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-		rs.next();
-		return rs.getInt("EndUserID");
+		if(rs.next()) {
+			id = rs.getInt("EndUserID");
+		}
+		
+		return id;
 	}
 
 	/*

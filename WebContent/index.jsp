@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label class="control-label col-md-1 col-lg-1 col-sm-1">Username:</label>
 				<div class="col-md-5 col-lg-5 col-sm-5">
-					<input class="form-control" type="text" name="username"
+					<input class="form-control" type="text" name="username" minlength="3"
 						maxlength="30" required autofocus placeholder="Username" />
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 				<label class="control-label col-md-1 col-lg-1 col-sm-1">Password:</label>
 				<div class="col-md-5 col-lg-5 col-sm-5">
 					<input class="form-control" type="password" name="password"
-						maxlength="20" required placeholder="Password" />
+						maxlength="20" required placeholder="Password" minlength="3" />
 				</div>
 			</div>
 			<div class="form-group">

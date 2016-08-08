@@ -8,6 +8,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <%@include file="navbar.jsp"%>
+<%
+				ApplicationDAO dao = new ApplicationDAO();
+				ResultSet rs = dao.getCategories();
+				Item item = new Item(); 
+			%>
 <div>
 	<h2 style="margin-left: 35%;">Create New Item:</h2>
 </div>
@@ -15,17 +20,13 @@
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Name:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<input class="form-control" type="text" name="itemName"
+			<input class="form-control" type="text" name="itemName" minlength="3"
 				placeholder="Item Name" required autofocus />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Category:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<%
-				ApplicationDAO dao = new ApplicationDAO();
-				ResultSet rs = dao.getCategories();
-			%>
 			<select class="form-control" name="itemCategory">
 				<%
 					while (rs.next()) {
@@ -48,22 +49,32 @@
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Color:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<input class="form-control" type="text" name="color"
-				placeholder="Color" required />
+			<select class="form-control" name="color">
+				<%
+					for(int i = 0; i < item.colors.length; i++) {
+						
+				%>
+				<option>
+					<%=item.colors[i]%>
+				</option>
+				<%
+					}
+				%>
+			</select>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Quantity
 			On Hand:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<input class="form-control" type="number" name="qtyOnHand" required />
+			<input class="form-control" type="number" value="1" min="1" name="qtyOnHand" required />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Weight:</label>
 		<div class="col-md-5 col-lg-5 col-sm-5">
-			<input class="form-control" type="number" name="weight"
-				placeholder="Item Weight" required />
+			<input class="form-control" type="number" value="0" name="weight"
+				placeholder="Item Weight" required  min="0" /> Pounds
 		</div>
 	</div>
 	<div class="form-group">

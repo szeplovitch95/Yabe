@@ -19,8 +19,9 @@
 		
 		int id = dao.getEndUserID(endUser.getUsername());
 		
-		if(id < 0) {
+		if(id == 0) {
 			response.sendRedirect("error.jsp");
+			return;
 		}
 		
 		endUser.setPassword(request.getParameter("password"));
@@ -43,10 +44,6 @@
 		buyer.setShippingState(request.getParameter("shipping-state"));
 		buyer.setShippingZipCode(request.getParameter("zip-code"));
 		
-		
-		
-		
-
 		if (!endUser.getUsername().equals("") && !endUser.getFirstName().equals("")
 				&& !endUser.getLastName().equals("") && !endUser.getPassword().equals("") && !rePassword.equals("")
 				&& !endUser.getEmail().equals("") && !endUser.getPhoneNum().equals("")) {

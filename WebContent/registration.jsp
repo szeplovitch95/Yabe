@@ -28,14 +28,14 @@
 						Name:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
 						<input class="form-control" type="text" name="firstName"
-							placeholder="First Name" required autofocus />
+							placeholder="First Name" pattern="[A-Za-z]+" minlength="5" required autofocus />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-md-2 col-sm-2 col-lg-2">Last
 						Name:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input class="form-control" type="text" name="lastName"
+						<input class="form-control" type="text" name="lastName" pattern="[a-zA-Z]+" minlength="3"
 							placeholder="Last Name" required />
 					</div>
 				</div>
@@ -60,7 +60,7 @@
 				<div class="form-group">
 					<label class="control-label col-md-2 col-sm-2 col-lg-2">Password:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input class="form-control" type="password" name="password"
+						<input class="form-control" type="password" name="password" minlength="4"
 							maxlength="20" placeholder="Password" required />
 					</div>
 				</div>
@@ -68,14 +68,14 @@
 					<label class="control-label col-md-2 col-sm-2 col-lg-2">Confirm
 						Password</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input class="form-control" type="password" name="rePassword"
+						<input class="form-control" type="password" name="rePassword" minlength="4"
 							maxlength="20" placeholder="Confirm Password" required />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-md-2 col-sm-2 col-lg-2">Email:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input class="form-control" type="text" name="emailAddress"
+						<input class="form-control" type="text" name="emailAddress" minlength="5"
 							placeholder="Email Address" required />
 					</div>
 				</div>
@@ -84,7 +84,7 @@
 						Number:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
 						<input class="form-control" type="text" name="phoneNum"
-							placeholder="Format: 999-999-9999" maxlength="15"
+							placeholder="Format: 999-999-9999" maxlength="15" title="Format: 999-999-9999" minlength="10"
 							pattern="\d{3}[\-]\d{3}[\-]\d{4}" required />
 					</div>
 				</div>
@@ -106,7 +106,7 @@
 					<label class="col-sm-2 col-md-2 col-lg-2 control-label"
 						for="card-holder-name">Name on Card</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="card-holder-name"
+						<input type="text" class="form-control" name="card-holder-name" pattern="[A-Za-z]+" minlength="4"
 							id="card-holder-name" placeholder="Card Holder's Name">
 					</div>
 				</div>
@@ -114,7 +114,7 @@
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label"
 						for="card-number">Card Number</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="card-number"
+						<input type="text" class="form-control" name="card-number" pattern= "[0-9]+" maxlength="16" minlength="15"
 							id="card-number" placeholder="Debit/Credit Card Number">
 					</div>
 				</div>
@@ -125,7 +125,7 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-5 col-lg-5 col-md-5">
 								<select class="form-control col-sm-2" name="expiry-month"
-									id="expiry-month">
+									id="expiry-month" required>
 									<option>Month</option>
 									<option value="01">Jan (01)</option>
 									<option value="02">Feb (02)</option>
@@ -142,7 +142,7 @@
 								</select>
 							</div>
 							<div class="col-xs-5 col-sm-5 col-lg-5 col-md-5">
-								<select class="form-control" name="expiry-year">
+								<select class="form-control" name="expiry-year" required>
 									<option value="13">2013</option>
 									<option value="14">2014</option>
 									<option value="15">2015</option>
@@ -163,7 +163,7 @@
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label" for="cvv">Card
 						CVV</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="cvv" id="cvv"
+						<input type="text" class="form-control" name="cvv" id="cvv" maxlength="3" pattern= "[0-9]+" minlength="2"
 							placeholder="Security Code">
 					</div>
 				</div>
@@ -174,7 +174,7 @@
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label"
 						for="shippingStreet">Address:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="shipping-street"
+						<input type="text" class="form-control" name="shipping-street" minlength="6" maxlength="25"
 							placeholder="Shipping Street">
 					</div>
 				</div>
@@ -182,7 +182,7 @@
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label"
 						for="shippingCity">City:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="shipping-city"
+						<input type="text" class="form-control" name="shipping-city" pattern="[A-Za-z]+" minlength="2" maxlength="15"
 							placeholder="Shipping City">
 					</div>
 				</div>
@@ -190,16 +190,15 @@
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label"
 						for="shippingStreet">State:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="shipping-state"
-							placeholder="Shipping State">
+						<input type="text" class="form-control" name="shipping-state" maxlength="2"
+							placeholder="Shipping State Format: NJ, NY, etc.." title="Two letter State code" pattern="[A-Za-z]{2}">
 					</div>
 				</div>
-
 				<div class="form-group">
 					<label class="col-md-2 col-sm-2 col-lg-2 control-label"
 						for="zipCode">Zip Code:</label>
 					<div class="col-md-5 col-lg-5 col-sm-5">
-						<input type="text" class="form-control" name="zip-code"
+						<input type="text" class="form-control" name="zip-code" minlength="5" pattern= "[0-9]+"
 							placeholder="Zip Code">
 					</div>
 				</div>

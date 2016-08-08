@@ -17,7 +17,6 @@
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
 				<%
 				String username = (String)session.getAttribute("username");
-				System.out.println(username);
 				if(username.equals("admin")) {
 				%>
 					<li id="question"><a href="questionPage.jsp">Questions</a></li>
