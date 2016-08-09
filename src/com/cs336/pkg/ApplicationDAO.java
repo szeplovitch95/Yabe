@@ -282,7 +282,7 @@ public class ApplicationDAO {
 
 	public ResultSet getAllAuctions() throws SQLException {
 		Connection dbConnection = getConnection();
-		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
+		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,CurrentPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -329,20 +329,37 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 
-	public boolean validateBid(Auction auction) throws SQLException {
+	public int getMaxBidPrice(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT MAX(OfferPrice) AS 'HighestBid' FROM BID, AUCTION WHERE" + " BID.AuctionID=" + auctionID
+				+ "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		return rs.getInt("HighestBid");
+	}
+
+	public int getTotalBids(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Count(DISTINCT BidID) AS 'TotalBids' FROM BID, AUCTION WHERE" + " BID.AuctionID="
+				+ auctionID + "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		return rs.getInt("TotalBids");
+	}
+
+	public boolean validateBid(int auctionID, int price) throws SQLException {
 		/*
 		 * Bid Rules: 1. A user cannot bid a lower price for the same auction 2.
 		 * A user shouldnt bid a higher price of its previous price is the
 		 * highest in the auction at the moment. 3.
 		 */
+		if (price <= getMaxBidPrice(auctionID)) {
+			return false;
+		}
 
-		Connection dbConnection = getConnection();
-		String query = "SELEC";
-
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-
-		return false;
+		return true;
 	}
 
 	/*

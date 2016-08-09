@@ -20,7 +20,10 @@
 		//String title = rs.getString("ItemName");
 		
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
+		
 		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
+		int currentPrice = dao.getMaxBidPrice(Integer.parseInt(auctionID)); 
+		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
 		rs2.next();
 	%>
@@ -57,13 +60,19 @@
 		<div class="row">
 			<label class="control-label col-md-2">Initial Price:</label>
 			<div class="col-md-3">
-				<%=rs2.getInt("InitialPrice")%>
+				$<%=rs2.getInt("InitialPrice")%>
+			</div>
+		</div>
+				<div class="row">
+			<label class="control-label col-md-2">Current Price:</label>
+			<div class="col-md-3">
+				$<%=currentPrice%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Total Bids:</label>
 			<div class="col-md-3">
-				<%=rs2.getInt("Total_Bids")%>
+				<%=totalBids%>
 			</div>
 		</div>
 		<div class="row">
@@ -98,7 +107,7 @@
 				%>
 				<tr>
 					<td><%=rs4.getInt("BidID")%></td>
-					<td><%=rs4.getInt("OfferPrice")%></td>
+					<td>$<%=rs4.getInt("OfferPrice")%></td>
 					<td><%=rs4.getInt("OfferedBy")%></td>
 				</tr>
 				<%

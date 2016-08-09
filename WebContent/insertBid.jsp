@@ -8,16 +8,23 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
-<%@include file="navbar.jsp"%>
+		<%@include file="newBid.jsp" %>
 <%
 	ApplicationDAO dao1 = new ApplicationDAO();
-	Bid bid = new Bid();
-	int id = (Integer)session.getAttribute("auctionID");
-	bid.setAuctionID(id);
-	bid.setOfferedBy((Integer) session.getAttribute("userID"));
-	bid.setOfferPrice(Integer.parseInt(request.getParameter("offerPrice")));
-	dao1.insertBid(bid);
-	response.sendRedirect("singleAuction.jsp?" + id);
+	int id = (Integer)session.getAttribute("auctionID");		
+	if (dao1.validateBid(id, Integer.parseInt(request.getParameter("offerPrice")))) {
+		Bid bid = new Bid();
+		bid.setAuctionID(id);
+		bid.setOfferedBy((Integer) session.getAttribute("userID"));
+		bid.setOfferPrice(Integer.parseInt(request.getParameter("offerPrice")));
+		dao1.insertBid(bid);
+		response.sendRedirect("singleAuction.jsp?" + id);
+	} 
+	else { %>
+		<label class="control-label" style="margin-left: 30%; color: Red;">Current Price is Higher than 
+		your offer. Please bid a higher price.</label>
+<%
+	}
 %>
 <body>
 </body>

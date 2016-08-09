@@ -54,7 +54,7 @@
 		<div class="row">
 			<label class="control-label col-md-2">Weight:</label>
 			<div class="col-md-3">
-				<%=rsItem.getInt("Weight")%>
+				<%=rsItem.getInt("Weight")%> Pounds
 			</div>
 		</div>
 	</div>

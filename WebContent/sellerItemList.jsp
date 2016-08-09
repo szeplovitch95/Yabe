@@ -42,7 +42,7 @@
 			<td><%=rs2.getString("ItemDescription")%></td>
 			<td><%=rs2.getString("Color")%></td>
 			<td><%=rs2.getInt("QuantityOnHand")%></td>
-			<td><%=rs2.getString("Weight")%></td>
+			<td><%=rs2.getString("Weight")%> Pounds</td>
 			<td><a href="singleItem.jsp?<%=rs2.getInt("ItemID")%>">View</a>
 			</td>
 		</tr>

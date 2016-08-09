@@ -22,7 +22,6 @@
 				<th>Bid ID</th>
 				<th>Auction ID</th>
 				<th>Offer Price</th>
-				<th>Offered By</th>
 				<th>View Auction</th>
 			</tr>
 		</thead>
@@ -33,8 +32,7 @@
 			<tr>
 				<td><%=rs11.getInt("BidID")%></td>
 				<td><%=rs11.getInt("AuctionID")%></td>
-				<td><%=rs11.getInt("OfferPrice")%></td>
-				<td><%=rs11.getInt("OfferedBy")%></td>
+				<td>$<%=rs11.getInt("OfferPrice")%></td>
 				<td><a href="singleAuction.jsp?<%=rs11.getInt("AuctionID")%>">View</a>
 				</td>
 			</tr>

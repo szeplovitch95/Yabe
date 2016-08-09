@@ -24,6 +24,7 @@
 			<th>Item Name</th>
 			<th>Creation Date</th>
 			<th>Start Price</th>
+			<th>Current Price</th>
 			<th>Total Bids</th>
 			<th>Closing Date</th>
 			<th>Status</th>
@@ -35,13 +36,16 @@
 			while (rs.next()) {
 			ResultSet rs2 = dao.getAuctionItemName(rs.getInt("ItemID"));
 			rs2.next(); 
+			int currentPrice = dao.getMaxBidPrice(rs.getInt("AuctionID"));
+			int totalBids = dao.getTotalBids(rs.getInt("AuctionID"));
 		%>
 		<tr>
 			<td><%=rs.getInt("AuctionID")%></td>
 			<td><%=rs2.getString("ItemName")%></td>
 			<td><%=rs.getDate("StartDate")%></td>
-			<td><%=rs.getInt("InitialPrice")%></td>
-			<td><%=rs.getInt("Total_Bids")%></td>
+			<td>$<%=rs.getInt("InitialPrice")%></td>
+			<td>$<%=currentPrice%></td>
+			<td><%=totalBids%></td>
 			<td><%=rs.getDate("CloseDate")%></td>
 			<td><%=rs.getString("Status")%></td>
 			<td>
