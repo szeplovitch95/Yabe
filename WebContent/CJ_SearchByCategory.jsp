@@ -47,8 +47,7 @@
 			rs = dao.getItemsColor();
 			while (rs.next()) {
 				String color = rs.getString("Color");
-				out.print("<input type=\"radio\" name=\"color\" value=\"" + color + "\" checked/>"
-						+ color);//+ "</br>");
+				out.print("<input type=\"radio\" name=\"color\" value=\"" + color + "\" checked/>" + color);//+ "</br>");
 			}
 			out.print(
 					"<input type=\"radio\" name=\"color\" value=\"" + "" + "\" checked/>" + "Any Color" + "</br>");
@@ -59,15 +58,20 @@
 		<p>Choose Status:</p>
 		
 		<div class="form-group">
+		
 			<%
 			rs = dao.getDistinctStatus();
 			while (rs.next()) {
+				
 				String status =  rs.getString("Status");
-				out.print("<input type=\"radio\" name=\"status\" value=\"" + status + "\" checked/>"
-						+ status );//+ "</br>");
+
+				//out.print("<option value=\"" + status + "\">" + status + "</option>");
+				out.print("<input type=\"radio\" name=\"status\" value=\"" + status + "\" checked/>" + status );//+ "</br>");
+						
 			}
-			out.print(
-					"<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
+			out.print( "<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
+
+			//out.print("<option value=\"" + ""+ "\">" + "Any Status "+ "</option>");
 			rs = dao.getMaxWeight();
 			int i = 0;
 			int maxweight = 100;

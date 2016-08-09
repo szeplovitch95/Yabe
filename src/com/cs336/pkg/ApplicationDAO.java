@@ -627,13 +627,13 @@ public class ApplicationDAO {
 	 * 
 	 */
 
-	public void insertAlert(int BuyerID, int AuctionID) throws SQLException {
+	public void insertAlert(int BuyerID, String AuctionID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "Insert into ALERT"
 				+ "(BuyerID, AuctionID) "
 				+ "values ("+BuyerID+","+ AuctionID+")";
 		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-
+		System.out.print(query);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
@@ -663,8 +663,7 @@ public class ApplicationDAO {
 		preparedStatement.close();
 		dbConnection.close();
 	}
-
-
+	
 /*
  * 
  *FUNCTIONS USED IN SEARCH FUNCTIONALITY 

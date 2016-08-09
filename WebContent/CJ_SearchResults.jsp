@@ -67,7 +67,6 @@
 							value="<% out.print(rs.getInt("AuctionID"));%>">Create
 							Alert</button>
 					</form>
-					</div>
 				</td>
 			</tr>
 			<%
