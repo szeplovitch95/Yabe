@@ -16,6 +16,7 @@
 		ResultSet rs = dao.getAllAuctions();
 		String itemName = "";
 	%>
+	<h2 style="text-align: center">List of Auctions:</h2>
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>

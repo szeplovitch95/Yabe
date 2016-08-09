@@ -65,6 +65,22 @@ public class ApplicationDAO {
 		}
 	}
 	
+	public ResultSet getUserAuctions(int userID, String userType) throws SQLException {
+		   Connection dbConnection = getConnection();
+		   String query = "";
+
+		   if(userType.equals("Buyer")) {
+		      query = "SELECT Distinct AuctionID, OfferedBy FROM BID WHERE OfferedBy=" + userID + "";
+		   }
+		   else {
+		      query = "SELECT AuctionID, CreatedBy FROM AUCTION WHERE CreatedBy=" + userID + "";
+		   }
+		   
+		   PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		   ResultSet rs = preparedStatement.executeQuery();
+		   return rs;
+	}
+	
 	public int getUserID(String name, String password) throws SQLException {
 		Connection dbConnection = getConnection(); 
 		String query; 

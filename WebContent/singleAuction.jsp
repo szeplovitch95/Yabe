@@ -28,10 +28,10 @@
 		<div class="row">
 			<a style="float: right;" href="newBid.jsp">
 				<%
-					if(rs2.getString("Status").equals("Closed")) { %>
+					if(rs2.getString("Status").equals("Closed") || rs2.getInt("CreatedBy") == (Integer)session.getAttribute("userID")) { %>
 						<button type="button" class="btn btn-primary" disabled>New Bid</button> <% 
 					} else { %>
-				<button type="submit" class="btn btn-primary">New Bid</button> <% 						
+						<button type="submit" class="btn btn-primary">New Bid</button> <% 						
 					}
 				%>
 			</a>

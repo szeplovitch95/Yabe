@@ -21,7 +21,7 @@
 					Price:</label>
 				<div class="col-md-5 col-lg-5 col-sm-5">
 					<input class="form-control" type="number" name="offerPrice"
-						placeholder="Offer Price" required />
+						placeholder="Offer Price" required /> $
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary">Create Bid</button>

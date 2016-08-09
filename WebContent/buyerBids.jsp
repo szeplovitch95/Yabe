@@ -15,6 +15,7 @@
 	ResultSet rs11 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));
 	
 %>
+	<h2 style="text-align: center">History of your Bids:</h2>
 	<table class="table table-bordered table-hover">
 		<thead>
 			<tr>
