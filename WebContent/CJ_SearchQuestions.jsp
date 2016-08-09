@@ -9,6 +9,8 @@
 <title>Search Questions</title>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
 	<h1>Search Currently Asked Questions!</h1>
 	<form id="contact_form" action="CJ_SearchThroughAnsweredQuestions.jsp"
 		method="post">

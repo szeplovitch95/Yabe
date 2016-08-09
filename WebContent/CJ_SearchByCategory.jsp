@@ -14,53 +14,62 @@
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
 	<form class="form-horizontal" action="CJ_SearchResults.jsp"
 		method="post" style="margin-left: 7%;">
+		
+		
 		<p>Choose Category:</p>
+		
+		
 		<div class="form-group">
 			<%
 				ApplicationDAO dao = new ApplicationDAO();
 				ResultSet rs = dao.getCategoryAndID();
-				//out.print("<select name = \" Category \">");
-				//out.print("<option value=\"" + "" + "\">" + "Any Category" + " </option>");
 				while (rs.next()) {
 					int categoryID = rs.getInt("CategoryID");
 					String categoryname = rs.getString("CategoryName");					
-				out.print("<input type=\"radio\" name=\"category\" value=\"" + categoryID + "\" checked/>"
-						+ categoryname );//+ "</br>");
-					//out.print("<option value=\"" + categoryID + "\">"
-							//+ categoryname + " </option>");
+					out.print(" <input type=\"radio\" name=\"category\" value=\"" + categoryID + "\" checked/> "
+						+ categoryname );
 				}
 				out.print(
 						"<input type=\"radio\" name=\"category\" value=\"" + "" + "\" checked/>" + "Any Category" + "</br>");
 			%>
 		</div>
+		
+		
+		
+		<p>Choose Color</p>
+			
 		<div class="form-group">
-			<label class="control-label col-md-2 col-sm-2 col-lg-2">Choose
-				Color:</label>
-			<p>Choose Color:</p>
 			<%
 			rs = dao.getItemsColor();
 			while (rs.next()) {
 				String color = rs.getString("Color");
-				out.print("<input type=\"radio\" name=\"color\" value=\"" + color + "\" checked/>"
-						+ color);//+ "</br>");
+				out.print("<input type=\"radio\" name=\"color\" value=\"" + color + "\" checked/>" + color);//+ "</br>");
 			}
 			out.print(
 					"<input type=\"radio\" name=\"color\" value=\"" + "" + "\" checked/>" + "Any Color" + "</br>");
 			%>
 		</div>
+		
+		
+		<p>Choose Status:</p>
+		
 		<div class="form-group">
-			<p>Choose Status:</p>
+		
 			<%
 			rs = dao.getDistinctStatus();
 			while (rs.next()) {
+				
 				String status =  rs.getString("Status");
-				out.print("<input type=\"radio\" name=\"status\" value=\"" + status + "\" checked/>"
-						+ status );//+ "</br>");
+				//out.print("<option value=\"" + status + "\">" + status + "</option>");
+				out.print("<input type=\"radio\" name=\"status\" value=\"" + status + "\" checked/>" + status );//+ "</br>");
+						
 			}
-			out.print(
-					"<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
+			out.print( "<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
+			//out.print("<option value=\"" + ""+ "\">" + "Any Status "+ "</option>");
 			rs = dao.getMaxWeight();
 			int i = 0;
 			int maxweight = 100;
@@ -84,7 +93,11 @@
 			}
 			%>
 		</div>
+		
+		
+		
 		<p>Price Range</p>
+		
 		<div data-role="main" class="form-group">
 			<div data-role="rangeslider">
 				<label for="price-min">Price:</label> <input type="range"
@@ -95,8 +108,12 @@
 					value="<%out.print(maxprice*.90);%>" min="0"
 					max="<%out.print(maxprice);%>">
 			</div>
-			<p>Weight Range</p>
 		</div>
+		
+		
+		
+		<p>Weight Range</p>
+		
 		<div data-role="main" class="form-group">
 			<div data-role="rangeslider">
 				<label for="weight-min">Price:</label> <input type="range"
@@ -107,8 +124,38 @@
 					value="<%out.print(maxweight*.90);%>" min="0"
 					max="<%out.print(maxweight);%>">
 			</div>
+			
+			
+			<div class="form-group">
+					<label class="col-sm-2 col-md-2 col-lg-2 control-label"
+						for="sort-by">Sort By :</label>
+					<div class="col-md-3 col-lg-3 col-sm-3">
+						<select class="form-control" name="sort-by">
+							<option value="">No Sorting</option>
+							<option value=" order by A.InitialPrice ">InitialPrice</option>
+							<option value=" order by I.ItemName ">Item Name</option>
+							<option value=" order by A.ClosingPrice ">Closing Price</option>
+							<option value=" order by A.Status ">Status</option>
+							<option value=" order by I.Color ">Color</option>
+							<option value=" order by C.CategoryName ">Color</option>
+						</select>
+					</div>
+				</div>
+				
+				<label class="col-sm-2 col-md-2 col-lg-2 control-label"
+						for="order-by">Order By :</label>
+					<div class="col-md-3 col-lg-3 col-sm-3">
+						<select class="form-control" name="order-by">
+							<option value=" asc ">Ascending</option>
+							<option value=" desc ">Descending</option>
+						</select>
+					</div>
+					
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit">Search Items</button>
+				
+				
+				
 	</form>
 </body>
 </html>

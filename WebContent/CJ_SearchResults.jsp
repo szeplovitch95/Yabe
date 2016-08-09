@@ -5,11 +5,13 @@
 <html>
 <head>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<%@include file="navbar.jsp"%>
+
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>SearchResults</title>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
 	<%
 		String category =  request.getParameter("category");
 		String color = request.getParameter("color");
@@ -18,6 +20,8 @@
 		String priceMax = request.getParameter("price-max");
 		String weightMin = request.getParameter("weight-min");
 		String weightMax = request.getParameter("weight-max");
+		String sortBy = request.getParameter("sort-by");
+		String orderBy = request.getParameter("order-by");
 		
 		out.print(" cat id ." + category + 
 				  ". color ." + color + 
@@ -25,10 +29,11 @@
 				  ". princeMin ." + priceMin +
 				  ". PriceMax ." + priceMax +
 				  ". WeightMin ." + weightMin + 
-				  ". WeightMax ." + weightMax);
-
+				  ". WeightMax ." + weightMax + 
+				  ". Sortby." + sortBy + 
+				  ". orderby." + orderBy);
 		ApplicationDAO dao = new ApplicationDAO();
-		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax);
+		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, sortBy, orderBy);
 %>
 	<table class="table table-bordered">
 		<thead>
@@ -61,7 +66,6 @@
 							value="<% out.print(rs.getInt("AuctionID"));%>">Create
 							Alert</button>
 					</form>
-					</div>
 				</td>
 			</tr>
 			<%

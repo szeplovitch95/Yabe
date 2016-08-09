@@ -10,6 +10,9 @@
 <title>View Unanswered Questions</title>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
+	
 	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		ResultSet rs = dao.getUnansweredQuestions();;

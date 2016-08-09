@@ -10,6 +10,8 @@
 <title>Post Question</title>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
 	<h1>Confused ?! ASK US!</h1>
 	<form id="contact_form" action="CJ_QuestionSubmitted.jsp" method="post">
 		<div class="form-group">

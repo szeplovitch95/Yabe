@@ -10,6 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%@include file="navbar.jsp"%>
 	<%
  	String id = request.getParameter("QuestionID");
  	String answer =  request.getParameter("answer");
