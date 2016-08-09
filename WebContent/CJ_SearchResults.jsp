@@ -4,65 +4,93 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%@include file="navbar.jsp" %>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>SearchResults</title>
 </head>
 <body>
 
 	<%
-		String itemid =  request.getParameter("category");
-		int id = Integer.parseInt(itemid);
-		ApplicationDAO dao1 = new ApplicationDAO();
-		ResultSet rs = dao1.getItemsWhereCategory(id); 
-	%>
+		String category =  request.getParameter("category");
+		String color = request.getParameter("color");
+		String status = request.getParameter("status");
+		String priceMin = request.getParameter("price-min");
+		String priceMax = request.getParameter("price-max");
+		String weightMin = request.getParameter("weight-min");
+		String weightMax = request.getParameter("weight-max");
+		
+		
+		out.print(" cat id ." + category + 
+				  ". color ." + color + 
+				  ". status ." + status + 
+				  ". princeMin ." + priceMin +
+				  ". PriceMax ." + priceMax +
+				  ". WeightMin ." + weightMin + 
+				  ". WeightMax ." + weightMax);
+
+		ApplicationDAO dao = new ApplicationDAO();
+		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax);
+%>
+
+
 <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Item ID</th>
-        <th>Name</th>
-        <th>Description</th>
+        <th>Item Name</th>
+        <th>Category Name</th>
         <th>Color</th>
-        <th>Quantity on Hand</th>
         <th>Weight</th>
+        <th>Status</th>
+        <th>InitialPrice</th>
+        <th>Closing Price (0 is still Open)</th>
+        <th>Make Alert</th>
+        
       </tr>
     </thead>
+ 
     <tbody>
-    <% while(rs.next()) { %>
+    <% int i = 0; 
+    while(rs.next()) {
+    	i ++;%>
     <tr>
-		<td>
-			<%= rs.getInt("ItemID") %>
-		</td>
 		<td>
 			<%= rs.getString("ItemName") %>
 		</td>
 		<td>
-		</td>
-		<td>
-			<%= rs.getString("ItemDescription") %>
+			<%= rs.getString("CategoryName") %>
 		</td>
 		<td>
 			<%= rs.getString("Color") %>
 		</td>
 		<td>
-		<%= rs.getInt("QuantityOnHand") %>
+			<%= rs.getInt("Weight") %>
 		</td>
 		<td>
-			<%= rs.getString("Weight") %>
+		<%= rs.getString("Status") %>
+		</td>
+		<td>
+			<%= rs.getInt("InitialPrice") %>
+		</td>
+		<td>
+			<%= rs.getInt("ClosingPrice") %>
+		</td>
+		<td>
+		
+		
+		
+		<form action="CJ_MakeAlertsFromForm.jsp" style="margin-left: 7%;">
+		<button name="AuctionID" type="submit" id="AuctionID" value= "<% out.print(rs.getInt("AuctionID"));%>" >Create Alert</button>
+		</form>
+		</div>
 		</td>
 	</tr>
+	
 	<%
 	}
   %>
     </tbody>
   </table>
-
-
-
-<% 
-	
-%>
-
-
+  
 
 
 </body>

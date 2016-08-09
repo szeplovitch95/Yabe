@@ -32,8 +32,6 @@
 			</div>
 		</div>
 		<div class="form-group">
-		 <div class="col-md-offset-6 col-sm-offset-6 col-lg-offset-6 col-md-10 col-sm-10 col-lg-10">
-			<button class="btn btn-primary" type="submit">Create Auction</button>		
-    	</div>		
+		<button class="btn btn-primary" type="submit">Create Auction</button>
 		</div>
 </form>

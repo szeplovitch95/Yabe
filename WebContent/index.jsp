@@ -15,7 +15,7 @@
 	<hr/>
 	<form class="form-horizontal" name="login" action="login.jsp" method="post" style="margin-left: 7%;">
 		<div class="form-group">
-			<label class="control-label col-md-1 col-lg-1 col-sm-1">Username:</label>
+			<label class="control-label col-md-1 col-lg-1 col-sm-1">User-name:</label>
 			<div class="col-md-5 col-lg-5 col-sm-5">
 				<input class="form-control" type="text" name="username" maxlength="30" required autofocus placeholder="Username"/>			
 			</div>
