@@ -349,6 +349,26 @@ public class ApplicationDAO {
 		preparedStatement.close();
 		dbConnection.close();
 	}
+	
+	public boolean validateBid(Auction auction) throws SQLException {
+		/*
+		 * Bid Rules: 
+		 * 1. A user cannot bid a lower price for the same auction 
+		 * 2. A user shouldnt bid a higher price of its previous price is the highest in the auction at the moment. 
+		 * 3.
+		 */
+		
+		Connection dbConnection = getConnection();
+		String query = "SELECT 
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		
+		
+		
+		return false;
+	}
 
 	/*
 	 * Item Methods
