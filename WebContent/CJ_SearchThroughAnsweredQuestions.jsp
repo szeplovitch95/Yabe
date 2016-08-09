@@ -14,7 +14,7 @@
 	<%@include file="navbar.jsp"%>
 	<%
 	String search  = request.getParameter("questionQuery");
-	ApplicationDAO dao = new ApplicationDAO();
+	ApplicationDAO dao = new ApplicationDAO(); 
 	dao.removeStopWords(search);
 	ResultSet rs = dao.SearchFromArrayList();
 %>

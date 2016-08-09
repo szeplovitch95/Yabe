@@ -18,58 +18,76 @@
 	<%@include file="navbar.jsp"%>
 	<form class="form-horizontal" action="CJ_SearchResults.jsp"
 		method="post" style="margin-left: 7%;">
-		
-		
-		<p>Choose Category:</p>
-		
-		
 		<div class="form-group">
 			<%
 				ApplicationDAO dao = new ApplicationDAO();
 				ResultSet rs = dao.getCategoryAndID();
-				while (rs.next()) {
-					int categoryID = rs.getInt("CategoryID");
-					String categoryname = rs.getString("CategoryName");					
-					out.print(" <input type=\"radio\" name=\"category\" value=\"" + categoryID + "\" checked/> "
-						+ categoryname );
-				}
-				out.print(
-						"<input type=\"radio\" name=\"category\" value=\"" + "" + "\" checked/>" + "Any Category" + "</br>");
 			%>
-		</div>
-		
-		
-		
-		<p>Choose Color</p>
-			
-		<div class="form-group">
-			<%
-			rs = dao.getItemsColor();
-			while (rs.next()) {
-				String color = rs.getString("Color");
-				out.print("<input type=\"radio\" name=\"color\" value=\"" + color + "\" checked/>" + color);//+ "</br>");
-			}
-			out.print(
-					"<input type=\"radio\" name=\"color\" value=\"" + "" + "\" checked/>" + "Any Color" + "</br>");
+			<label class="control-label col-md-1 col-sm-1 col-lg-1">Category:</label>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				<select class="form-control" name="category">
+					<%
+						while (rs.next()) {
+							int categoryID = rs.getInt("CategoryID");
+							String categoryname = rs.getString("CategoryName");
+					%>
+					<option>
+						<%=categoryname%>
+					</option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+			<% 
+			//out.print("<input type=\"radio\" name=\"category\" value=\"" + "" + "\" checked/>" + "Any Category" + "</br>");
 			%>
-		</div>
-		
-		
-		<p>Choose Status:</p>
-		
-		<div class="form-group">
-		
 			<%
-			rs = dao.getDistinctStatus();
-			while (rs.next()) {
-				
-				String status =  rs.getString("Status");
-				//out.print("<option value=\"" + status + "\">" + status + "</option>");
-				out.print("<input type=\"radio\" name=\"status\" value=\"" + status + "\" checked/>" + status );//+ "</br>");
-						
-			}
-			out.print( "<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
+				rs = dao.getItemsColor();
+			%>
+			<label class="control-label col-md-1 col-sm-1 col-lg-1">Color:</label>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				<select class="form-control" name="color">
+					<%
+						while (rs.next()) {
+							String color = rs.getString("Color");
+					%>
+					<option>
+						<%=color%>
+					</option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+
+			<%
+		//	out.print("<input type=\"radio\" name=\"color\" value=\"" + "" + "\" checked/>" + "Any Color" + "</br>");
+			%>
+			<%
+				rs = dao.getDistinctStatus();
+			%>
+			<label class="control-label col-md-1 col-sm-1 col-lg-1">Status:</label>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				<select class="form-control" name="status">
+					<%
+						while (rs.next()) {
+							String status = rs.getString("Status");
+					%>
+					<option>
+						<%=status%>
+					</option>
+					<%
+						}
+					%>
+				</select>
+			</div>
+<% 
+			// out.print( "<input type=\"radio\" name=\"status\" value=\"" + "" + "\" checked/>" + "Any Status" + "</br>");
 			//out.print("<option value=\"" + ""+ "\">" + "Any Status "+ "</option>");
+%>
+		</div>
+	<% 		
 			rs = dao.getMaxWeight();
 			int i = 0;
 			int maxweight = 100;
@@ -91,71 +109,51 @@
 				}
 				i++;
 			}
-			%>
-		</div>
-		
-		
-		
-		<p>Price Range</p>
-		
+			%>	
 		<div data-role="main" class="form-group">
-			<div data-role="rangeslider">
-				<label for="price-min">Price:</label> <input type="range"
-					name="price-min" id="price-min"
-					value="<%out.print(maxprice*.10);%>" min="0"
-					max="<%out.print(maxprice);%>"> <label for="price-max">Price:</label>
+		<label for="price-min" class="control-label col-sm-1 col-md-1 col-lg-1">Price:</label> 
+			<div data-role="rangeslider" class="col-md-4 col-sm-4 col-lg-4">
+				<input type="range"	name="price-min" id="price-min" value="<%out.print(maxprice*.10);%>" min="0"
+					max="<%out.print(maxprice);%>"> 
 				<input type="range" name="price-max" id="price-max"
 					value="<%out.print(maxprice*.90);%>" min="0"
 					max="<%out.print(maxprice);%>">
 			</div>
-		</div>
-		
-		
-		
-		<p>Weight Range</p>
-		
-		<div data-role="main" class="form-group">
-			<div data-role="rangeslider">
-				<label for="weight-min">Price:</label> <input type="range"
+			<label for="weight-min" class="control-label col-sm-1 col-md-1 col-lg-1">Weight:</label> 
+			<div data-role="rangeslider" class="col-md-4 col-sm-4 col-lg-4">
+			 <input type="range"
 					name="weight-min" id="weight-min"
-					value="<%out.print(maxweight*.10);%>" min="0"
-					max="<%out.print(maxweight);%>"> <label for="weight-max">Price:</label>
+					value="<%out.print(maxweight * .10);%>" min="0"
+					max="<%out.print(maxweight);%>">
 				<input type="range" name="weight-max" id="weight-max"
-					value="<%out.print(maxweight*.90);%>" min="0"
+					value="<%out.print(maxweight * .90);%>" min="0"
 					max="<%out.print(maxweight);%>">
 			</div>
-			
-			
-			<div class="form-group">
-					<label class="col-sm-2 col-md-2 col-lg-2 control-label"
-						for="sort-by">Sort By :</label>
-					<div class="col-md-3 col-lg-3 col-sm-3">
-						<select class="form-control" name="sort-by">
-							<option value="">No Sorting</option>
-							<option value=" order by A.InitialPrice ">InitialPrice</option>
-							<option value=" order by I.ItemName ">Item Name</option>
-							<option value=" order by A.ClosingPrice ">Closing Price</option>
-							<option value=" order by A.Status ">Status</option>
-							<option value=" order by I.Color ">Color</option>
-							<option value=" order by C.CategoryName ">Color</option>
-						</select>
-					</div>
-				</div>
-				
-				<label class="col-sm-2 col-md-2 col-lg-2 control-label"
-						for="order-by">Order By :</label>
-					<div class="col-md-3 col-lg-3 col-sm-3">
-						<select class="form-control" name="order-by">
-							<option value=" asc ">Ascending</option>
-							<option value=" desc ">Descending</option>
-						</select>
-					</div>
-					
-			<div class="form-group">
-				<button class="btn btn-primary" type="submit">Search Items</button>
-				
-				
-				
+		</div>
+		<div class="form-group">
+			<label class="col-sm-1 col-md-1 col-lg-1 control-label" for="sort-by">Sort
+				By :</label>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				<select class="form-control" name="sort-by">
+					<option value="">No Sorting</option>
+					<option value=" order by A.InitialPrice ">InitialPrice</option>
+					<option value=" order by I.ItemName ">Item Name</option>
+					<option value=" order by A.ClosingPrice ">Closing Price</option>
+					<option value=" order by A.Status ">Status</option>
+					<option value=" order by I.Color ">Color</option>
+					<option value=" order by C.CategoryName ">Color</option>
+				</select>
+			</div>
+			<label class="col-sm-1 col-md-1 col-lg-1 control-label"
+				for="order-by">Order By :</label>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				<select class="form-control" name="order-by">
+					<option value=" asc ">Ascending</option>
+					<option value=" desc ">Descending</option>
+				</select>
+			</div>
+			<button class="btn btn-primary" type="submit">Search Items</button>
+		</div>
 	</form>
 </body>
 </html>

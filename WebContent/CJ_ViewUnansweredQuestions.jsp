@@ -14,7 +14,7 @@
 	<%@include file="navbar.jsp"%>
 	
 	<%
-		ApplicationDAO dao = new ApplicationDAO();
+		ApplicationDAO dao = new ApplicationDAO(); 
 		ResultSet rs = dao.getUnansweredQuestions();;
 		 if(dao.getCountOfUnansweredQuestions()==0){
 		    	out.print("NO Unanswered Questions!");

@@ -16,7 +16,7 @@
 		out.print("value is " + AuctionID);
 		
 		ApplicationDAO dao = new ApplicationDAO();
-		dao.insertAlert(ID, AuctionID);
+		dao.insertAlert(ID, AuctionID); 
 		
 	%>
 </body>

@@ -20,7 +20,7 @@
  	out.print("question id is : " + id);
  	out.print("user id is : " + userID);
  	
- 	ApplicationDAO dao = new ApplicationDAO();
+ 	ApplicationDAO dao = new ApplicationDAO(); 
 	dao.insertAnswer(userID, id, answer );
  %>
 
