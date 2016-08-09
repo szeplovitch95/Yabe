@@ -4,12 +4,15 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
 <title>Insert title here</title>
 </head>
 <body>
- <%
+
+	<%@include file="navbar.jsp"%>
+	<%
  	String id = request.getParameter("QuestionID");
  	String answer =  request.getParameter("answer");
  	String userID =  request.getParameter("UserID");
@@ -20,12 +23,12 @@
  	ApplicationDAO dao = new ApplicationDAO();
 	dao.insertAnswer(userID, id, answer );
  %>
- 
- 
- <form id="answer_form" action="CJ_ViewUnansweredQuestions.jsp" method="post">
- 
- <button name="QuestionID" type="submit" id="QuestionID" >View More Unanswered Questions</button>
-		
- </form>
+
+
+	<form id="answer_form" action="CJ_ViewUnansweredQuestions.jsp"
+		method="post">
+		<button name="QuestionID" type="submit" id="QuestionID">View
+			More Unanswered Questions</button>
+	</form>
 </body>
 </html>

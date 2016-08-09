@@ -1,18 +1,18 @@
 package com.cs336.pkg;
 
 public class Item {
-	private int itemID;
 	private int sellerID;
-	private int categoryID; 
-	private String name; 
-	private String description; 
-	private String color; 
-	private String weight; 
-	private int quantityOnHand; 
-	
-	public Item(int itemID, int sellerID, int categoryID,String name, String description, String color, String weight, int quantityOnHand) {
+	private int categoryID;
+	private String name;
+	private String description;
+	private String color;
+	private String weight;
+	private int quantityOnHand;
+	public String[] colors = {"Yellow", "Black", "Blue", "White", "Red", "Green", "Purple", "Orange"};
+
+	public Item(int sellerID, int categoryID, String name, String description, String color, String weight,
+			int quantityOnHand) {
 		super();
-		this.itemID = itemID;
 		this.sellerID = sellerID;
 		this.categoryID = categoryID;
 		this.name = name;
@@ -21,15 +21,10 @@ public class Item {
 		this.weight = weight;
 		this.quantityOnHand = quantityOnHand;
 	}
-	
-	public Item() {}
 
-	public int getItemID(){
-		return itemID;
+	public Item() {
 	}
-	public void setItemID(int itemID){
-		this.itemID = itemID;
-	}
+
 	public int getSellerID() {
 		return sellerID;
 	}

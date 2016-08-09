@@ -6,13 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 public class ApplicationDAO {
 
-
-	public Connection getConnection(){
+	public Connection getConnection() {
 		String connectionUrl = "jdbc:mysql://classvm60.cs.rutgers.edu:3306/YABE?autoReconnect=true";
 		Connection connection = null;
 
@@ -29,7 +28,7 @@ public class ApplicationDAO {
 			e.printStackTrace();
 		}
 		try {
-			connection = DriverManager.getConnection(connectionUrl,"root", "RepDepKept4");
+			connection = DriverManager.getConnection(connectionUrl, "root", "RepDepKept4");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -38,7 +37,7 @@ public class ApplicationDAO {
 		return connection;
 	}
 
-	public void closeConnection(Connection connection){
+	public void closeConnection(Connection connection) {
 		try {
 			connection.close();
 		} catch (SQLException e) {
@@ -47,6 +46,315 @@ public class ApplicationDAO {
 		}
 	}
 
+	/*
+	 * End User Methods
+	 */
+
+	public boolean userLogin(String username, String password) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Username, Password FROM END_USER WHERE Username ='" + username + "' AND Password = '"
+				+ password + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			return true;
+		} 
+		else {
+			return false;
+		}
+	}
+	
+	
+	
+	public String getUserType(int id) throws SQLException {
+		Connection dbConnection = getConnection(); 
+		String query; 
+		String EndUserType = "Buyer";
+		query = "SELECT UserType FROM END_USER WHERE EndUserID = '" + id + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if(rs.next()){
+			EndUserType = rs.getString("UserType");
+		}
+		
+		return EndUserType;
+	}
+
+	public void insertEndUser(EndUser endUser) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into END_USER(FirstName, LastName, Gender, Username, Password, Email, Phone, UserType) values (?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setString(1, endUser.getFirstName());
+		preparedStatement.setString(2, endUser.getLastName());
+		preparedStatement.setString(3, endUser.getGender());
+		preparedStatement.setString(4, endUser.getUsername());
+		preparedStatement.setString(5, endUser.getPassword());
+		preparedStatement.setString(6, endUser.getEmail());
+		preparedStatement.setString(7, endUser.getPhoneNum());
+		preparedStatement.setString(8, endUser.getUserType());
+		preparedStatement.executeUpdate();
+		System.out.println("user added");
+
+		preparedStatement.close();
+		dbConnection.close();
+	}
+
+	public int getEndUserID(String username) throws SQLException {
+		Connection dbConnection = getConnection();
+		int id = 0; 
+		String query = "SELECT EndUserID FROM END_USER WHERE Username='" + username + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		if(rs.next()) {
+			id = rs.getInt("EndUserID");
+		}
+		
+		return id;
+	}
+
+	/*
+	 * Buyer Methods
+	 */
+
+	public void insertBuyer(Buyer buyer, int id) throws SQLException {
+		System.out.println("got here");
+		Connection dbConnection = getConnection();
+		String query = "INSERT INTO BUYER(EndUserID,CCType,CCNumber,ExpirationDate,CVV,CardHolderName,ShippingStreet,ShippingCity,ShippingState,ShippingZipCode) VALUES"
+				+ "(?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+		preparedStatement.setString(2, buyer.getCcType());
+		preparedStatement.setString(3, buyer.getCcNumber());
+		preparedStatement.setDate(4, buyer.getExpirationDate());
+		preparedStatement.setString(5, buyer.getcVV());
+		preparedStatement.setString(6, buyer.getCardHolderName());
+		preparedStatement.setString(7, buyer.getShippingStreet());
+		preparedStatement.setString(8, buyer.getShippingCity());
+		preparedStatement.setString(9, buyer.getShippingState());
+		preparedStatement.setString(10, buyer.getShippingZipCode());
+		preparedStatement.executeUpdate();
+		System.out.println("buyer added");
+	}
+
+	public ResultSet getBuyerBids(int userID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,BidID,OfferPrice,OfferedBy FROM BID" + " WHERE OfferedBy=" + userID;
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	/*
+	 * Seller Methods
+	 */
+
+	public boolean sellerExists(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT EndUserId from SELLER " + "WHERE EndUserId=" + id;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public void insertSeller(Seller seller, int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "INSERT INTO SELLER(EndUserID,BankName,BankAccountNumber,BankRoutingNumber) VALUES(?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setInt(1, id);
+		preparedStatement.setString(2, seller.getBankName());
+		preparedStatement.setString(3, seller.getBankAccountNumber());
+		preparedStatement.setString(4, seller.getBankRoutingNumber());
+
+		preparedStatement.executeUpdate();
+		System.out.println("seller added");
+	}
+
+	public ResultSet getSellerItems(int sellerID, boolean joinCategory) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "";
+
+		if (!joinCategory) {
+			query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM "
+					+ "JOIN SELLER ON ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID=" + sellerID + "";
+		} else {
+			query = "SELECT * FROM ITEM, CATEGORY, SELLER WHERE"
+					+ " ITEM.CategoryID = CATEGORY.CategoryID AND ITEM.EndUserID = SELLER.EndUserID AND SELLER.EndUserID="
+					+ sellerID + "";
+		}
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	public ResultSet getSellerID(Seller seller) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT EndUserID FROM SELLER" + "WHERE EndUserID = " + seller.getSellerID();
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION"
+				+ " JOIN SELLER ON AUCTION.CreatedBy = SELLER.EndUserID AND SELLER.EndUserId=" + sellerID + "";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
+	/*
+	 * Alert methods 
+	 */
+	
+	
+	
+	/*
+	 * Auction Methods
+	 */
+
+	public void insertAuction(Auction auction) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into AUCTION(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setInt(1, auction.getItemID());
+		preparedStatement.setString(2, auction.getStatus());
+		preparedStatement.setDouble(3, auction.getClosingPrice());
+		preparedStatement.setDouble(4, auction.getInitialPrice());
+		preparedStatement.setInt(5, auction.getTotalBids());
+		preparedStatement.setDate(6, auction.getStartDate());
+		preparedStatement.setDate(7, auction.getCloseDate());
+		preparedStatement.setInt(8, auction.getCreatedBy());
+
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+
+	public ResultSet getAuctionItemName(int itemId) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT ItemName FROM ITEM WHERE ItemID=" + itemId + "";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
+	public ResultSet getAuction(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT * FROM AUCTION WHERE AuctionID=" + auctionID + "";
+		
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	public ResultSet getAllAuctions() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID,ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy FROM AUCTION";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	public ResultSet getAuctionID(Auction auction) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT AuctionID FROM AUCTION" + "WHERE ItemID=" + auction.getItemID() + "AND CreatedBy="
+				+ auction.getCreatedBy();
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	// receives a specific auctionID and returns all of the bids corresponding
+	// to that auctionID
+	public ResultSet getAuctionBids(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT BidID,OfferPrice,OfferedBy FROM BID " + "WHERE BID.AuctionID=" + auctionID;
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	/*
+	 * Bid Methods
+	 */
+
+	public void insertBid(Bid bid) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into BID(AuctionID,BidDateTime,OfferPrice,Cancelled,OfferedBy) values (?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		preparedStatement.setInt(1, bid.getAuctionID());
+		preparedStatement.setDate(2, date);
+		preparedStatement.setDouble(3, bid.getOfferPrice());
+		preparedStatement.setBoolean(4, false);
+		preparedStatement.setInt(5, bid.getOfferedBy());
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+
+	/*
+	 * Item Methods
+	 */
+
+	public void insertItem(Item item) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "Insert into ITEM(EndUserID,CategoryID,ItemName,ItemDescription,Color,QuantityOnHand,Weight) values (?,?,?,?,?,?,?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setInt(1, item.getSellerID());
+		preparedStatement.setInt(2, item.getCategoryID());
+		preparedStatement.setString(3, item.getName());
+		preparedStatement.setString(4, item.getDescription());
+		preparedStatement.setString(5, item.getColor());
+		preparedStatement.setInt(6, item.getQuantityOnHand());
+		preparedStatement.setString(7, item.getWeight());
+
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+	
+	public ResultSet getItem(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT * FROM ITEM WHERE ItemID=" + id + "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
+	
+	/*
+	 * Category Methods
+	 */
+
+	public ResultSet getCategories() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CategoryID,CategoryName FROM CATEGORY";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
+
+	/*
+	 * Searching 
+	 */
 	/**
 	 * 
 	 * 
@@ -69,39 +377,39 @@ public class ApplicationDAO {
 	 * MY SEARCH FUNCTION, IS CALLED FROM CJ_SEARCHBY CATEGORY
 	 * THE RESULTS ARE THEN SHOWN IN CJ_SEARCHRESULTS
 	 * */
-
-	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax, String weightMin, String weightMax) throws SQLException{
+	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax, String weightMin, String weightMax, String sortby, String orderby) throws SQLException {
 		Connection dbConnection = getConnection(); 
-
 		String specifiedColor = "";
 		String specifiedStatus = "";
 		String specifiedCategory = "";
-
+		String orderBy = "";
+		
+		if(sortby.length() > 1){
+			orderBy = orderby;
+		}
 		if(color.length()>0) {
 			specifiedColor = " AND I.Color = '" + color+"'";
 		}
+
 		if(status.length()>0){
-			specifiedStatus = " And S.Status = '" + status+"'";
+			specifiedStatus = " And A.Status = '" + status+"'";
 		}
+
 		if(categoryID.length()>0){
 			specifiedCategory = " AND " + categoryID + " = I.CategoryID AND C.CategoryID = I.CategoryID ";
 		}
+
 		String query = "SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  "
 				+ " I.Weight >=  " + weightMin + "  AND I.Weight <=  " + weightMax + "  AND  "
 				+ "  A.InitialPrice >=  "+ priceMin + " AND A.InitialPrice <=  " + priceMax 
-				+ specifiedColor + specifiedStatus + specifiedCategory + "  AND A.ItemID = I.ItemID  AND C.CategoryID = A.Category";
-
+				+ specifiedColor + specifiedStatus + specifiedCategory + "  AND A.ItemID = I.ItemID  AND C.CategoryID = A.Category " + " " + sortby + " " + orderBy;
 		System.out.print(query);
-
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-
 		ResultSet rs = preparedStatement.executeQuery();
-
 		return rs;
 	}
-
-	/*
+		/*
 	 * 
 	 * GETS THE INFOMATION I NEED TO MAKE A SEARCH USING ITEMS 
 	 * 
@@ -474,133 +782,90 @@ public class ApplicationDAO {
 	 * */	
 
 
-	public boolean userLogin(String username, String password) throws SQLException {
-		Connection dbConnection = getConnection();
-		String query = "SELECT Username, Password FROM END_USER WHERE Username ='" + username + "' AND Password = '" + password + "'";
-
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-
-		if(rs.next()) {
-			return true;
-		} 
-		else {
-			return false; 
-		}
-	}
-
-	public void insertItem(Item item) throws SQLException {
-		Connection dbConnection = getConnection();
-		String query = "Insert into ITEM(EndUserID,CategoryID,ItemName, ItemDescription, Color, QuantityOnHand, Weight) values (?,?,?,?,?,?,?)";
-		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-		preparedStatement.setInt(1,item.getSellerID());
-		preparedStatement.setInt(2,item.getCategoryID());
-		preparedStatement.setString(3,item.getName()); 
-		preparedStatement.setString(5,item.getDescription());
-		preparedStatement.setString(4,item.getColor());
-		preparedStatement.setInt(6,item.getQuantityOnHand());
-		preparedStatement.setString(7,item.getWeight());
-
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		dbConnection.close();
-	}
-
-	public void insertAuction(Auction auction) throws SQLException {
-		Connection dbConnection = getConnection();
-		String query = "Insert into AUCTION(ItemID,Status,ClosingPrice,InitialPrice,Total_Bids,StartDate,CloseDate,CreatedBy) values (?,?,?,?,?,?,?,?)";
-		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-		preparedStatement.setInt(1,auction.getItemID());
-		preparedStatement.setString(2,auction.getStatus());
-		preparedStatement.setDouble(3, auction.getClosingPrice()); 
-		preparedStatement.setDouble(4,auction.getInitialPrice());
-		preparedStatement.setInt(5, auction.getTotalBids());
-		preparedStatement.setDate(6,auction.getStartDate());
-		preparedStatement.setDate(7,auction.getCloseDate());
-		preparedStatement.setInt(8,auction.getCreatedBy());
-
-		preparedStatement.executeUpdate();
-		preparedStatement.close();
-		dbConnection.close();
-	}
-
-	public ResultSet getSellerItems(int sellerID) throws SQLException {
-		Connection dbConnection = getConnection(); 
-		String query = "SELECT ItemID, ItemName, ItemDescription, Color, QuantityOnHand, Weight FROM ITEM";
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-
-		return rs;
-	}
-
-
-	public ResultSet getSellerAuctions(int sellerID) throws SQLException {
-		Connection dbConnection = getConnection();
-		String query = "SELECT AuctionID,ItemID,Status, ClosingPrice, InitialPrice, Total_Bids, StartDate, CloseDate, CreatedBy FROM AUCTION";
-		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		ResultSet rs = preparedStatement.executeQuery();
-
-		return rs;
-	}
-
-	public void insertEndUser(EndUser endUser) throws SQLException{	
-		Connection dbConnection = getConnection();
-		String query = "Insert into END_USER(FirstName, LastName, Gender, Username, Password, Email, Phone, UserType) values (?,?,?,?,?,?,?,?)";
-		PreparedStatement preparedStatement=dbConnection.prepareStatement(query); 
-		preparedStatement.setString(1,endUser.getFirstName()); 
-		preparedStatement.setString(2,endUser.getLastName());
-		preparedStatement.setString(3,endUser.getGender());
-		preparedStatement.setString(4,endUser.getUsername());
-		preparedStatement.setString(5,endUser.getPassword());
-		preparedStatement.setString(6,endUser.getEmail());
-		preparedStatement.setString(7,endUser.getPhoneNum());
-		preparedStatement.setString(8,endUser.getUserType());
-
-		// execute insert SQL statement
-		preparedStatement.executeUpdate();
-		System.out.println("user added");	
-
-		preparedStatement.close();
-		dbConnection.close();
-	}
-
-	public LinkedList<EndUser> getAllUsers() throws SQLException{
+	
+	
+	
+	public LinkedList<EndUser> getAllUsers() throws SQLException {
 		LinkedList<EndUser> listOfPeople = new LinkedList<EndUser>();
-
-		//display all tuples
+		// display all tuples
 		String selectString = "select * from END_USER;";
 		Connection dbConnection = getConnection();
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(selectString);
 		int resLength = 0;
-		//creating a ResultSet
-		ResultSet rs = preparedStatement.executeQuery(); 
-
-		//iterate through the resultSet
-		while(rs.next( )) {
+		// creating a ResultSet
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		// iterate through the resultSet
+		while (rs.next()) {
 			System.out.println("row : id = " + rs.getInt("EndUserID") + ", first name = " + rs.getString("FirstName"));
 			resLength++;
 			listOfPeople.add(new EndUser(rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Gender"),
-					rs.getString("Username"), rs.getString("Password"), rs.getString("Email"),
-					rs.getString("Phone"), rs.getString("UserType"))
-					);
+					rs.getString("Username"), rs.getString("Password"), rs.getString("Email"), rs.getString("Phone"),
+					rs.getString("UserType")));
 		}
+		
 		System.out.println("Select statement executed, " + resLength + " rows retrieved");
-
-		//close everything
+		// close everything
 		preparedStatement.close();
 		dbConnection.close();
-
 		return listOfPeople;
 	}
+	
+	public ResultSet GRgetEarnings(String FilterType) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "";
 
+		if (FilterType.equals("TotalEarnings")) {
+			query = "SELECT COUNT(a.AuctionID) as Total_Finished_Auctions, SUM(a.ClosingPrice) as Total_Earnings FROM AUCTION a WHERE a.status='Closed'";
+		} 
+		else if (FilterType.equals("PerEndUser")) {
+			query = "SELECT DISTINCT u.EndUserID, u.FirstName, u.LastName, COUNT(a.CreatedBy) as Auction_Count, SUM(a.ClosingPrice) as Total_Earning FROM END_USER u, AUCTION a WHERE u.EndUserID = a.CreatedBy AND a.status='Closed' group by u.EndUserID";
+		} 
+		else if (FilterType.equals("PerItem")) {
+			query = "SELECT DISTINCT a.ItemID, i.ItemName, SUM(a.ClosingPrice) as Total_Earning_Item FROM AUCTION a, ITEM i WHERE a.ItemID = i.ItemID AND	a.status='Closed' group by i.ItemID";
+		} 
+		else if (FilterType.equals("PerCategory")) {
+			query = "SELECT DISTINCT a.Category, c.CategoryName, SUM(a.ClosingPrice) as Total_Earning_ItemCategory FROM AUCTION a, CATEGORY c WHERE a.Category = c.CategoryID AND a.status='Closed' group by a.Category";
+		} 
+		else if (FilterType.equals("BestSellingItems")) {
+			query = "SELECT DISTINCT a.ItemID, i.ItemName, SUM(a.ClosingPrice) as Total_Earning_Item FROM AUCTION a, ITEM i WHERE a.ItemID = i.ItemID AND a.status='Closed' group by a.ItemID ORDER BY Total_Earning_Item DESC;";
+		} 
+		else if (FilterType.equals("BestBuyers")) {
+			query = "SELECT DISTINCT u.EndUserID, u.FirstName, u.LastName, COUNT(a.Winner) as Auction_Count, SUM(a.ClosingPrice) as Total_Spending FROM END_USER u, AUCTION a WHERE u.EndUserID = a.Winner AND a.status='Closed' group by u.EndUserID ORDER BY SUM(a.ClosingPrice) DESC";
+		} 
+		else if (FilterType.equals("BestSellers")) {
+			query = "SELECT DISTINCT u.EndUserID, u.FirstName, u.LastName, COUNT(a.CreatedBy) as AUCTION_COUNT, SUM(a.ClosingPrice) as TOTAL_EARNING FROM END_USER u, AUCTION a WHERE u.EndUserID = a.CreatedBy AND a.status='Closed' group by u.EndUserID ORDER BY SUM(a.ClosingPrice) DESC";
+		}
 
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
 
+	public ResultSet GRgetAllQuestions(String type) throws SQLException{
+		Connection dbConnection = getConnection();
+		String query = "";
+		
+		if(type.equals("all")) {
+			query ="SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription FROM QUESTION q, END_USER u WHERE q.UserID = u.EndUserID group by q.ID";
+		}
+		else if(type.equals("answered")) {
+			query ="SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription, a.Answer FROM QUESTION q, END_USER u, ANSWER a WHERE q.UserID = u.EndUserID AND a.QuestionID = q.ID group by q.ID";
+		}
+		else if(type.equals("unanswered")) {
+			query = "SELECT q.UserId, u.FirstName, u.LastName, q.ID as Question_Number, q.QuestionDescription FROM QUESTION q, END_USER u WHERE q.UserID = u.EndUserID AND q.ID NOT IN(SELECT a.QuestionID FROM ANSWER a) group by q.ID";	
+		}
+		
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();
 		Connection connection = dao.getConnection();
-
-		EndUser user = new EndUser("Shachar", "Zeplovitch", "Male", "szeplovitch95", "123456", "szeplovitch95@gmail.com","2019652035", "admin");
-
+		EndUser user = new EndUser("Shachar", "Zeplovitch", "Male", "szeplovitch95", "123456",
+				"szeplovitch95@gmail.com", "2019652035", "admin");
 		try {
 			dao.insertEndUser(user);
 			dao.getAllUsers();
