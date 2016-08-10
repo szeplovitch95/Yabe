@@ -95,6 +95,7 @@ public class ApplicationDAO {
 	}
 	
 	
+	
 
 	public void insertEndUser(EndUser endUser) throws SQLException {
 		Connection dbConnection = getConnection();
@@ -119,6 +120,20 @@ public class ApplicationDAO {
 		Connection dbConnection = getConnection();
 		int id = 0;
 		String query = "SELECT EndUserID FROM END_USER WHERE Username='" + username + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		if (rs.next()) {
+			id = rs.getInt("EndUserID");
+			System.out.println(id);
+		}
+
+		return id;
+	}
+	
+	public int getEndUserIDWithFirstName(String firstName) throws SQLException {
+		Connection dbConnection = getConnection();
+		int id = 0;
+		String query = "SELECT EndUserID FROM END_USER WHERE FirstName='" + firstName + "'";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		if (rs.next()) {
@@ -166,6 +181,16 @@ public class ApplicationDAO {
 		System.out.println("buyer added");
 	}
 	
+	
+	public ResultSet getBuyerAuctions(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Distinct A.AuctionID, A.ItemID, CloseDate, StartDate, InitialPrice, Status, Winner FROM BID B, AUCTION A "
+				+ " WHERE B.OfferedBy=" + id + " AND B.AuctionID = A.AuctionID";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
 	
 	public ResultSet getAllBuyers() throws SQLException {
 		Connection dbConnection = getConnection();

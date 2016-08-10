@@ -19,7 +19,7 @@
 		
 		int id = dao.getEndUserID(endUser.getUsername());
 		
-		if(id == 0) {
+		if(id != 0) {
 			response.sendRedirect("error.jsp");
 			return;
 		}
