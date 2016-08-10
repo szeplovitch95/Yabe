@@ -14,8 +14,9 @@
 	<%@include file="navbar.jsp"%>
 	<%
 	String search  = request.getParameter("questionQuery");
-	ApplicationDAO dao = new ApplicationDAO(); 
+	ApplicationDAO dao = new ApplicationDAO();
 	dao.removeStopWords(search);
+	if(dao.IsQueryNOTempty()){
 	ResultSet rs = dao.SearchFromArrayList();
 %>
 	<table class="table table-bordered">
@@ -33,6 +34,7 @@
 				<td><%= rs.getString("Answer") %></td>
 			</tr>
 			<%
+	}
 	}
   %>
 		</tbody>

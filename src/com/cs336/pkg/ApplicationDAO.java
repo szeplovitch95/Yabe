@@ -494,9 +494,6 @@ public class ApplicationDAO {
 		return rs;
 	}
 
-	/*
-	 * Searching
-	 */
 	/**
 	 * 
 	 * 
@@ -545,7 +542,7 @@ public class ApplicationDAO {
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
 				+ specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = A.Category " + " " + sortby + " " + orderBy;
+				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + " " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -754,15 +751,72 @@ public class ApplicationDAO {
 	 * CIERAS INSERT INTO TABLE FUNCTIONS
 	 * 
 	 */
-
-	public void insertAlert(int BuyerID, String AuctionID) throws SQLException {
+	
+	public void deleteAlert(int BuyerID, String AuctionID) throws SQLException{
 		Connection dbConnection = getConnection();
-		String query = "Insert into ALERT" + "(BuyerID, AuctionID) " + "values (" + BuyerID + "," + AuctionID + ")";
+		String query;
+		
+		query = "DELETE FROM ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID =  " + AuctionID;
+
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
-		System.out.print(query);
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
+		System.out.println(query);
+	}
+	public boolean shouldInsertAlert(int BuyerID, String AuctionID) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query;
+		int count = 0;
+
+		query = "SELECT COUNT(*) AS count From ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID =  " + AuctionID;
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		System.out.println(query);
+
+		if (rs.next()) {
+			count = rs.getInt("count");
+			System.out.print("count is : " + count);
+		}
+
+		if (count == 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public void insertAlert(int BuyerID, String AuctionID) throws SQLException {
+		
+			Connection dbConnection = getConnection();
+			String query = "Insert into ALERT" + "(BuyerID, AuctionID) " + "values (" + BuyerID + "," + AuctionID + ")";
+			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			System.out.print(query);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+			dbConnection.close();
+		
+	}
+
+	/* Ciera Jones added the following function on August 9th */
+	public ResultSet getAlertsFromUserID(int userID) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query;
+
+		query = "SELECT I.ItemName, C.CategoryName, I.ItemDescription, N.Status, N.StartDate, N.CloseDate, N.InitialPrice, N.ClosingPrice, N.AuctionID "
+				+ " FROM ITEM I, ALERT A, BUYER B, AUCTION N, CATEGORY C " + " WHERE B.EndUserID = " + userID + " "
+				+ " AND B.EndUserID = A.BuyerID " + " AND C.CategoryID = I.CategoryID " + " AND I.ItemID = N.ItemID "
+				+ " AND N.AuctionID = A.AuctionID ";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		return rs;
+
 	}
 
 	public void insertQuestion(int UserID, String Question) throws SQLException {
@@ -868,13 +922,23 @@ public class ApplicationDAO {
 		}
 
 	}
-
+public boolean IsQueryNOTempty(){
+	
+	if (wordsList.isEmpty()){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
 	public ResultSet SearchFromArrayList() throws SQLException {
 
 		Connection dbConnection = getConnection();
 		String query = "";
 		int i = 0;
+		
 		for (String str : wordsList) {
+		
 			if (i != 0) {
 				query = query.concat(" UNION ");
 			}
@@ -888,7 +952,6 @@ public class ApplicationDAO {
 		System.out.println(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-
 		return rs;
 	}
 
@@ -901,7 +964,6 @@ public class ApplicationDAO {
 	 * 
 	 * 
 	 */
-
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();
 		Connection connection = dao.getConnection();

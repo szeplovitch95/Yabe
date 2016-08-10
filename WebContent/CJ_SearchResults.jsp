@@ -23,7 +23,7 @@
 		String sortBy = request.getParameter("sort-by");
 		String orderBy = request.getParameter("order-by");
 		
-		out.print(" cat id ." + category + 
+		/*out.print(" cat id ." + category + 
 				  ". color ." + color + 
 				  ". status ." + status + 
 				  ". princeMin ." + priceMin +
@@ -31,7 +31,8 @@
 				  ". WeightMin ." + weightMin + 
 				  ". WeightMax ." + weightMax + 
 				  ". Sortby." + sortBy + 
-				  ". orderby." + orderBy); 
+				  ". orderby." + orderBy); */
+
 		ApplicationDAO dao = new ApplicationDAO();
 		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, sortBy, orderBy);
 %>

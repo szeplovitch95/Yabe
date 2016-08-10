@@ -1,36 +1,20 @@
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" pageEncoding="UTF-8" import="com.cs336.pkg.*"
 	import="java.util.*"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Make Alerts From Form</title>
+<title>Deleting Alert</title>
 </head>
 <body>
-
 	<%@include file="navbar.jsp"%>
-	<%
-		int ID = (Integer)session.getAttribute("userID");
-		String AuctionID = request.getParameter("AuctionID");
-		out.print("Auction id : " + AuctionID );
+	
+	<%int ID = (Integer) session.getAttribute("userID");
 		ApplicationDAO dao = new ApplicationDAO();
-		if(dao.shouldInsertAlert(ID, AuctionID))
-		{ 
-			dao.insertAlert(ID, AuctionID);
-			out.print("<h2>Alert Submitted</h2>");
-		 } 
-		else{
-
-			out.print("<h2>Alert Already Submitted</h2>");
-		}
-		
-		
-	%>
-	
-	
-		
-	<%
+		String AuctionID = request.getParameter("AuctionID");
+		dao.deleteAlert(ID, AuctionID);
 		ResultSet rs = dao.getAlertsFromUserID(ID);
 	
 	%>
@@ -65,7 +49,7 @@
 				<td>
 					<form action="CJ_DeleteAlert.jsp" style="margin-left: 7%;">
 						<button name="AuctionID" type="submit" id="AuctionID"
-							value="<% out.print(AuctionID);%>">Delete</button>
+							value="<% out.print(rs.getInt("AuctionID"));%>">Delete</button>
 					</form>
 				</td>
 			</tr>
@@ -78,5 +62,7 @@
 	  <form action="CJ_SearchByCategory.jsp" style="margin-left: 7%;">
 						<button name="QuestionID" type="submit" id="QuestionID">Create More Alerts</button>
 					</form>
+
+
 </body>
 </html>

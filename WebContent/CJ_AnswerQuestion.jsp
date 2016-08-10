@@ -16,7 +16,8 @@
 	<%
 		String QuestionID = request.getParameter("QuestionID");
 		//out.print("question ID is " + QuestionID);
-		ApplicationDAO dao = new ApplicationDAO(); 
+
+		ApplicationDAO dao = new ApplicationDAO();
 		String question = dao.getQuestionFromQuestionID(QuestionID);
 		int userID = dao.getUserIDFromQuestionID(QuestionID);
 		out.print(question);
