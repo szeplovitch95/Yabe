@@ -535,9 +535,19 @@ public class ApplicationDAO {
 		}
 
 		if (categoryID.length() > 0) {
-			specifiedCategory = " AND " + categoryID + " = I.CategoryID AND C.CategoryID = I.CategoryID ";
+			//specifiedCategory = " AND " + categoryID + " = C.CategoryName AND C.CategoryID = I.CategoryID ";
+			specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
 		}
-
+		
+		
+		
+		
+		
+		
+		
+		
+			
+		System.out.println(specifiedCategory);
 		String query = "SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
@@ -549,6 +559,25 @@ public class ApplicationDAO {
 		return rs;
 	}
 
+	/*
+	 * SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status,
+	 * A.InitialPrice, A.ClosingPrice, A.AuctionID FROM AUCTION A, ITEM I,
+	 * CATEGORY C 
+	 * WHERE I.Weight >= null 
+	 * AND I.Weight <= 100 
+	 * AND A.InitialPrice >= 0 
+	 * AND A.InitialPrice <= 1000 
+	 * AND I.Color = 'Yellow' 
+	 * And A.Status = 'Open' 
+	 * AND C.CategoryName=Books 
+	 * AND C.CategoryID = I.CategoryID 
+	 * AND A.ItemID = I.ItemID 
+	 * AND C.CategoryID = I.CategoryID
+	 */
+	
+	
+	
+	
 	/*
 	 * 
 	 * GETS THE INFOMATION I NEED TO MAKE A SEARCH USING ITEMS

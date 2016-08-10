@@ -14,6 +14,7 @@
 	<%@include file="navbar.jsp"%>
 	<%
 		String category =  request.getParameter("category");
+		System.out.println("Category chosen:" + category);
 		String color = request.getParameter("color");
 		String status = request.getParameter("status");
 		String priceMin = request.getParameter("price-min");
