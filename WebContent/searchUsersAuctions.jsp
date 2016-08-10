@@ -21,7 +21,7 @@
 
 <div class="container">
 <h2 style="margin-left: 20%">Search a Specific Buyer or Seller Auctions History</h2>
-	<form method="GET" action="getUsersActions.jsp" class="form-horizontal">
+	<form method="GET" action="getUsersAuctions.jsp" class="form-horizontal">
 		<div class="form-group">
 			<label class="control-label col-sm-2 col-lg-2 col-md-2">Pick a User Type:</label>
 			<div class="col-sm-2 col-md-2 col-lg-2">
@@ -50,13 +50,12 @@
 					</select>
 				</div>
 			</div>
+			<div class="col-sm-2 col-lg-2 col-md-2">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
 		</div>
 	</form>
 </div>
-	
-
-
-
 <div id="activePage" class="hidden">searchUsersAuctions</div>
 </body>
 </html>
