@@ -10,11 +10,9 @@
 <title>SearchResults</title>
 </head>
 <body>
-
 	<%@include file="navbar.jsp"%>
 	<%
 		String category =  request.getParameter("category");
-		System.out.println("Category chosen:" + category);
 		String color = request.getParameter("color");
 		String status = request.getParameter("status");
 		String priceMin = request.getParameter("price-min");
@@ -51,9 +49,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% int i = 0; 
-    while(rs.next()) {
-    	i ++;%>
+			<%
+    		while(rs.next()) {
+    			System.out.println(rs.getString("ItemName"));
+    		%>
 			<tr>
 				<td><%= rs.getString("ItemName") %></td>
 				<td><%= rs.getString("CategoryName") %></td>

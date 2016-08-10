@@ -93,6 +93,8 @@ public class ApplicationDAO {
 
 		return EndUserType;
 	}
+	
+	
 
 	public void insertEndUser(EndUser endUser) throws SQLException {
 		Connection dbConnection = getConnection();
@@ -163,7 +165,21 @@ public class ApplicationDAO {
 		preparedStatement.executeUpdate();
 		System.out.println("buyer added");
 	}
+	
+	
+	public ResultSet getAllBuyers() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CONCAT(FirstName, ' ', LastName) AS 'FullName' FROM END_USER, BUYER "
+				+ "WHERE BUYER.EndUserID = END_USER.EndUserID";
 
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+	
+
+	
+	
 	public ResultSet getBuyerBids(int userID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,BidID,OfferPrice,OfferedBy FROM BID" + " WHERE OfferedBy=" + userID;
@@ -188,6 +204,16 @@ public class ApplicationDAO {
 		}
 
 		return false;
+	}
+	
+	public ResultSet getAllSellers() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CONCAT(FirstName, ' ', LastName) AS 'FullName' FROM END_USER, SELLER "
+				+ "WHERE SELLER.EndUserID = END_USER.EndUserID";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
 	}
 
 	public void insertSeller(Seller seller, int id) throws SQLException {
@@ -518,10 +544,15 @@ public class ApplicationDAO {
 	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax,
 			String weightMin, String weightMax, String sortby, String orderby) throws SQLException {
 		Connection dbConnection = getConnection();
+		System.out.println("orderby: " + orderby);
+		System.out.println("sort By: " + sortby);
+		
 		String specifiedColor = "";
 		String specifiedStatus = "";
 		String specifiedCategory = "";
 		String orderBy = "";
+		
+		
 
 		if (sortby.length() > 1) {
 			orderBy = orderby;
@@ -538,17 +569,8 @@ public class ApplicationDAO {
 			//specifiedCategory = " AND " + categoryID + " = C.CategoryName AND C.CategoryID = I.CategoryID ";
 			specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-			
-		System.out.println(specifiedCategory);
-		String query = "SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
+
+		String query = "SELECT DISTINCT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
 				+ specifiedColor + specifiedStatus + specifiedCategory
