@@ -126,6 +126,20 @@ public class ApplicationDAO {
 		return id;
 	}
 
+	public String getFullName(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CONCAT(FirstName,' ', LastName) as 'FullName' FROM END_USER " + "WHERE EndUserID=" + id
+				+ "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		if (rs.next()) {
+			return rs.getString("FullName");
+		} else {
+			return "";
+		}
+
+	}
+
 	/*
 	 * Buyer Methods
 	 */
@@ -253,7 +267,7 @@ public class ApplicationDAO {
 		preparedStatement.setDouble(3, auction.getClosingPrice());
 		preparedStatement.setDouble(4, auction.getInitialPrice());
 		preparedStatement.setInt(5, auction.getTotalBids());
-		preparedStatement.setDate(6, auction.getStartDate());
+		preparedStatement.set(6, auction.getStartDate());
 		preparedStatement.setDate(7, auction.getCloseDate());
 		preparedStatement.setInt(8, auction.getCreatedBy());
 
@@ -262,13 +276,18 @@ public class ApplicationDAO {
 		dbConnection.close();
 	}
 
-	public ResultSet getAuctionItemName(int itemId) throws SQLException {
+	public String getAuctionItemName(int itemId) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT ItemName FROM ITEM WHERE ItemID=" + itemId + "";
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-		return rs;
+
+		if (rs.next()) {
+			return rs.getString("ItemName");
+		} else {
+			return "Error: No Item Name.";
+		}
 	}
 
 	public ResultSet getAuction(int auctionID) throws SQLException {

@@ -12,14 +12,11 @@
 <body>
 	<%@include file="navbar.jsp"%>
 	<div class="container">
-		<h1 style="text-align: center">Buy Items</h1>
-		
-		
+		<h1 style="text-align: center">Buy Items</h1>		 
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#AvailableAuctions">Available Auctions</a></li>
 			<li><a data-toggle="tab" href="#BuyerBids">Your Bids</a></li>
-		</ul>
-		
+		</ul>		
 		<div class="tab-content">
 			<div id="AvailableAuctions" class="tab-pane fade in active">
 				<div class="container">

@@ -19,7 +19,7 @@
 			}
 		}
 		
-		String date = request.getParameter("openDate");
+		String date = request.getParameter("openDate") + ' ' + request.getParameter("openTime");
 		
 		//TODO add sessions
 		auction.setCreatedBy(1);

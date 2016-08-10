@@ -27,10 +27,9 @@
 			<li class="active"><a data-toggle="tab" href="#AuctionList">Auctions</a></li>
 			<li><a data-toggle="tab" href="#ItemList">Items</a></li>
 		</ul>
-		
 		<div class="tab-content">
 			<div id="AuctionList" class="tab-pane fade in active">
-				<div class="container">
+				<div class="container"> 
 					<%@include file="sellerAuctionList.jsp"%>				
 				</div>
 			</div>
@@ -47,5 +46,3 @@
 	<div id="activePage" class="hidden">sell</div>
 </body>
 </html>
-
-

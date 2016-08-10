@@ -32,16 +32,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
+			<% 
 				while (rs.next()) {
-					ResultSet rs2 = dao.getAuctionItemName(rs.getInt("ItemID"));
-					rs2.next();
+					String itemName2 = dao.getAuctionItemName(rs.getInt("ItemID"));
 					int currentPrice = dao.getMaxBidPrice(rs.getInt("AuctionID"));
 					int totalBids = dao.getTotalBids(rs.getInt("AuctionID"));
 			%>
 			<tr>
 				<td><%=rs.getInt("AuctionID")%></td>
-				<td><%=rs2.getString("ItemName")%></td>
+				<td><%=itemName2%></td>
 				<td><%=rs.getDate("StartDate")%></td>
 				<td>$<%=rs.getInt("InitialPrice")%></td>
 				<td>$<%=currentPrice%></td>

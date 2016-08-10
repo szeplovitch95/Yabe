@@ -15,9 +15,7 @@
 		String auctionID = request.getQueryString();
 		int id = Integer.parseInt(auctionID);
 		
-		//ResultSet rs = dao.getAuctionItemName(id);
-		//rs.next();
-		//String title = rs.getString("ItemName");
+
 		
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
 		
@@ -48,7 +46,7 @@
 		<div class="row">
 			<label class="control-label col-md-2">Item ID:</label>
 			<div class="col-md-3">
-				<%=rs2.getInt("ItemID")%>
+				<%=rs2.getInt("ItemID") %>
 			</div>
 		</div>
 		<div class="row">
@@ -104,11 +102,12 @@
 			<tbody>
 				<%
 					while (rs4.next()) {
+					String fullName = dao.getFullName(rs4.getInt("OfferedBy"));
 				%>
 				<tr>
 					<td><%=rs4.getInt("BidID")%></td>
 					<td>$<%=rs4.getInt("OfferPrice")%></td>
-					<td><%=rs4.getInt("OfferedBy")%></td>
+					<td><%=fullName%></td>
 				</tr>
 				<%
 					}
