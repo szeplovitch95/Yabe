@@ -14,13 +14,14 @@
 		ApplicationDAO dao = new ApplicationDAO();
 		String auctionID = request.getQueryString();
 		int id = Integer.parseInt(auctionID);
-		
-
-		
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
-		
 		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
 		int currentPrice = dao.getMaxBidPrice(Integer.parseInt(auctionID)); 
+		
+		int winnerID = dao.getAuctionWinner(currentPrice, id);
+		System.out.println(winnerID);
+		
+		String winnerName = dao.getFullName(winnerID);
 		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
 		rs2.next();
@@ -88,7 +89,7 @@
 		<div class="row">
 			<label class="control-label col-md-2">Winner:</label>
 			<div class="col-md-3">
-				<%=rs2.getString("Winner")%>
+				<%=winnerName%>
 			</div>
 		</div>
 		<table class="table table-bordered table-hover">

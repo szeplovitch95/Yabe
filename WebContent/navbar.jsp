@@ -15,7 +15,7 @@
 				<li id="buy"><a href="buy.jsp">Buy</a></li>
 				<li id="sell"><a href="sell.jsp">Sell</a></li>
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
-				<li id="searchUsersAuctions"><a href="searchUsersAuctions.jsp">Search Users' Auctions</a></li>
+				<li id="searchUsersAuctions"><a href="searchUsersAuctions.jsp">Search Users Auctions</a></li>
 				<%
 				String username = (String)session.getAttribute("username");
 				if(username.equals("admin")) {

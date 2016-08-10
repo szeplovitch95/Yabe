@@ -358,6 +358,21 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
 	}
+	
+	
+	public int getAuctionWinner(int highestPrice, int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT OfferedBy FROM AUCTION A, BID B" + " WHERE B.auctionID =" + auctionID + " AND B.OfferPrice=" + highestPrice + ""; 
+		int id = 0;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		if(rs.next()) {
+			id = rs.getInt("OfferedBy");
+		}
+	
+		return id;
+	}
 
 	public ResultSet getAuctionID(Auction auction) throws SQLException {
 		Connection dbConnection = getConnection();
