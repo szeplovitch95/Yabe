@@ -60,11 +60,10 @@
 			<%
 		}
   %>
-  
 		</tbody>
 	</table>
 	  <form action="CJ_SearchByCategory.jsp" style="margin-left: 7%;">
 						<button name="QuestionID" type="submit" id="QuestionID">Create More Alerts</button>
-					</form>
+	  </form>
 </body>
 </html>

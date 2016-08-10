@@ -36,25 +36,15 @@
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Open
 			Date:</label>
-		<div class="col-md-3 col-lg-3 col-sm-3">
+		<div class="col-md-5 col-lg-5 col-sm-5">
 			<input class="form-control" type="date" name="openDate" required />
-		</div>
-		<label class="control-label col-md-2 col-sm-2 col-lg-2">Open
-			Time:</label>
-		<div class="col-md-3 col-lg-3 col-sm-3">
-			<input class="form-control" type="time" name="openTime" required />
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="control-label col-md-2 col-sm-2 col-lg-2">Close
 			Date:</label>
-		<div class="col-md-3 col-lg-3 col-sm-3">
+		<div class="col-md-5 col-lg-5 col-sm-5">
 			<input class="form-control" type="date" name="closeDate" required />
-		</div>
-		<label class="control-label col-md-2 col-sm-2 col-lg-2">Close
-			Time:</label>
-		<div class="col-md-3 col-lg-3 col-sm-3">
-			<input class="form-control" type="time" name="closeTime" required />
 		</div>
 	</div>
 	<div class="form-group">

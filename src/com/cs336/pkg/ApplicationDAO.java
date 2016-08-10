@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 public class ApplicationDAO {
-
+ 
 	public Connection getConnection() {
 		String connectionUrl = "jdbc:mysql://classvm60.cs.rutgers.edu:3306/YABE?autoReconnect=true";
 		Connection connection = null;
@@ -267,9 +267,9 @@ public class ApplicationDAO {
 		preparedStatement.setDouble(3, auction.getClosingPrice());
 		preparedStatement.setDouble(4, auction.getInitialPrice());
 		preparedStatement.setInt(5, auction.getTotalBids());
-		preparedStatement.set(6, auction.getStartDate());
-		preparedStatement.setDate(7, auction.getCloseDate());
-		preparedStatement.setInt(8, auction.getCreatedBy());
+		preparedStatement.setDate(6, auction.getStartDate());
+		preparedStatement.setDate(7, auction.getCloseDate()); 
+		preparedStatement.setInt(8, auction.getCreatedBy()); 
 
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
