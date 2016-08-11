@@ -1,9 +1,8 @@
 package com.cs336.pkg;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Auction {
 	private int ItemID;
@@ -33,6 +32,13 @@ public class Auction {
 	}
 
 	public Auction() {
+	}
+
+	// TODO change date format to dd/MM/yyyy
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime());
 	}
 
 	public int getItemID() {
@@ -113,12 +119,5 @@ public class Auction {
 
 	public void setCancelledBy(int cancelledBy) {
 		this.cancelledBy = cancelledBy;
-	}
-
-	public Timestamp stringToDate(String date) throws ParseException {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		Date parsedTimeStamp = dateFormat.parse(date);
-		Timestamp timestamp = new Timestamp(parsedTimeStamp.getTime());
-		return timestamp;
 	}
 }

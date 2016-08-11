@@ -267,7 +267,7 @@ public class ApplicationDAO {
 		preparedStatement.setDouble(3, auction.getClosingPrice());
 		preparedStatement.setDouble(4, auction.getInitialPrice());
 		preparedStatement.setInt(5, auction.getTotalBids());
-		preparedStatement.set(6, auction.getStartDate());
+		preparedStatement.setDate(6, auction.getStartDate());
 		preparedStatement.setDate(7, auction.getCloseDate());
 		preparedStatement.setInt(8, auction.getCreatedBy());
 
