@@ -113,13 +113,13 @@
 			<div class="col-lg-5 col-md-5 col-sm-5">
 				<input type="number" name="price-min" class="col-sm-2 col-lg-2 col-md-2" min="0" value="0"/>
 				<span class="col-sm-1 col-lg-1 col-md-1"> to </span> 
-				<input type="number" name="price-max" class="col-sm-2 col-lg-2 col-md-2" min="0" value="1000" />
+				<input type="number" name="price-max" class="col-sm-2 col-lg-2 col-md-2" min="0" value="<%out.print(maxprice); %>"/>
 			</div>
 			<label for="weight-min" class="control-label col-sm-1 col-md-1 col-lg-1">Weight:</label>
 			<div class="col-lg-5 col-md-5 col-sm-5">
 				<input type="number" name="weight-min" class="col-sm-2 col-lg-2 col-md-2" value="0" min="0"/>
 				<span class="col-sm-1 col-lg-1 col-md-1"> to </span> 
-				<input type="number" name="weight-max" class="col-sm-2 col-lg-2 col-md-2" min="0" value="100" />
+				<input type="number" name="weight-max" class="col-sm-2 col-lg-2 col-md-2" min="0" value="<%out.print(maxweight); %>" />
 			</div>
 		</div>
 		<div class="form-group">
