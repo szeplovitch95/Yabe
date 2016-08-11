@@ -617,41 +617,72 @@ public class ApplicationDAO {
 	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax,
 			String weightMin, String weightMax, String minBidPrice, String maxBidPrice, String sortby, String orderby,
 			String minDate, String maxDate) throws SQLException {
+		
 		Connection dbConnection = getConnection();
+		
 		System.out.println("orderby: " + orderby);
 		System.out.println("sort By: " + sortby);
 
 		String specifiedColor = "";
 		String specifiedStatus = "";
 		String specifiedCategory = "";
+		String specifiedDates = "";
+		String specifiedBids = "";
+		String specifiedPrice = "";
+		String specifiedWeights = "";
 		String orderBy = "";
-
-		if (sortby.length() > 1) {
+		
+		
+		if (sortby.length() > 0 || (sortby==null && orderby==null) ) {
 			orderBy = orderby;
 		}
-		if (color.length() > 0) {
+		
+		if (color.length() > 0 || color == null ) {
 			specifiedColor = " AND I.Color = '" + color + "'";
 		}
 
-		if (status.length() > 0) {
-			specifiedStatus = " And A.Status = '" + status + "'";
+		if (status.length() > 0 || status == null) {
+			specifiedStatus = " AND A.Status = '" + status + "'";
 		}
 
-		if (categoryID.length() > 0) {
-			// specifiedCategory = " AND " + categoryID + " = C.CategoryName AND
-			// C.CategoryID = I.CategoryID ";
-			// specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND
-			// C.CategoryID = I.CategoryID ";
-			specifiedCategory = " AND C.CategoryID=" + categoryID + " ";
+		if (categoryID.length() > 0 || categoryID == null) {
+			specifiedCategory = " AND C.CategoryID = " + categoryID + " ";
+		}
+		
+		
+		if((minDate.length() > 0 && maxDate.length() > 0) || (minDate == null && maxDate == null)){
+			specifiedDates = "AND StartDate >= '" + minDate
+					+ "' AND StartDate <= '" + maxDate + "' ";
+		}
+		
+		if(minBidPrice.length()> 0 && maxBidPrice.length() > 0 ){
+			
+			specifiedBids =  "  AND  " + "  B.OfferPrice >=  " + minBidPrice
+					+ "  AND B.OfferPrice <=  " + maxBidPrice + "  ";
+		}
+		
+		if(weightMin.length()>0 &&  weightMax.length() > 0){
+			specifiedWeights =  "   I.Weight >=  " + weightMin + "  AND I.Weight <=  " + weightMax + "  ";
+		}
+		
+		if(priceMin.length() > 0 && priceMax.length() > 0){
+			specifiedPrice = "  AND  " + "  A.InitialPrice >=  " + priceMin 	+ "  AND A.InitialPrice <=  " + priceMax;
 		}
 
 		String query = "SELECT DISTINCT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
-				+ " FROM AUCTION A, ITEM I, CATEGORY C, BID B  WHERE  " + " I.Weight >=  " + weightMin
-				+ "  AND I.Weight <=  " + weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin
-				+ " AND A.InitialPrice <=  " + priceMax + "  AND  " + "  B.OfferPrice >=  " + minBidPrice
-				+ " AND B.OfferPrice <=  " + maxBidPrice + specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + "AND StartDate >= '" + minDate
-				+ "' AND StartDate <= '" + maxDate + "' " + " " + sortby + " " + orderBy;
+				+ " FROM AUCTION A, ITEM I, CATEGORY C, BID B  WHERE  " 
+				+ specifiedWeights 
+				+ specifiedPrice 
+				+ priceMax 
+				+ specifiedBids 
+				+ specifiedColor 
+				+ specifiedStatus 
+				+ specifiedCategory
+				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " 
+				+ specifiedDates  + " " 
+				+ sortby + " " 
+				+ orderBy;
+		
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
