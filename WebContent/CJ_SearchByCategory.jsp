@@ -29,7 +29,8 @@
 							int categoryID = rs.getInt("CategoryID");
 							String categoryname = rs.getString("CategoryName");
 					%>
-					<option>
+					<option value = "<% out.print(categoryID );%>">
+						
 						<%=categoryname%>
 					</option>
 					<%

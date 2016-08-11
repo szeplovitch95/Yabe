@@ -22,7 +22,7 @@
 		String sortBy = request.getParameter("sort-by");
 		String orderBy = request.getParameter("order-by");
 		
-		/*out.print(" cat id ." + category + 
+	/*	out.print(" cat id ." + category + 
 				  ". color ." + color + 
 				  ". status ." + status + 
 				  ". princeMin ." + priceMin +

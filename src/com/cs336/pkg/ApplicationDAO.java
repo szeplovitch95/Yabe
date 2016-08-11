@@ -607,14 +607,15 @@ public class ApplicationDAO {
 
 		if (categoryID.length() > 0) {
 			//specifiedCategory = " AND " + categoryID + " = C.CategoryName AND C.CategoryID = I.CategoryID ";
-			specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
-		}
+			//specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
+			specifiedCategory = " AND C.CategoryID=" + categoryID + " ";
+	}
 
 		String query = "SELECT DISTINCT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
 				+ specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + " " + sortby + " " + orderBy;
+				+ "  AND A.ItemID = I.ItemID   " + " " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
