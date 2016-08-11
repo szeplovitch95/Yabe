@@ -5,13 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-</head>
+</head> 
 <body>
 	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		Auction auction = new Auction();
 		String item = request.getParameter("itemName");
-		ResultSet rs = dao.getSellerItems(1, false);
+		ResultSet rs = dao.getSellerItems((Integer)session.getAttribute("userID"), false);
 
 		while (rs.next()) {
 			if (rs.getString("ItemName").equals(item)) {
@@ -19,19 +19,15 @@
 			}
 		}
 		
-		String date = request.getParameter("openDate") + ' ' + request.getParameter("openTime");
-		
-		//TODO add sessions
-		auction.setCreatedBy(1);
+		auction.setCreatedBy((Integer)session.getAttribute("userID"));
 		auction.setStatus("New");
 		auction.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		auction.setStartDate(auction.stringToDate(request.getParameter("openDate")));
 		auction.setCloseDate(auction.stringToDate(request.getParameter("closeDate")));
+		auction.setCurrentPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		auction.setTotalBids(0);
-
-		//TODO form validation 
 		dao.insertAuction(auction);
-		response.sendRedirect("sellerAuctionList.jsp");
+		response.sendRedirect("sell.jsp");
 	%>
 </body>
 </html>

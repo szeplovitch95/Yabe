@@ -20,7 +20,24 @@
 				</a>
 			</div>
 		</div>
-		<form class="form-horizontal" action="insertEndUser.jsp" method="post">
+		
+			<% 
+	
+			String user = (String)request.getSession().getAttribute("username"); 
+		
+			if(user != null){
+				if (user.equals("admin")){		
+			%>
+			
+			<form class="form-horizontal" action="insertCustomerRep.jsp" method="post">
+		
+			<%	}
+			}else{ %>
+				
+			<form class="form-horizontal" action="insertEndUser.jsp" method="post">
+					
+			<% } %>
+		
 			<fieldset>
 				<legend>Personal Information</legend>
 				<div class="form-group">

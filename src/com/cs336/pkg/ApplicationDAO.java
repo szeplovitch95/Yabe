@@ -1,10 +1,13 @@
 package com.cs336.pkg;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -121,6 +124,20 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		if (rs.next()) {
 			id = rs.getInt("EndUserID");
+			System.out.println(id);
+		}
+
+		return id;
+	}
+
+	public int getEndUserIDWithFirstName(String firstName) throws SQLException {
+		Connection dbConnection = getConnection();
+		int id = 0;
+		String query = "SELECT EndUserID FROM END_USER WHERE FirstName='" + firstName + "'";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		if (rs.next()) {
+			id = rs.getInt("EndUserID");
 		}
 
 		return id;
@@ -164,6 +181,26 @@ public class ApplicationDAO {
 		System.out.println("buyer added");
 	}
 
+	public ResultSet getBuyerAuctions(int id) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Distinct A.AuctionID, A.ItemID, CloseDate, StartDate, InitialPrice, Status, Winner FROM BID B, AUCTION A "
+				+ " WHERE B.OfferedBy=" + id + " AND B.AuctionID = A.AuctionID";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
+	public ResultSet getAllBuyers() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CONCAT(FirstName, ' ', LastName) AS 'FullName' FROM END_USER, BUYER "
+				+ "WHERE BUYER.EndUserID = END_USER.EndUserID";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
+	}
+
 	public ResultSet getBuyerBids(int userID) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID,BidID,OfferPrice,OfferedBy FROM BID" + " WHERE OfferedBy=" + userID;
@@ -188,6 +225,16 @@ public class ApplicationDAO {
 		}
 
 		return false;
+	}
+
+	public ResultSet getAllSellers() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT CONCAT(FirstName, ' ', LastName) AS 'FullName' FROM END_USER, SELLER "
+				+ "WHERE SELLER.EndUserID = END_USER.EndUserID";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		return rs;
 	}
 
 	public void insertSeller(Seller seller, int id) throws SQLException {
@@ -270,6 +317,8 @@ public class ApplicationDAO {
 		preparedStatement.setDate(6, auction.getStartDate());
 		preparedStatement.setDate(7, auction.getCloseDate());
 		preparedStatement.setInt(8, auction.getCreatedBy());
+		preparedStatement.setDate(7, auction.getCloseDate());
+		preparedStatement.setInt(8, auction.getCreatedBy());
 
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
@@ -308,6 +357,21 @@ public class ApplicationDAO {
 		return rs;
 	}
 
+	public int getAuctionWinner(int highestPrice, int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT OfferedBy FROM AUCTION A, BID B" + " WHERE B.auctionID =" + auctionID
+				+ " AND B.OfferPrice=" + highestPrice + "";
+		int id = 0;
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			id = rs.getInt("OfferedBy");
+		}
+
+		return id;
+	}
+
 	public ResultSet getAuctionID(Auction auction) throws SQLException {
 		Connection dbConnection = getConnection();
 		String query = "SELECT AuctionID FROM AUCTION" + "WHERE ItemID=" + auction.getItemID() + "AND CreatedBy="
@@ -316,6 +380,20 @@ public class ApplicationDAO {
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
+	}
+
+	public String getAuctionStatus(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Status FROM AUCTION " + "WHERE AuctionID=" + auctionID + "";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			return rs.getString("Status");
+		}
+
+		return "";
 	}
 
 	// receives a specific auctionID and returns all of the bids corresponding
@@ -329,6 +407,27 @@ public class ApplicationDAO {
 		return rs;
 	}
 
+	public void updateAuctionStatus(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "UPDATE AUCTION SET Status='Closed' WHERE AuctionID=" + auctionID + "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime());
+	}
+
+	public String dateToString(Date date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String sDate = sdf.format(date);
+		return sDate;
+	}
 	/*
 	 * Bid Methods
 	 */
@@ -494,9 +593,6 @@ public class ApplicationDAO {
 		return rs;
 	}
 
-	/*
-	 * Searching
-	 */
 	/**
 	 * 
 	 * 
@@ -519,8 +615,12 @@ public class ApplicationDAO {
 	 * THEN SHOWN IN CJ_SEARCHRESULTS
 	 */
 	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax,
-			String weightMin, String weightMax, String sortby, String orderby) throws SQLException {
+			String weightMin, String weightMax, String minBidPrice, String maxBidPrice, String sortby, String orderby,
+			String minDate, String maxDate) throws SQLException {
 		Connection dbConnection = getConnection();
+		System.out.println("orderby: " + orderby);
+		System.out.println("sort By: " + sortby);
+
 		String specifiedColor = "";
 		String specifiedStatus = "";
 		String specifiedCategory = "";
@@ -538,18 +638,55 @@ public class ApplicationDAO {
 		}
 
 		if (categoryID.length() > 0) {
-			specifiedCategory = " AND " + categoryID + " = I.CategoryID AND C.CategoryID = I.CategoryID ";
+			// specifiedCategory = " AND " + categoryID + " = C.CategoryName AND
+			// C.CategoryID = I.CategoryID ";
+			// specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND
+			// C.CategoryID = I.CategoryID ";
+			specifiedCategory = " AND C.CategoryID=" + categoryID + " ";
 		}
 
-		String query = "SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
-				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
-				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
-				+ specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = A.Category " + " " + sortby + " " + orderBy;
+		String query = "SELECT DISTINCT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
+				+ " FROM AUCTION A, ITEM I, CATEGORY C, BID B  WHERE  " + " I.Weight >=  " + weightMin
+				+ "  AND I.Weight <=  " + weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin
+				+ " AND A.InitialPrice <=  " + priceMax + "  AND  " + "  B.OfferPrice >=  " + minBidPrice
+				+ " AND B.OfferPrice <=  " + maxBidPrice + specifiedColor + specifiedStatus + specifiedCategory
+				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + "AND StartDate >= '" + minDate
+				+ "' AND StartDate <= '" + maxDate + "' " + " " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
+	}
+
+	public int CJgetMaxBid() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT MAX(OfferPrice) AS 'HighestBid' FROM BID ";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		return rs.getInt("HighestBid");
+	}
+
+	public String CJgetMinDate() throws SQLException {
+		String date = "";
+		Connection dbConnection = getConnection();
+		String query = "SELECT MIN(StartDate) AS Min FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		date = rs.getDate("Min").toString();
+		return date;
+	}
+
+	public String CJgetMaxDate() throws SQLException {
+		Connection dbConnection = getConnection();
+		String date = "";
+		String query = "SELECT MAX(StartDate) AS Max FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		date = rs.getDate("Max").toString();
+		return date;
 	}
 
 	/*
@@ -749,13 +886,164 @@ public class ApplicationDAO {
 
 	}
 
+	public boolean GRpostUserQuestion(String Question, String user) throws SQLException {
+
+		Connection dbConnection = getConnection();
+
+		String query = "INSERT INTO QUESTION(UserID, QuestionDescription) VALUES(?, ?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setString(1, user);
+		preparedStatement.setString(2, Question);
+		preparedStatement.executeUpdate();
+
+		return true;
+	}
+
+	public boolean GRdelete(String deleteItem, String ID) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query = " ";
+
+		if (deleteItem.equals("question")) {
+			query = "DELETE FROM QUESTION WHERE ID='" + ID + "'";
+
+		} else if (deleteItem.equals("answer")) {
+			query = "DELETE FROM ANSWER WHERE QuestionID='" + ID + "'";
+
+		} else if (deleteItem.equals("auction")) {
+			query = "DELETE FROM AUCTION WHERE AuctionID='" + ID + "'";
+
+		} else if (deleteItem.equals("bid")) {
+			query = "DELETE FROM BID WHERE AuctionID='" + ID + "'";
+
+		} else if (deleteItem.equals("user")) {
+			query = "DELETE FROM END_USER WHERE EndUserID='" + ID + "'";
+		}
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.executeUpdate();
+
+		return true;
+
+	}
+
+	public boolean GRanswerUserQuestion(String answer, String number, String AnsweredBy) throws SQLException {
+
+		boolean unAnsweredQuestion = false;
+		String UserId = "";
+		ResultSet unanswered = GRgetAllQuestions("unanswered");
+
+		while (unanswered.next()) {
+			if (number.equals(unanswered.getString("Question_Number"))) {
+
+				UserId = unanswered.getString("UserId");
+				unAnsweredQuestion = true;
+				break;
+			}
+
+		}
+
+		if (unAnsweredQuestion) {
+			Connection dbConnection = getConnection();
+
+			/*
+			 * 
+			 * ADD ANSWERED BY
+			 * 
+			 * 
+			 * String queryAnsweredBy =
+			 * "SELECT EndUserID from END_USER WHERE Username = '" + AnsweredBy
+			 * + "'"; PreparedStatement preparedStatementBy =
+			 * dbConnection.prepareStatement(queryAnsweredBy); ResultSet
+			 * AnsweredById = preparedStatementBy.executeQuery();
+			 * 
+			 * String QuestionAnsweredBy = "";
+			 * 
+			 * while (AnsweredById.next()){ QuestionAnsweredBy =
+			 * AnsweredById.getString("EndUserID");
+			 * 
+			 * }
+			 * 
+			 */
+
+			String query = "INSERT INTO ANSWER(UserID, QuestionID, Answer) VALUES (?,?,?)";
+			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			preparedStatement.setString(1, UserId);
+			preparedStatement.setString(2, number);
+			preparedStatement.setString(3, answer);
+			// preparedStatement.setString(4, );
+			preparedStatement.executeUpdate();
+
+		}
+		return true;
+	}
+
+	public ResultSet GRgetAll(String type) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query = "";
+
+		if (type.equals("bids")) {
+			query = "SELECT * FROM BID";
+		} else if (type.equals("auctions")) {
+			query = "SELECT * FROM AUCTION";
+		} else if (type.equals("users")) {
+			query = "SELECT * FROM END_USER";
+		}
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		return rs;
+
+	}
+
 	/*
 	 * 
 	 * CIERAS INSERT INTO TABLE FUNCTIONS
 	 * 
 	 */
 
+	public void deleteAlert(int BuyerID, String AuctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query;
+
+		query = "DELETE FROM ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID =  " + AuctionID;
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+		System.out.println(query);
+	}
+
+	public boolean shouldInsertAlert(int BuyerID, String AuctionID) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query;
+		int count = 0;
+
+		query = "SELECT COUNT(*) AS count From ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID =  " + AuctionID;
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		System.out.println(query);
+
+		if (rs.next()) {
+			count = rs.getInt("count");
+			System.out.print("count is : " + count);
+		}
+
+		if (count == 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	public void insertAlert(int BuyerID, String AuctionID) throws SQLException {
+
 		Connection dbConnection = getConnection();
 		String query = "Insert into ALERT" + "(BuyerID, AuctionID) " + "values (" + BuyerID + "," + AuctionID + ")";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
@@ -763,6 +1051,25 @@ public class ApplicationDAO {
 		preparedStatement.executeUpdate();
 		preparedStatement.close();
 		dbConnection.close();
+
+	}
+
+	/* Ciera Jones added the following function on August 9th */
+	public ResultSet getAlertsFromUserID(int userID) throws SQLException {
+
+		Connection dbConnection = getConnection();
+		String query;
+
+		query = "SELECT I.ItemName, C.CategoryName, I.ItemDescription, N.Status, N.StartDate, N.CloseDate, N.InitialPrice, N.ClosingPrice, N.AuctionID "
+				+ " FROM ITEM I, ALERT A, BUYER B, AUCTION N, CATEGORY C " + " WHERE B.EndUserID = " + userID + " "
+				+ " AND B.EndUserID = A.BuyerID " + " AND C.CategoryID = I.CategoryID " + " AND I.ItemID = N.ItemID "
+				+ " AND N.AuctionID = A.AuctionID ";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		return rs;
+
 	}
 
 	public void insertQuestion(int UserID, String Question) throws SQLException {
@@ -869,12 +1176,23 @@ public class ApplicationDAO {
 
 	}
 
+	public boolean IsQueryNOTempty() {
+
+		if (wordsList.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public ResultSet SearchFromArrayList() throws SQLException {
 
 		Connection dbConnection = getConnection();
 		String query = "";
 		int i = 0;
+
 		for (String str : wordsList) {
+
 			if (i != 0) {
 				query = query.concat(" UNION ");
 			}
@@ -888,7 +1206,6 @@ public class ApplicationDAO {
 		System.out.println(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
-
 		return rs;
 	}
 
@@ -901,7 +1218,6 @@ public class ApplicationDAO {
 	 * 
 	 * 
 	 */
-
 	public static void main(String[] args) {
 		ApplicationDAO dao = new ApplicationDAO();
 		Connection connection = dao.getConnection();

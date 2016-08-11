@@ -1,3 +1,4 @@
+
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" pageEncoding="UTF-8" import="com.cs336.pkg.*"
 	import="java.util.*"%>
@@ -15,7 +16,8 @@
 		//String name = request.getParameter("name");
 		//String password = request.getParameter("password");
 		String question = request.getParameter("question");
-		ApplicationDAO dao = new ApplicationDAO(); 
+		ApplicationDAO dao = new ApplicationDAO();
+
 	//	if (dao.userLogin(name, password)) {
 			//int ID = dao.getUserID(name, password); 
 			int ID = (Integer)session.getAttribute("userID");

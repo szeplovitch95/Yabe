@@ -9,7 +9,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-	<%
+<%
 	ApplicationDAO dao2 = new ApplicationDAO();	
 	System.out.println((Integer)session.getAttribute("userID"));
 	ResultSet rs11 = dao2.getBuyerBids((Integer)session.getAttribute("userID"));

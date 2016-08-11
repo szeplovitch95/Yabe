@@ -19,17 +19,26 @@
 		System.out.print(session1);
 		session1.setAttribute("username", username);
 		String usernameLogin = (String)session1.getAttribute("username");
-		System.out.println(usernameLogin);
 		int id = dao.getEndUserID(usernameLogin);
-		String userType = dao.getUserType(id);
+		
+		
+		//System.out.println(usernameLogin);
+		//String userType = dao.getUserType(id);
+		//session1.setAttribute("userType", userType);
+		
 		
 		session1.setAttribute("userID", id);
-		session1.setAttribute("userType", userType);
 		session1.setAttribute("auctionID", 0);
 		session1.setAttribute("itemID", 0);
 		
 			if (dao.userLogin(username, password)) {
+				
+				
+				session1.setAttribute("userType", dao.getUserType(id));
+				
 				response.sendRedirect("homePage.jsp");
+				
+				
 			} 
 			else { %>
 				<label class="control-label" style="margin-left: 30%; color: Red;">Username

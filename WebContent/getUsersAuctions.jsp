@@ -1,22 +1,39 @@
-<%@page import="java.sql.ResultSet"%>
-<%@ page language="java" pageEncoding="UTF-8" import="com.cs336.pkg.*"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
 </head>
-<div>
-	<h2 style="margin-left: 35%;">Auctions:</h2>
-</div>
-<a href="createNewAuction.jsp">
-	<button type="button" class="btn btn-primary">Create Auction</button>
-</a>
-<% 
+<body>
+<%
 	ApplicationDAO dao = new ApplicationDAO();
-	ResultSet rs = dao.getSellerAuctions((Integer)session.getAttribute("userID"));
-	String itemName = "";
+	String userType = request.getParameter("userType");
+	System.out.println(userType);
+	String userFullName = "";
+	if(userType.equals("Buyer")) {
+		userFullName = request.getParameter("buyerChosen");
+	}
+	else {
+		userFullName = request.getParameter("sellerChosen");
+	}
+	
+	String name = userFullName.substring(0, userFullName.lastIndexOf(' '));
+	int userID = dao.getEndUserIDWithFirstName(name);
+	ResultSet rs; 
+	
+	if(userType.equals("Buyer")) {
+		rs = dao.getBuyerAuctions(userID);		
+	}
+	else {
+		rs = dao.getSellerAuctions(userID);
+	}
+	
+	
 %>
+
+<%@include file="searchUsersAuctions.jsp"%>
 <table class="table table-bordered table-hover">
 	<thead>
 		<tr>
@@ -56,4 +73,8 @@
 		%>
 	</tbody>
 </table>
+
+
+
+</body>
 </html>

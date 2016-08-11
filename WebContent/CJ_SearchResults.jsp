@@ -10,7 +10,6 @@
 <title>SearchResults</title>
 </head>
 <body>
-
 	<%@include file="navbar.jsp"%>
 	<%
 		String category =  request.getParameter("category");
@@ -20,10 +19,14 @@
 		String priceMax = request.getParameter("price-max");
 		String weightMin = request.getParameter("weight-min");
 		String weightMax = request.getParameter("weight-max");
+		String bidMin = request.getParameter("bid-min");
+		String bidMax = request.getParameter("bid-max");
 		String sortBy = request.getParameter("sort-by");
-		String orderBy = request.getParameter("order-by");
+		String orderBy = request.getParameter("order-by"); 
+		String minDate = request.getParameter("minDate");
+		String maxDate = request.getParameter("maxDate");
 		
-		out.print(" cat id ." + category + 
+	/*	out.print(" cat id ." + category + 
 				  ". color ." + color + 
 				  ". status ." + status + 
 				  ". princeMin ." + priceMin +
@@ -31,9 +34,10 @@
 				  ". WeightMin ." + weightMin + 
 				  ". WeightMax ." + weightMax + 
 				  ". Sortby." + sortBy + 
-				  ". orderby." + orderBy); 
+				  ". orderby." + orderBy); */
+
 		ApplicationDAO dao = new ApplicationDAO();
-		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, sortBy, orderBy);
+		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, bidMin, bidMax, sortBy, orderBy, minDate, maxDate);
 %>
 	<table class="table table-bordered">
 		<thead>
@@ -49,9 +53,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% int i = 0; 
-    while(rs.next()) {
-    	i ++;%>
+			<%
+    		while(rs.next()) {
+    			System.out.println(rs.getString("ItemName"));
+    		%>
 			<tr>
 				<td><%= rs.getString("ItemName") %></td>
 				<td><%= rs.getString("CategoryName") %></td>

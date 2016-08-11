@@ -1,5 +1,5 @@
 <%@page import="java.sql.ResultSet"%>
-<%@ page language="java" pageEncoding="UTF-8" import="com.cs336.pkg.*"%>
+<%@ page language="java" pageEncoding="UTF-8" import="com.cs336.pkg.*, java.util.*, java.text.* "%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,17 +13,30 @@
 	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		String auctionID = request.getQueryString();
-		int id = Integer.parseInt(auctionID);
-		
-
-		
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
+
+		int id = Integer.parseInt(auctionID);
+		int currentPrice = dao.getMaxBidPrice(Integer.parseInt(auctionID)); 		
+		int winnerID = dao.getAuctionWinner(currentPrice, id);
+		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
+		String auctionStatus = dao.getAuctionStatus(id);
+		String winnerName = dao.getFullName(winnerID);
+		
+		if(winnerName.equals("")) {
+			winnerName = "No Winner";
+		}
 		
 		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
-		int currentPrice = dao.getMaxBidPrice(Integer.parseInt(auctionID)); 
-		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
-		rs2.next();
+		rs2.next();	
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String sDate= sdf.format(date);
+
+		if(sDate.equals(dao.dateToString(rs2.getDate("CloseDate")))) {
+			auctionStatus = "Closed";
+		}
+
 	%>
 	<div class="container">
 		<div class="row">
@@ -37,6 +50,21 @@
 				%>
 			</a>
 		</div>
+		<%
+			if(rs2.getInt("CreatedBy") == (Integer)session.getAttribute("userID")) {
+		%>
+		<div class="row" style="margin-top:10px;">
+			<a style="float:right;" href="manuallyEndAuction.jsp?<%=id%>">
+				<%
+					if(auctionStatus.equals("Closed")) { %>
+						<button type="button" class="btn btn-primary" disabled>End Auction</button> <% 
+					} else { %>
+						<button type="submit" class="btn btn-primary">End Auction</button> <% 						
+					}
+				%>
+			</a>
+		</div>
+		<%}%>
 		<div class="row">
 			<label class="control-label col-md-2">Auction ID:</label>
 			<div class="col-md-3">
@@ -82,13 +110,13 @@
 		<div class="row">
 			<label class="control-label col-md-2">Status:</label>
 			<div class="col-md-3">
-				<%=rs2.getString("Status")%>
+				<%=auctionStatus%>
 			</div>
 		</div>
 		<div class="row">
 			<label class="control-label col-md-2">Winner:</label>
 			<div class="col-md-3">
-				<%=rs2.getString("Winner")%>
+				<%=winnerName%>
 			</div>
 		</div>
 		<table class="table table-bordered table-hover">
