@@ -623,7 +623,7 @@ public class ApplicationDAO {
 	 * THEN SHOWN IN CJ_SEARCHRESULTS
 	 */
 	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax,
-			String weightMin, String weightMax, String sortby, String orderby) throws SQLException {
+			String weightMin, String weightMax, String minBidPrice, String maxBidPrice, String sortby, String orderby) throws SQLException {
 		Connection dbConnection = getConnection();
 		System.out.println("orderby: " + orderby);
 		System.out.println("sort By: " + sortby);
@@ -648,38 +648,30 @@ public class ApplicationDAO {
 
 		if (categoryID.length() > 0) {
 			//specifiedCategory = " AND " + categoryID + " = C.CategoryName AND C.CategoryID = I.CategoryID ";
-			specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
-		}
+			//specifiedCategory = " AND C.CategoryName='" + categoryID + "' AND C.CategoryID = I.CategoryID ";
+			specifiedCategory = " AND C.CategoryID=" + categoryID + " ";
+	}
 
 		String query = "SELECT DISTINCT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status, A.InitialPrice, A.ClosingPrice, A.AuctionID"
-				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
-				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
+				+ " FROM AUCTION A, ITEM I, CATEGORY C, BID B  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
+				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax+
+				"  AND  " + "  B.OfferPrice >=  " + minBidPrice + " AND B.OfferPrice <=  " + maxBidPrice
 				+ specifiedColor + specifiedStatus + specifiedCategory
 				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + " " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
+	}	
+	
+	public int CJgetMaxBid() throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT MAX(OfferPrice) AS 'HighestBid' FROM BID ";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		return rs.getInt("HighestBid");
 	}
-
-	/*
-	 * SELECT I.ItemName, C.CategoryName, I.Color, I.Weight, A.Status,
-	 * A.InitialPrice, A.ClosingPrice, A.AuctionID FROM AUCTION A, ITEM I,
-	 * CATEGORY C 
-	 * WHERE I.Weight >= null 
-	 * AND I.Weight <= 100 
-	 * AND A.InitialPrice >= 0 
-	 * AND A.InitialPrice <= 1000 
-	 * AND I.Color = 'Yellow' 
-	 * And A.Status = 'Open' 
-	 * AND C.CategoryName=Books 
-	 * AND C.CategoryID = I.CategoryID 
-	 * AND A.ItemID = I.ItemID 
-	 * AND C.CategoryID = I.CategoryID
-	 */
-	
-	
-	
 	
 	/*
 	 * 

@@ -19,10 +19,12 @@
 		String priceMax = request.getParameter("price-max");
 		String weightMin = request.getParameter("weight-min");
 		String weightMax = request.getParameter("weight-max");
+		String bidMin = request.getParameter("bid-min");
+		String bidMax = request.getParameter("bid-max");
 		String sortBy = request.getParameter("sort-by");
-		String orderBy = request.getParameter("order-by");
+		String orderBy = request.getParameter("order-by"); 
 		
-		/*out.print(" cat id ." + category + 
+	/*	out.print(" cat id ." + category + 
 				  ". color ." + color + 
 				  ". status ." + status + 
 				  ". princeMin ." + priceMin +
@@ -33,7 +35,7 @@
 				  ". orderby." + orderBy); */
 
 		ApplicationDAO dao = new ApplicationDAO();
-		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, sortBy, orderBy);
+		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, bidMin, bidMax, sortBy, orderBy);
 %>
 	<table class="table table-bordered">
 		<thead>

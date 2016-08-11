@@ -13,22 +13,17 @@
 	<%
 		ApplicationDAO dao = new ApplicationDAO();
 		String auctionID = request.getQueryString();
-		int id = Integer.parseInt(auctionID);
 		session.setAttribute("auctionID", Integer.parseInt(auctionID));
-		
-		String auctionStatus = dao.getAuctionStatus(id);
-		
-		
-		
-		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
+
+		int id = Integer.parseInt(auctionID);
 		int currentPrice = dao.getMaxBidPrice(Integer.parseInt(auctionID)); 		
 		int winnerID = dao.getAuctionWinner(currentPrice, id);
-		String winnerName = dao.getFullName(winnerID);
 		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
+		String auctionStatus = dao.getAuctionStatus(id);
+		String winnerName = dao.getFullName(winnerID);
+		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
 		rs2.next();	
-		
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String sDate= sdf.format(date);
@@ -52,7 +47,13 @@
 		</div>
 		<div class="row" style="margin-top:10px;">
 			<a style="float:right;" href="manuallyEndAuction.jsp?<%=id%>">
-				<button type="button" class="btn btn-primary">End Auction</button>
+				<%
+					if(auctionStatus.equals("Closed")) { %>
+						<button type="button" class="btn btn-primary" disabled>End Auction</button> <% 
+					} else { %>
+						<button type="submit" class="btn btn-primary">End Auction</button> <% 						
+					}
+				%>
 			</a>
 		</div>
 		<div class="row">

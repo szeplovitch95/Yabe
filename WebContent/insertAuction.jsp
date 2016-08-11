@@ -19,7 +19,6 @@
 			}
 		}
 		
-		//TODO add sessions
 		auction.setCreatedBy((Integer)session.getAttribute("userID"));
 		auction.setStatus("New");
 		auction.setInitialPrice(Integer.parseInt(request.getParameter("initialPrice")));
@@ -27,8 +26,6 @@
 		auction.setCloseDate(auction.stringToDate(request.getParameter("closeDate")));
 		auction.setCurrentPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		auction.setTotalBids(0);
-
-		//TODO form validation 
 		dao.insertAuction(auction);
 		response.sendRedirect("sellerAuctionList.jsp");
 	%>
