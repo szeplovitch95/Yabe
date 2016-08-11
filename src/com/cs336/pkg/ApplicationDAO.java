@@ -615,7 +615,7 @@ public class ApplicationDAO {
 				+ " FROM AUCTION A, ITEM I, CATEGORY C  WHERE  " + " I.Weight >=  " + weightMin + "  AND I.Weight <=  "
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax
 				+ specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID   " + " " + sortby + " " + orderBy;
+				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + " " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();

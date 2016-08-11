@@ -24,6 +24,8 @@
 			<label class="control-label col-md-1 col-sm-1 col-lg-1">Category:</label>
 			<div class="col-md-2 col-lg-2 col-sm-2">
 				<select class="form-control" name="category">
+				<option value = "">Any Category</option>
+					</option>
 					<%
 						while (rs.next()) {
 							int categoryID = rs.getInt("CategoryID");
