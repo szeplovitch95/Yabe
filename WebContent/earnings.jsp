@@ -139,7 +139,7 @@
 						<tbody>
 							<% while(rsTotalEarningsPerCategory.next()) { %>
 							<tr>
-								<td><%= rsTotalEarningsPerCategory.getInt("Category") %></td>
+								<td><%= rsTotalEarningsPerCategory.getInt("CategoryID") %></td>
 								<td><%= rsTotalEarningsPerCategory.getString("CategoryName") %>
 								</td>
 								<td><%= "$ "+ rsTotalEarningsPerCategory.getInt("Total_Earning_ItemCategory") %>

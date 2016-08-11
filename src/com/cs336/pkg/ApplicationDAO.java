@@ -893,6 +893,124 @@ public class ApplicationDAO {
 		return EndUserID;
 
 	}
+	
+public boolean GRpostUserQuestion(String Question, String user) throws SQLException{
+		
+		Connection dbConnection = getConnection();
+	
+		String query = "INSERT INTO QUESTION(UserID, QuestionDescription) VALUES(?, ?)";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.setString(1, user);
+		preparedStatement.setString(2, Question);
+		preparedStatement.executeUpdate();
+		
+		return true;
+	}
+	
+	public boolean GRdelete(String deleteItem , String ID) throws SQLException{
+
+		Connection dbConnection = getConnection();
+		String query = " ";
+		
+		if(deleteItem.equals("question")){
+			query = "DELETE FROM QUESTION WHERE ID='"+ ID +"'";
+
+		}else if(deleteItem.equals("answer")){
+			query = "DELETE FROM ANSWER WHERE QuestionID='"+ ID +"'";
+			
+		}else if(deleteItem.equals("auction")){
+			query = "DELETE FROM AUCTION WHERE AuctionID='"+ ID +"'";
+			
+		}else if(deleteItem.equals("bid")){
+			query = "DELETE FROM BID WHERE AuctionID='"+ ID +"'";
+			
+		}else if(deleteItem.equals("user")){
+			query = "DELETE FROM END_USER WHERE EndUserID='"+ ID +"'";
+		}
+		
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		preparedStatement.executeUpdate();
+
+		return true;
+		
+	}
+	
+public boolean GRanswerUserQuestion(String answer, String number, String AnsweredBy) throws SQLException{
+		
+		boolean unAnsweredQuestion = false;
+		String UserId = "";
+		ResultSet unanswered = GRgetAllQuestions("unanswered");
+
+		while(unanswered.next()){
+			if( number.equals(unanswered.getString("Question_Number"))  ){
+				
+				UserId = unanswered.getString("UserId");
+				unAnsweredQuestion = true;
+				break;
+			}
+			
+		}
+		
+		if(unAnsweredQuestion){
+			Connection dbConnection = getConnection();
+			
+			/*
+			 * 
+			 * ADD ANSWERED BY
+			 * 
+			
+			String queryAnsweredBy = "SELECT EndUserID from END_USER WHERE Username = '" + AnsweredBy + "'";
+			PreparedStatement preparedStatementBy = dbConnection.prepareStatement(queryAnsweredBy);
+			ResultSet AnsweredById = preparedStatementBy.executeQuery();
+			
+			String QuestionAnsweredBy = "";
+			
+			while (AnsweredById.next()){
+				QuestionAnsweredBy = AnsweredById.getString("EndUserID");
+				
+			}
+			
+			*/
+
+			
+			String query = "INSERT INTO ANSWER(UserID, QuestionID, Answer) VALUES (?,?,?)";
+			PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+			preparedStatement.setString(1, UserId);
+			preparedStatement.setString(2, number);
+			preparedStatement.setString(3, answer);
+			//preparedStatement.setString(4, );
+			preparedStatement.executeUpdate();
+		
+		}
+		return true;
+	}
+
+	public ResultSet GRgetAll(String type) throws SQLException{
+		
+		Connection dbConnection = getConnection();
+		String query = "";
+
+		if (type.equals("bids")) {
+			query = "SELECT * FROM BID";
+		} else if (type.equals("auctions")) {
+			query = "SELECT * FROM AUCTION";
+		}else if(type.equals("users")){
+			query = "SELECT * FROM END_USER";
+		}
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+
+		return rs;
+	
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * 
