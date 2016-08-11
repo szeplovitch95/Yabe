@@ -1,20 +1,8 @@
 TODO LIST:
-
 1. Add closing/starting date, winner funcitonality to singleAuction.jsp 
 7. alert the buyer that a higher bid has been placed
-
-
-
 8. define the winner of the auction 
-
-
-
 9. add more exact date/time to auctions so when the date and time is here, the winner is defined and we see if the item actually got sold. 
 12. When the auction date arrives, check if the seller put a reserve and if no bids are above that reserve, the item is not sold and the auction status is closed. 
-
-
-
 13. implement functionality to Auction Status. 
-
-
- 1.view the list of all auctions a specific buyer or seller has participated in
+1.view the list of all auctions a specific buyer or seller has participated in

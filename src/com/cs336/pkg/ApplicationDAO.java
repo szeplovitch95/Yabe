@@ -1,10 +1,13 @@
 package com.cs336.pkg;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -383,6 +386,22 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
 	}
+	
+	
+	
+	 public String getAuctionStatus(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "SELECT Status FROM AUCTION " + "WHERE AuctionID=" + auctionID + "";
+
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		
+		if(rs.next()) {
+			return rs.getString("Status");
+		}
+		
+		return "";
+	 }
 
 	// receives a specific auctionID and returns all of the bids corresponding
 	// to that auctionID
@@ -394,7 +413,29 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		return rs;
 	}
+	
+	public void updateAuctionStatus(int auctionID) throws SQLException {
+		Connection dbConnection = getConnection();
+		String query = "UPDATE AUCTION SET Status='Closed' WHERE AuctionID=" + auctionID + "";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 
+
+		preparedStatement.executeUpdate();
+		preparedStatement.close();
+		dbConnection.close();
+	}
+
+	public Date stringToDate(String value) throws ParseException {
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date = sdf1.parse(value);
+		return new java.sql.Date(date.getTime());
+	}
+	
+	public String dateToString(Date date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String sDate= sdf.format(date);
+		return sDate;
+	}
 	/*
 	 * Bid Methods
 	 */
