@@ -169,9 +169,7 @@
 					max="<%out.print(maxDate);%>" />
 			</div>
 		</div>
-
 		<br>
-
 		<div>
 			<label for="bid-min" class="control-label col-sm-3 col-md-3 col-lg-3">Maximum
 				Start Date :</label>
@@ -181,10 +179,7 @@
 					max="<%out.print(maxDate);%>" />
 			</div>
 		</div>
-
-
 		<br>
-
 		<div>
 
 			<div class="form-group">

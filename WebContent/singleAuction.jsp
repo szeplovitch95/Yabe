@@ -45,6 +45,9 @@
 				%>
 			</a>
 		</div>
+		<%
+			if(rs2.getInt("CreatedBy") == (Integer)session.getAttribute("userID")) {
+		%>
 		<div class="row" style="margin-top:10px;">
 			<a style="float:right;" href="manuallyEndAuction.jsp?<%=id%>">
 				<%
@@ -56,6 +59,7 @@
 				%>
 			</a>
 		</div>
+		<%}%>
 		<div class="row">
 			<label class="control-label col-md-2">Auction ID:</label>
 			<div class="col-md-3">
