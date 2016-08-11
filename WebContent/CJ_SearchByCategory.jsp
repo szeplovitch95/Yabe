@@ -49,11 +49,12 @@
 			<label class="control-label col-md-1 col-sm-1 col-lg-1">Color:</label>
 			<div class="col-md-2 col-lg-2 col-sm-2">
 				<select class="form-control" name="color">
+				<option value = "">Any Color</option>
 					<%
 						while (rs.next()) {
 							String color = rs.getString("Color");
 					%>
-					<option>
+					<option value = "<%out.print(color);%>">
 						<%=color%>
 					</option>
 					<%
@@ -71,11 +72,12 @@
 			<label class="control-label col-md-1 col-sm-1 col-lg-1">Status:</label>
 			<div class="col-md-2 col-lg-2 col-sm-2">
 				<select class="form-control" name="status">
+				<option value = "">Any Status</option>
 					<%
 						while (rs.next()) {
 							String status = rs.getString("Status");
 					%>
-					<option>
+					<option value = "<%out.print(status);%>">
 						<%=status%>
 					</option>
 					<%
