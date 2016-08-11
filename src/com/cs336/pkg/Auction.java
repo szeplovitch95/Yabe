@@ -1,14 +1,8 @@
 package com.cs336.pkg;
-<<<<<<< HEAD
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-=======
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.sql.Date;
->>>>>>> 4247765018a9062bea96331aee34e44c3fffa748
 
 public class Auction {
 	private int ItemID;
@@ -127,5 +121,4 @@ public class Auction {
 		this.cancelledBy = cancelledBy;
 	}
 
-	// TODO change date format to dd/MM/yyy
 }

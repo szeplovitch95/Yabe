@@ -8,25 +8,40 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
 	type="text/css" />
 </head>
+
+<% 
+
+	String user = (String)request.getSession().getAttribute("username"); 
+
+%>
 <body>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 col-sm-2 col-lg-2"></div>
 			<div class="col-md-4 col-sm-4 col-lg-4"></div>
 			<div class="col-md-6 col-sm-6 col-lg-6">
+				
+			<%
+				if(user != null){
+				if (user.equals("Admin")){		
+			%>
+				<a href="homePage.jsp" class="pull-right">
+					<button type="button" class="btn btn-primary">Back to
+						Home Page</button>
+				</a>
+			<%}}else{ %>
 				<a href="index.jsp" class="pull-right">
 					<button type="button" class="btn btn-primary">Back to
 						Login Page</button>
 				</a>
+			<%} %>
 			</div>
 		</div>
 		
 			<% 
-	
-			String user = (String)request.getSession().getAttribute("username"); 
 		
 			if(user != null){
-				if (user.equals("admin")){		
+				if (user.equals("Admin")){		
 			%>
 			
 			<form class="form-horizontal" action="insertCustomerRep.jsp" method="post">

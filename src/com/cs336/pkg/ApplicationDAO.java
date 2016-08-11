@@ -562,7 +562,7 @@ public class ApplicationDAO {
 		} else if (FilterType.equals("PerItem")) {
 			query = "SELECT DISTINCT a.ItemID, i.ItemName, SUM(a.ClosingPrice) as Total_Earning_Item FROM AUCTION a, ITEM i WHERE a.ItemID = i.ItemID AND	a.status='Closed' group by i.ItemID";
 		} else if (FilterType.equals("PerCategory")) {
-			query = "SELECT DISTINCT a.Category, c.CategoryName, SUM(a.ClosingPrice) as Total_Earning_ItemCategory FROM AUCTION a, CATEGORY c WHERE a.Category = c.CategoryID AND a.status='Closed' group by a.Category";
+			query = "SELECT DISTINCT i.CategoryID, c.CategoryName, SUM(a.ClosingPrice) as Total_Earning_ItemCategory FROM AUCTION a, CATEGORY c, ITEM i WHERE a.ItemID = i.ItemID AND i.CategoryID = c.CategoryID AND a.status='Closed' group by i.CategoryID";
 		} else if (FilterType.equals("BestSellingItems")) {
 			query = "SELECT DISTINCT a.ItemID, i.ItemName, SUM(a.ClosingPrice) as Total_Earning_Item FROM AUCTION a, ITEM i WHERE a.ItemID = i.ItemID AND a.status='Closed' group by a.ItemID ORDER BY Total_Earning_Item DESC;";
 		} else if (FilterType.equals("BestBuyers")) {
@@ -1023,7 +1023,8 @@ public class ApplicationDAO {
 		String query;
 		int count = 0;
 
-		query = "SELECT COUNT(*) AS count From ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID =  " + AuctionID;
+		query = "SELECT COUNT(*) AS count From ALERT WHERE BuyerID =  " + BuyerID + " AND AuctionID='" + AuctionID
+				+ "'";
 
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -1043,9 +1044,8 @@ public class ApplicationDAO {
 	}
 
 	public void insertAlert(int BuyerID, String AuctionID) throws SQLException {
-
 		Connection dbConnection = getConnection();
-		String query = "Insert into ALERT" + "(BuyerID, AuctionID) " + "values (" + BuyerID + "," + AuctionID + ")";
+		String query = "Insert into ALERT" + "(BuyerID, AuctionID) " + "values ('" + BuyerID + "','" + AuctionID + "')";
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		System.out.print(query);
 		preparedStatement.executeUpdate();

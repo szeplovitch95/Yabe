@@ -21,7 +21,6 @@
 			out.print("<h2>Alert Submitted</h2>");
 		 } 
 		else{
-
 			out.print("<h2>Alert Already Submitted</h2>");
 		}
 		

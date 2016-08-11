@@ -27,23 +27,20 @@ String username = (String)session.getAttribute("userType");
 				<%}else{ %>
 					<li id="buy"><a href="buy.jsp">Buy</a></li>
 					<li id="sell"><a href="sell.jsp">Sell</a></li>
-				<%} %>
+					<li id="alert"><a href="alertPage.jsp">Alerts</a></li>
+				<%} %> 
 				
 				<li id="watchList"><a href="watchList.jsp">Watch List</a></li>
 				<li id="searchUsersAuctions"><a href="searchUsersAuctions.jsp">Search Users Auctions</a></li>
 				<li id="questionPage"><a href="questionPage.jsp">Yabe Questions</a></li>
 				<%
-				if(username.equals("admin")) {
-				%>
+				if(username.equals("Admin")) {
+				%> 
 					<li id="earnings"><a href="earnings.jsp">Earnings</a></li>
 					<li><a href="registration.jsp">Create Customer Rep</a></li>
 				<%	
-				}else if(username.equals("CustomerRep")){
-				%>
-				
-				
-				
-				<%} %>
+				}
+				%> 
 				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
