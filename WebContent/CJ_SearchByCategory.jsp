@@ -120,69 +120,54 @@
 			String maxDate = dao.CJgetMaxDate();
 		%>
 		<div class="form-group">
-
-
 			<label for="price-min"
 				class="control-label col-sm-1 col-md-1 col-lg-1">Initial
 				Price:</label>
 			<div class="col-lg-5 col-md-5 col-sm-5">
 				<input type="number" name="price-min"
-					class="col-sm-2 col-lg-2 col-md-2" min="0" value="0" /> <span
+					class="col-sm-2 col-lg-2 col-md-2 form-control" style="width:20%" min="0" value="0" /> <span
 					class="col-sm-1 col-lg-1 col-md-1"> to </span> <input type="number"
-					name="price-max" class="col-sm-2 col-lg-2 col-md-2" min="0"
+					name="price-max" class="col-sm-2 col-lg-2 col-md-2 form-control" style="width:20%" min="0"
 					max="<%out.print(maxprice);%>" value="<%out.print(maxprice);%>" />
 			</div>
-
-
 			<label for="weight-min"
 				class="control-label col-sm-1 col-md-1 col-lg-1">Weight:</label>
 			<div class="col-lg-5 col-md-5 col-sm-5">
 				<input type="number" name="weight-min"
-					class="col-sm-2 col-lg-2 col-md-2" value="0" min="0" /> <span
+					class="col-sm-2 col-lg-2 col-md-2 form-control" style="width:20%" value="0" min="0" /> <span
 					class="col-sm-1 col-lg-1 col-md-1"> to </span> <input type="number" 
-					name="weight-max" class="col-sm-2 col-lg-2 col-md-2" min="0"
+					name="weight-max" class="col-sm-2 col-lg-2 col-md-2 form-control" style="width:20%" min="0"
 					max="<%out.print(maxweight);%>" value="<%out.print(maxweight);%>" />
 			</div>
-
 		</div>
-
-		<br>
-
-		<div>
+		<div class="form-group">
 			<label for="bid-min" class="control-label col-sm-1 col-md-1 col-lg-1">Current
 				Bid Price:</label>
 			<div class="col-lg-5 col-md-5 col-sm-5">
 				<input type="number" name="bid-min"
-					class="col-sm-2 col-lg-2 col-md-2" value="0" min="0" /> <span
+					class="col-sm-2 col-lg-2 col-md-2 form-control" style="width:20%" value="0" min="0" /> <span
 					class="col-sm-1 col-lg-1 col-md-1"> to </span> <input type="number"
-					name="bid-max" class="col-sm-3 col-lg-3 col-md-3" min="0"
+					name="bid-max" class="col-sm-3 col-lg-3 col-md-3 form-control" style="width:20%" min="0"
 					max="<%out.print(maxBid);%>" value="<%out.print(maxBid);%>" />
 			</div>
 		</div>
-		<br>
-		<div>
-			<label for="bid-min" class="control-label col-sm-3 col-md-3 col-lg-3">Minimum
+		<div class="form-group">
+			<label for="bid-min" class="control-label col-sm-1 col-md-1 col-lg-1">Minimum
 				Start Date :</label>
-			<div class="col-lg-5 col-md-5 col-sm-5">
-				<input type="date" name="minDate" class="col-sm-3 col-lg-3 col-md-3"
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<input type="date" name="minDate" class="form-control"
 					value="<%out.print(minDate);%>" min="<%out.print(minDate);%>"
 					max="<%out.print(maxDate);%>" />
 			</div>
-		</div>
-		<br>
-		<div>
-			<label for="bid-min" class="control-label col-sm-3 col-md-3 col-lg-3">Maximum
+			<label for="bid-min" class="control-label col-sm-1 col-md-1 col-lg-1">Maximum
 				Start Date :</label>
-			<div class="col-lg-5 col-md-5 col-sm-5">
-				<input type="date" name="maxDate" class="col-sm-3 col-lg-3 col-md-3"
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<input type="date" name="maxDate" class="form-control"
 					value="<%out.print(maxDate);%>" min="<%out.print(minDate);%>"
 					max="<%out.print(maxDate);%>" />
 			</div>
 		</div>
-		<br>
-		<div>
-
-			<div class="form-group">
+		<div class="form-group">
 				<label class="col-sm-1 col-md-1 col-lg-1 control-label"
 					for="sort-by">Sort By :</label>
 				<div class="col-md-3 col-lg-3 col-sm-3">
@@ -196,8 +181,6 @@
 						<option value=" order by C.CategoryName ">Color</option>
 					</select>
 				</div>
-				
-				<br>
 				<label class="col-sm-1 col-md-1 col-lg-1 control-label"
 					for="order-by">Order By :</label>
 				<div class="col-md-3 col-lg-3 col-sm-3">
@@ -208,7 +191,6 @@
 				</div>
 				<button class="btn btn-primary" type="submit">Search Items</button>
 			</div>
-
 		</div>
 	</form>
 </body>

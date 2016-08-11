@@ -21,13 +21,18 @@
 		int totalBids = dao.getTotalBids(Integer.parseInt(auctionID));
 		String auctionStatus = dao.getAuctionStatus(id);
 		String winnerName = dao.getFullName(winnerID);
+		
+		if(winnerName.equals("")) {
+			winnerName = "No Winner";
+		}
+		
 		ResultSet rs2 = dao.getAuction(Integer.parseInt(auctionID));
 		ResultSet rs4 = dao.getAuctionBids(Integer.parseInt(auctionID));
 		rs2.next();	
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String sDate= sdf.format(date);
-		
+
 		if(sDate.equals(dao.dateToString(rs2.getDate("CloseDate")))) {
 			auctionStatus = "Closed";
 		}

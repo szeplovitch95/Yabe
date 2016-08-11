@@ -12,7 +12,7 @@
 <a href="createNewAuction.jsp">
 	<button type="button" class="btn btn-primary">Create Auction</button>
 </a>
-<%
+<% 
 	ApplicationDAO dao = new ApplicationDAO();
 	ResultSet rs = dao.getSellerAuctions((Integer)session.getAttribute("userID"));
 	String itemName = "";

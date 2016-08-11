@@ -27,7 +27,7 @@
 		auction.setCurrentPrice(Integer.parseInt(request.getParameter("initialPrice")));
 		auction.setTotalBids(0);
 		dao.insertAuction(auction);
-		response.sendRedirect("sellerAuctionList.jsp");
+		response.sendRedirect("sell.jsp");
 	%>
 </body>
 </html>

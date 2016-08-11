@@ -30,7 +30,7 @@
 		<div class="tab-content">
 			<div id="AuctionList" class="tab-pane fade in active">
 				<div class="container"> 
-					<%@include file="sellerAuctionList.jsp"%>				
+					<%@include file="sellerAuctionList.jsp"%>				 
 				</div>
 			</div>
 			<div id="ItemList" class="tab-pane fade">
