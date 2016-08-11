@@ -582,7 +582,8 @@ public class ApplicationDAO {
 	 * THEN SHOWN IN CJ_SEARCHRESULTS
 	 */
 	public ResultSet SearchResults(String categoryID, String color, String status, String priceMin, String priceMax,
-			String weightMin, String weightMax, String minBidPrice, String maxBidPrice, String sortby, String orderby) throws SQLException {
+								   String weightMin, String weightMax, String minBidPrice, String maxBidPrice, 
+								   String sortby, String orderby, String minDate, String maxDate) throws SQLException {
 		Connection dbConnection = getConnection();
 		System.out.println("orderby: " + orderby);
 		System.out.println("sort By: " + sortby);
@@ -616,7 +617,9 @@ public class ApplicationDAO {
 				+ weightMax + "  AND  " + "  A.InitialPrice >=  " + priceMin + " AND A.InitialPrice <=  " + priceMax+
 				"  AND  " + "  B.OfferPrice >=  " + minBidPrice + " AND B.OfferPrice <=  " + maxBidPrice
 				+ specifiedColor + specifiedStatus + specifiedCategory
-				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " + " " + sortby + " " + orderBy;
+				+ "  AND A.ItemID = I.ItemID  AND C.CategoryID = I.CategoryID " +
+				"AND StartDate >= '"+minDate+"' AND StartDate <= '"+maxDate+"' "+
+				" " + sortby + " " + orderBy;
 		System.out.print(query);
 		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -630,6 +633,27 @@ public class ApplicationDAO {
 		ResultSet rs = preparedStatement.executeQuery();
 		rs.next();
 		return rs.getInt("HighestBid");
+	}
+	
+	public String CJgetMinDate() throws SQLException {
+		String date = "";
+		Connection dbConnection = getConnection();
+		String query = "SELECT MIN(StartDate) AS Min FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		date = rs.getDate("Min").toString();
+		return date;
+	}
+	public String CJgetMaxDate() throws SQLException {
+		Connection dbConnection = getConnection();
+		String date = "";
+		String query = "SELECT MAX(StartDate) AS Max FROM AUCTION";
+		PreparedStatement preparedStatement = dbConnection.prepareStatement(query);
+		ResultSet rs = preparedStatement.executeQuery();
+		rs.next();
+		date = rs.getDate("Max").toString();
+		return date;
 	}
 	
 	/*

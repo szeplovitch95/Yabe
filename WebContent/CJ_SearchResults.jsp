@@ -23,6 +23,8 @@
 		String bidMax = request.getParameter("bid-max");
 		String sortBy = request.getParameter("sort-by");
 		String orderBy = request.getParameter("order-by");
+		String minDate = request.getParameter("minDate");
+		String maxDate = request.getParameter("maxDate");
 		
 	/*	out.print(" cat id ." + category + 
 				  ". color ." + color + 
@@ -35,7 +37,7 @@
 				  ". orderby." + orderBy); */
 
 		ApplicationDAO dao = new ApplicationDAO();
-		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, bidMin, bidMax, sortBy, orderBy);
+		ResultSet rs = dao.SearchResults(category, color, status, priceMin, priceMax, weightMin, weightMax, bidMin, bidMax, sortBy, orderBy, minDate, maxDate);
 %>
 	<table class="table table-bordered">
 		<thead>
