@@ -1191,7 +1191,12 @@ public class ApplicationDAO {
 		// String[] words = RemoveStopWords.split(" ");
 		String[] words = RemoveStopWords.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 
+		
+		
 		for (String word : words) {
+			if (word.endsWith("s")) {
+				word=  word.substring(0, word.length() - 1);
+				}
 			wordsList.add(word);
 		}
 		System.out.println("After for loop:  " + wordsList);
