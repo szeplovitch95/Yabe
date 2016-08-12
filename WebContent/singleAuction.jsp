@@ -33,8 +33,14 @@
 		Date date = new Date();
 		String sDate= sdf.format(date);
 
-		if(sDate.equals(dao.dateToString(rs2.getDate("CloseDate")))) {
+		if(rs2.getDate("CloseDate")!=null)
+		{
+			if(sDate.equals(dao.dateToString(rs2.getDate("CloseDate")))) {
 			auctionStatus = "Closed";
+			}
+		}
+		else{
+			auctionStatus = "Open";
 		}
 
 	%>
