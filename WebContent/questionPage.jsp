@@ -211,9 +211,9 @@
   				<h3>Ask a Question About Yabe</h3>
 					<div class="container">
 					
-						<form name="askQuestion"  method="POST"  action="askQuestion.jsp">
+						<form name="askQuestion"  method="POST"  action="CJ_QuestionSubmitted.jsp">
 							<div class="input-group">
-						      <input name="questionAskSubmit" maxlength="149" type="text" class="form-control" placeholder="Write your Question Here" />
+						      <input name="question" maxlength="149" type="text" class="form-control" placeholder="Write your Question Here" />
 						      <span class="input-group-btn">
 						        <button class="btn btn-secondary" type="submit" >Submit Question</button>
 						      </span>
